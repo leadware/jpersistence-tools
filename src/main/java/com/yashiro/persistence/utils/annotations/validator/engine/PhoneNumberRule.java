@@ -10,8 +10,8 @@ import org.hibernate.validator.Validator;
 import com.yashiro.persistence.utils.annotations.validator.PhoneNumber;
 
 /**
- * Classe implementant la regle de validation contrôlant que la valeur d'une propriété
- * correspond à une valeur d'une liste donnée
+ * Classe implementant la regle de validation contr lant que la valeur d'une propri t 
+ * correspond   une valeur d'une liste donn e
  * @author Jean-Jacques
  * @version 1.0
  */
@@ -47,16 +47,16 @@ public class PhoneNumberRule implements Validator<PhoneNumber> {
 		// On caste
 		String stringValue = (String) value;
 		
-		// Si la chaîne est vide : false
+		// Si la cha ne est vide : false
 		if(stringValue == null || stringValue.length() == 0) return matchOnEmpty;
 		
-		// On Construit l'expression régulière de test
+		// On Construit l'expression r guli re de test
 		String expression = "\\+{0,1}\\d*";
 		
 		// Le Pattern representant une chaine AlphaNumerique
 		Pattern pattern = Pattern.compile(expression);
 		
-		// On retourne le résultat du test
+		// On retourne le r sultat du test
 		return pattern.matcher(stringValue).matches();
 	}
 }

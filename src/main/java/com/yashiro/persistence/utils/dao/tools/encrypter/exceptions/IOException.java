@@ -6,7 +6,7 @@ package com.yashiro.persistence.utils.dao.tools.encrypter.exceptions;
 import com.yashiro.persistence.utils.annotations.validator.engine.exceptions.BaseJPersistenceUtilsException;
 
 /**
- * Classe representant une exception due a une Erreur d'Entrée/Sortie
+ * Classe representant une exception due a une Erreur d'Entree/Sortie
  * @author Jean-Jacques
  * @version 1.0
  */

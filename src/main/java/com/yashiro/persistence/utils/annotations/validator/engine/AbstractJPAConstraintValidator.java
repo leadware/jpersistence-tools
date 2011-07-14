@@ -19,7 +19,7 @@ public abstract class AbstractJPAConstraintValidator implements IJPAConstraintVa
 	protected EntityManager entityManager;
 	
 	/**
-	 * Objet à valider
+	 * Objet valider
 	 */
 	protected Object entity;
 	

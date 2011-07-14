@@ -10,7 +10,7 @@ import org.hibernate.validator.Validator;
 import com.yashiro.persistence.utils.annotations.validator.Past;
 
 /**
- * Classe implementant la regle de validation contrôlant que la valeur d'une date
+ * Classe implementant la regle de validation controlant que la valeur d'une date
  * se trouve dans le futur
  * @author Jean-Jacques
  * @version 1.0

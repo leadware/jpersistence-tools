@@ -14,7 +14,7 @@ import org.hibernate.validator.ValidatorClass;
 import com.yashiro.persistence.utils.annotations.validator.engine.PhoneNumberRule;
 
 /**
- * Annotation de la règle de validation permettant de contrôler que la valeur d'une propriété
+ * Annotation de la rÃ¨gle de validation permettant de controler que la valeur d'une propriÃ©tÃ©
  * represente bien un numero de telephone
  * @author Jean-Jacques
  * @version 1.0
@@ -26,13 +26,13 @@ import com.yashiro.persistence.utils.annotations.validator.engine.PhoneNumberRul
 public @interface PhoneNumber {
 	
 	/**
-	 * Methode d'obtention du message a afficher lors du non respect de la règle
+	 * Methode d'obtention du message a afficher lors du non respect de la rÃ¨gle
 	 * @return	Le Message
 	 */
 	String message() default "PhoneNumber.invalidpropertyvalue";
 	
 	/**
-	 * Methode permettant de savoir si on contrôle la chaine vide
+	 * Methode permettant de savoir si on controle la chaine vide
 	 * @return	Etat de contole de la chaine vide
 	 */
 	boolean matchOnEmpty() default true;

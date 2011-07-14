@@ -14,7 +14,7 @@ import org.hibernate.validator.ValidatorClass;
 import com.yashiro.persistence.utils.annotations.validator.engine.IPV4Rule;
 
 /**
- * Annotation de la règle de validation permettant de contrôler que la valeur d'une propriété
+ * Annotation de la rgle de validation permettant de contrler que la valeur d'une proprit
  * representant bien une adresse IPV4
  * @author Jean-Jacques
  * @version 1.0
@@ -26,7 +26,7 @@ import com.yashiro.persistence.utils.annotations.validator.engine.IPV4Rule;
 public @interface IPV4 {
 	
 	/**
-	 * Methode d'obtention du message a afficher lors du non respect de la règle
+	 * Methode d'obtention du message a afficher lors du non respect de la rgle
 	 * @return	Le Message
 	 */
 	String message() default "IPV4Adress.invalidpropertyvalue";

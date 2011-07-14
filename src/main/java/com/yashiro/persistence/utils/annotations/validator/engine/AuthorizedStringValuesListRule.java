@@ -8,8 +8,8 @@ import org.hibernate.validator.Validator;
 import com.yashiro.persistence.utils.annotations.validator.AuthorizedStringValuesList;
 
 /**
- * Classe implementant la regle de validation contrôlant que la valeur d'une propriété
- * correspond à une valeur d'une liste donnée
+ * Classe implementant la regle de validation contrÃ´lant que la valeur d'une propriÃ©tÃ©
+ * correspond Ã  une valeur d'une liste donnÃ©e
  * @author Jean-Jacques
  * @version 1.0
  */
@@ -43,7 +43,7 @@ public class AuthorizedStringValuesListRule implements Validator<AuthorizedStrin
 		// On affecte la liste de valeurs
 		values = annotationValues;
 		
-		// On affecte l'état de prise en compte de la casse
+		// On affecte l'Ã©tat de prise en compte de la casse
 		caseSensitive = annotation.caseSensitive();
 	}
 
@@ -65,7 +65,7 @@ public class AuthorizedStringValuesListRule implements Validator<AuthorizedStrin
 		// On caste
 		String stringValue = (String) value;
 		
-		// Si la chaîne est vide : false
+		// Si la chaÃ®ne est vide : false
 		if(stringValue == null || stringValue.length() == 0) return false;
 		
 		// On recherche la valeur

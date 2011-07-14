@@ -34,47 +34,47 @@ import com.yashiro.persistence.utils.dao.entities.idclass.generators.exceptions.
 public class LongKeyClassGenerator implements IdentifierGenerator, Configurable {
 
 	/**
-	 *  Map contenant les dernières valeurs générée par Classe persistantes
+	 *  Map contenant les dernires valeurs gnre par Classe persistantes
 	 */
 	protected static Map<String, Long> generatedValues = new HashMap<String, Long>();
 	
 	/**
-	 *  La Table de génération
+	 *  La Table de gnration
 	 */
 	protected static String generatorTable;
 	
 	/**
-	 *  La Classe concernée par la génération
+	 *  La Classe concerne par la gnration
 	 */
 	protected static String subject;
 	
 	/**
-	 *  La Colonne contenant la dernière valeur d'index générée pour cette classe
+	 *  La Colonne contenant la dernire valeur d'index gnre pour cette classe
 	 */
 	protected static String lastGeneratedValueColumn;
 	
 	/**
-	 *  La Colonne contenant le nom de la classe pour laquelle on veut générer l'identifiant
+	 *  La Colonne contenant le nom de la classe pour laquelle on veut gnrer l'identifiant
 	 */
 	protected static String subjectClassNameColumn; 
 	
 	/**
-	 *  Dernier index généré pour la classe en cours
+	 *  Dernier index gnr pour la classe en cours
 	 */
 	protected Long lastGeneratedValue = 0L;
 	
 	/**
-	 *  Requête de recherche de la dernière valeur générée
+	 *  Requte de recherche de la dernire valeur gnre
 	 */
 	protected String lastValueLoadRequest;
 	
 	/**
-	 *  Requête de recherche du dernier ID Genere
+	 *  Requte de recherche du dernier ID Genere
 	 */
 	protected String idLoadRequest;
 	
 	/**
-	 *  Requête de mise à jour
+	 *  Requte de mise  jour
 	 */
 	protected String lastValueUpdateRequest;
 	
@@ -109,13 +109,13 @@ public class LongKeyClassGenerator implements IdentifierGenerator, Configurable 
 		// Un Log
 		logger.debug("LongKeyClassGenerator#generate");
 		
-		// Obtention du nom de la classe pour laquelle la génération doit être effectuée
+		// Obtention du nom de la classe pour laquelle la gnration doit tre effectue
 		subject = object.getClass().getName();
 		
 		// Si le nom de la classe est vide : Exception
 		if(subject == null || subject.trim().length() == 0) throw new NoSubjectClassNameException();
 		
-		// Début de la Génération
+		// Dbut de la Gnration
 		logger.debug("LongKeyClassGenerator#generate - BEGIN ID GENERATION [For " + subject + "]");
 		
 		// Logs
@@ -126,7 +126,7 @@ public class LongKeyClassGenerator implements IdentifierGenerator, Configurable 
 		logger.debug("LongKeyClassGenerator#generate - Value Column    : " + lastGeneratedValueColumn);
 		logger.debug("LongKeyClassGenerator#generate - Search of Last Generated ID...");
 				
-		// Requête de recherche de la Dernière valeur générée en mémoire
+		// Requte de recherche de la Dernire valeur gnre en mmoire
 		lastGeneratedValue = generatedValues.get(subject);
 
 		// Chargement du PrefixGenerator
@@ -138,7 +138,7 @@ public class LongKeyClassGenerator implements IdentifierGenerator, Configurable 
 		// Etat de non trouvaille
 		boolean entryNotFound = false;
 		
-		// La clé
+		// La cl
 		Long key = 0L;
 		
 		try {
@@ -164,7 +164,7 @@ public class LongKeyClassGenerator implements IdentifierGenerator, Configurable 
 				// Un Log
 				logger.debug("LongKeyClassGenerator#generate - No In Map...");
 				
-				// Requête de recherche de la dernière valeur générée
+				// Requte de recherche de la dernire valeur gnre
 				lastValueLoadRequest = "select max(@ValueColumn) as value from @GeneratorTable where @DiscriminatorColumn = '@DiscriminatorValue'"
 									.replaceFirst("@ValueColumn", lastGeneratedValueColumn)
 									.replaceFirst("@GeneratorTable", generatorTable)
@@ -174,7 +174,7 @@ public class LongKeyClassGenerator implements IdentifierGenerator, Configurable 
 				// Logs
 				logger.debug("LongKeyClassGenerator#generate - Load Request: " + lastValueLoadRequest);
 				
-				// Exécution de la requête
+				// Excution de la requte
 				lastGeneratedValue = (Long) s.createSQLQuery(lastValueLoadRequest).addScalar("value", Hibernate.LONG).uniqueResult();
 				
 				// On force
@@ -183,30 +183,30 @@ public class LongKeyClassGenerator implements IdentifierGenerator, Configurable 
 				// Si la valeur est vide : on positionne -1
 				if(lastGeneratedValue == null) {
 					
-					// On positionne la dernière valeur à -1
+					// On positionne la dernire valeur  -1
 					lastGeneratedValue = -1L;
 					
-					// On positionne l'état de non trouvaille
+					// On positionne l'tat de non trouvaille
 					entryNotFound = true;
 				}
 			}
 			
-			// Incrémentation de la dernière valeur
+			// Incrmentation de la dernire valeur
 			lastGeneratedValue++;
 			
 			// Logs
 			logger.debug("LongKeyClassGenerator#generate - Last Value : " + lastGeneratedValue);
 						
-			// Requête de mise à jour
+			// Requte de mise  jour
 			lastValueUpdateRequest = "update";
 			
-			// Mise en place de la clé
+			// Mise en place de la cl
 			key = Long.parseLong(prefix.concat(Long.toString(lastGeneratedValue)));
 			
-			// Un Log pour la clé
+			// Un Log pour la cl
 			logger.debug("LongKeyClassGenerator#generate - Generated Key : " + key);
 
-			// Si l'entrée nest pas en BD
+			// Si l'entre nest pas en BD
 			if(entryNotFound) {
 				
 				// Requete de chargement du dernier ID
@@ -217,7 +217,7 @@ public class LongKeyClassGenerator implements IdentifierGenerator, Configurable 
 				// Logs
 				logger.debug("LongKeyClassGenerator#generate - Load ID Request: " + idLoadRequest);
 				
-				// Exécution de la requête
+				// Excution de la requte
 				Integer lastID = (Integer) s.createSQLQuery(idLoadRequest).addScalar("value", Hibernate.INTEGER).uniqueResult();
 				
 				// On force
@@ -235,13 +235,13 @@ public class LongKeyClassGenerator implements IdentifierGenerator, Configurable 
 				// Un objet Insert
 				Insert insert = new Insert(dialect);
 				
-				// Positionnement des Paramètres
+				// Positionnement des Paramtres
 				insert.setTableName(generatorTable);
 				insert.addColumn(SXKeyClassGenerationStructure.GENERATION_ID_COLUMN_NAME, lastID.toString(), new IntegerType());
 				insert.addColumn(subjectClassNameColumn, subject, new CharacterType());
 				insert.addColumn(lastGeneratedValueColumn, lastGeneratedValue.toString(), new LongType());
 				
-				// Mise en place de la requête de mise à jour
+				// Mise en place de la requte de mise  jour
 				lastValueUpdateRequest = insert.toStatementString();
 				
 			} else {
@@ -249,19 +249,19 @@ public class LongKeyClassGenerator implements IdentifierGenerator, Configurable 
 				// Un objet Update
 				Update update = new Update(dialect);
 				
-				// Mise en place des paramètres
+				// Mise en place des paramtres
 				update.setTableName(generatorTable);
 				update.addColumn(lastGeneratedValueColumn, lastGeneratedValue.toString(), new LongType());
 				update.setWhere(subjectClassNameColumn + " = " + "'" + subject + "'");
 				
-				// Mise en place de la requête de mise à jour
+				// Mise en place de la requte de mise  jour
 				lastValueUpdateRequest = update.toStatementString();
 			}
 			
-			// Un Log pour la requête de mise à jour
+			// Un Log pour la requte de mise  jour
 			logger.debug("LongKeyClassGenerator#generate - Update Request : " + lastValueUpdateRequest);
 			
-			// Exécution de la requête de mise à jour
+			// Excution de la requte de mise  jour
 			s.createSQLQuery(lastValueUpdateRequest).executeUpdate();
 			
 			// On force la synchro
@@ -270,10 +270,10 @@ public class LongKeyClassGenerator implements IdentifierGenerator, Configurable 
 			// On enregistre cette valeur dans la Map
 			generatedValues.put(subject, lastGeneratedValue);
 
-			// Fin de la Génération
+			// Fin de la Gnration
 			logger.debug("LongKeyClassGenerator#generate - END GENERATION [FOR " + subject + "]");
 			
-			// On retourne la clé
+			// On retourne la cl
 			return key;
 			
 		} catch (Exception e) {
@@ -295,10 +295,10 @@ public class LongKeyClassGenerator implements IdentifierGenerator, Configurable 
 		// Colonne discriminante
 		subjectClassNameColumn = SXKeyClassGenerationStructure.GENERATION_DISCRIMINATOR_COLUMN_NAME;
 		
-		// Colonne de la dernière valeur generee pour les classes d'un discriminant donné
+		// Colonne de la dernire valeur generee pour les classes d'un discriminant donn
 		lastGeneratedValueColumn = SXKeyClassGenerationStructure.GENERATION_LAST_VALUE_COLUMN_NAME;
 
-		// Récupération du Préfix
+		// Rcupration du Prfix
 		prefixGeneratorClassName = PropertiesHelper.getString(SXKeyClassGenerationStructure.PREFIX_GENERATOR_CLASS_NAME, properties, "").trim();
 		
 		// Sauvegarde du Dialecte

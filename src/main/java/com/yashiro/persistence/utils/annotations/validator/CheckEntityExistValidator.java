@@ -16,7 +16,7 @@ import com.yashiro.persistence.utils.dao.constant.DAOValidatorEvaluationTime;
 import com.yashiro.persistence.utils.dao.constant.ValidatorExpressionType;
 
 /**
- * Validateur permettant de vérifier qu'une de classe existe dans le Contexte de Persistance
+ * Validateur permettant de verifier qu'une de classe existe dans le Contexte de Persistance
  * @author Jean-Jacques
  * @version 2.0
  */

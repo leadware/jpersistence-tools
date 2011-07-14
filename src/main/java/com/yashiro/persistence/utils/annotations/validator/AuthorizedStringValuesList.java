@@ -14,8 +14,8 @@ import org.hibernate.validator.ValidatorClass;
 import com.yashiro.persistence.utils.annotations.validator.engine.AuthorizedStringValuesListRule;
 
 /**
- * Annotation de la règle de validation permettant de contrôler que la valeur d'une propriété
- * se trouve bien dans une liste de chaînes donnée
+ * Annotation de la rgle de validation permettant de contrler que la valeur d'une proprit
+ * se trouve bien dans une liste de chanes donne
  * @author Jean-Jacques
  * @version 1.0
  */
@@ -26,14 +26,14 @@ import com.yashiro.persistence.utils.annotations.validator.engine.AuthorizedStri
 public @interface AuthorizedStringValuesList {
 	
 	/**
-	 * Methode d'obtention du message a afficher lors du non respect de la règle
+	 * Methode d'obtention du message a afficher lors du non respect de la rgle
 	 * @return	Le Message
 	 */
 	String message() default "AuthorizedStringValuesList.invalidpropertyvalue";
 	
 	/**
-	 * Methode d'obtention de la liste des Chaîne authorisees
-	 * @return	Liste des Chaînes authorisees
+	 * Methode d'obtention de la liste des Chane authorisees
+	 * @return	Liste des Chanes authorisees
 	 */
 	String[] values();
 	

@@ -25,7 +25,7 @@ public class BaseJPersistenceUtilsException extends RuntimeException {
 	
 	
 	/**
-	 * Constructeur par défaut
+	 * Constructeur par defaut
 	 */
 	public BaseJPersistenceUtilsException() {
 		

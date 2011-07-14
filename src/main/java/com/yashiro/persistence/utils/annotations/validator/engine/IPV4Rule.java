@@ -37,7 +37,7 @@ public class IPV4Rule implements Validator<IPV4> {
 		// On caste
 		String stringValue = (String) value;
 		
-		// Si la chaîne est vide : false
+		// Si la chaine est vide : false
 		if(stringValue == null || stringValue.length() == 0) return false;
 		
 		// Obtention du tableau de valeurs

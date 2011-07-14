@@ -146,7 +146,7 @@ public abstract class JPAGenericDAO implements IJPAGenericDAO {
 	@Override
 	public <T> List<T> clean(Class<T> entityClass) {
 		
-		// La requête
+		// La requete
 		Query q = getEntityManager().createQuery("from " + entityClass.getCanonicalName());
 		
 		// Execution
@@ -256,7 +256,7 @@ public abstract class JPAGenericDAO implements IJPAGenericDAO {
 		}
 
 		// Une information
-		logger.info("JPAGenericDAO#save[List] - Initialisation du Résultat");
+		logger.info("JPAGenericDAO#save[List] - Initialisation du Resultat");
 		
 		// Initialisation du resultat
 		SaveListResult<T> result = new SaveListResult<T>(registered, notRegistered);
@@ -328,9 +328,9 @@ public abstract class JPAGenericDAO implements IJPAGenericDAO {
 		Session session = (Session) getEntityManager().getDelegate();
 		
 		// Un Log
-		logger.info("JPAGenericDAO#findByPrimaryKey - Creation de la requête Criteria");
+		logger.info("JPAGenericDAO#findByPrimaryKey - Creation de la requete Criteria");
 		
-		// Creation de la requête de recherche
+		// Creation de la requete de recherche
 		Criteria criteria = session.createCriteria(entityClass);
 		
 		// Un Log
@@ -346,9 +346,9 @@ public abstract class JPAGenericDAO implements IJPAGenericDAO {
 		addProperties(criteria, properties);
 		
 		// Un Log
-		logger.info("JPAGenericDAO#findByPrimaryKey - Execution de la requête");
+		logger.info("JPAGenericDAO#findByPrimaryKey - Execution de la requete");
 		
-		// Execution de la requête
+		// Execution de la requete
 		T result = (T) criteria.uniqueResult();
 
 		// Un Log
@@ -383,9 +383,9 @@ public abstract class JPAGenericDAO implements IJPAGenericDAO {
 		Session session = (Session) getEntityManager().getDelegate();
 		
 		// Un Log
-		logger.info("JPAGenericDAO#filter - Creation de la requête Criteria");
+		logger.info("JPAGenericDAO#filter - Creation de la requete Criteria");
 		
-		// Creation de la requête de recherche
+		// Creation de la requete de recherche
 		Criteria criteria = session.createCriteria(entityClass);
 		
 		// Liste resultat
@@ -433,9 +433,9 @@ public abstract class JPAGenericDAO implements IJPAGenericDAO {
 		addLoaderMode(criteria, loaderModes);
 		
 		// Un Log
-		logger.info("JPAGenericDAO#filter - Exceution de la requête");
+		logger.info("JPAGenericDAO#filter - Exceution de la requete");
 		
-		// Exceution de la requête
+		// Exceution de la requete
 		result = criteria.list();
 
 		// Un Log
@@ -462,7 +462,7 @@ public abstract class JPAGenericDAO implements IJPAGenericDAO {
 		if(entity == null) {
 			
 			// Un log
-			logger.info("JPAGenericDAO#extractConstraintValidator - Entité à valider nulle");
+			logger.info("JPAGenericDAO#extractConstraintValidator - Entite e valider nulle");
 						
 			// On retourne le validateur par Defaut
 			return defaultValidator;
@@ -474,11 +474,11 @@ public abstract class JPAGenericDAO implements IJPAGenericDAO {
 		// Recherche de l'annotation de validation
 		JPADataConstraintValidators validatorAnnotation = entityClass.getAnnotation(JPADataConstraintValidators.class);
 		
-		// Si elle ne possède pas cette annotation
+		// Si elle ne possede pas cette annotation
 		if(validatorAnnotation == null) {
 			
 			// Un log
-			logger.info("JPAGenericDAO#extractConstraintValidator - Entité à valider n'est pas annotée");
+			logger.info("JPAGenericDAO#extractConstraintValidator - Entite e valider n'est pas annotee");
 						
 			// On retourne le validateur par Defaut
 			return defaultValidator;

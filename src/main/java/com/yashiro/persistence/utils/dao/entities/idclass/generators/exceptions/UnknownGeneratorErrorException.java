@@ -6,8 +6,8 @@ package com.yashiro.persistence.utils.dao.entities.idclass.generators.exceptions
 import com.yashiro.persistence.utils.annotations.validator.engine.exceptions.BaseJPersistenceUtilsException;
 
 /**
- * Classe représentant l'exception générée lorsqu'une erreur inconnue survient
- * durant la génération d'Identifiant
+ * Classe reprsentant l'exception gnre lorsqu'une erreur inconnue survient
+ * durant la gnration d'Identifiant
  * @author Jean-Jacques
  * @version 1.0
  */

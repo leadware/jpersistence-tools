@@ -104,7 +104,7 @@ public abstract class AbstractExpressionBasedDAOValidatorRule implements IDAOVal
 	}
 	
 	/**
-	 * Methode de construction de la requête
+	 * Methode de construction de la requete
 	 * @return	Requete
 	 */
 	protected Query buildQuery(Object target) {
@@ -112,7 +112,7 @@ public abstract class AbstractExpressionBasedDAOValidatorRule implements IDAOVal
 		// Si le modele est null
 		if(expressionModel == null) return null;
 		
-		// Instanciation de la requête
+		// Instanciation de la requete
 		Query query = this.entityManager.createQuery(expressionModel.getComputedExpression());
 		
 		// MAP des parametres
@@ -132,7 +132,7 @@ public abstract class AbstractExpressionBasedDAOValidatorRule implements IDAOVal
 			}
 		}
 		
-		// On retourne la reqûete
+		// On retourne la requete
 		return query;
 	}
 	

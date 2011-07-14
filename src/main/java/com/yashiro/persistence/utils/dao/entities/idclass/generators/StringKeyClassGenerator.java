@@ -46,7 +46,7 @@ public class StringKeyClassGenerator extends LongKeyClassGenerator {
 	String prefix = "";
 
 	/**
-	 *  Nombre de caractères à prendre sur le nom de la classe
+	 *  Nombre de caractres  prendre sur le nom de la classe
 	 */
 	private Integer characterNumber;
 	
@@ -65,7 +65,7 @@ public class StringKeyClassGenerator extends LongKeyClassGenerator {
 		// Chargement du PrefixGenerator
 		prefixGenerator = loadPrefixGenerator();
 		
-		// La clé
+		// La cl
 		String key = "";
 		
 		try {
@@ -79,11 +79,11 @@ public class StringKeyClassGenerator extends LongKeyClassGenerator {
 			// Generation du Prefixe
 			String prefixObject = prefixGenerator.generate(object).toString();
 			
-			// Si le nombre de caractères à prendre sur le nom de la classe
-			// est supérieure à la taille du nom : on prend tout le nom
+			// Si le nombre de caractres  prendre sur le nom de la classe
+			// est suprieure  la taille du nom : on prend tout le nom
 			if(canonicalSubject.length() < characterNumber) characterNumber = canonicalSubject.length();
 						
-			// Requête de mise à jour
+			// Requte de mise  jour
 			lastValueUpdateRequest = "update";
 			
 			// Si l'Objet Prefixe est null
@@ -92,13 +92,13 @@ public class StringKeyClassGenerator extends LongKeyClassGenerator {
 			// Sinon
 			else prefix = prefixObject.toString();
 			
-			// Mise en place du Préfix
+			// Mise en place du Prfix
 			if(prefix == null || prefix.trim().length() == 0) prefix = canonicalSubject.toUpperCase().substring(0, characterNumber);
 			
-			// Mise en place de la clé
+			// Mise en place de la cl
 			key = prefix + longID.toString();
 			
-			// Un Log pour la clé
+			// Un Log pour la cl
 			logger.debug("StringKeyClassGenerator#generate - Generated Key : " + key);
 			
 			// On force la synchro
@@ -107,7 +107,7 @@ public class StringKeyClassGenerator extends LongKeyClassGenerator {
 			// On enregistre cette valeur dans la Map
 			generatedValues.put(subject, longID);
 			
-			// On retourne la clé
+			// On retourne la cl
 			return key;
 			
 		} catch (Exception e) {
@@ -126,13 +126,13 @@ public class StringKeyClassGenerator extends LongKeyClassGenerator {
 		// Initialisation Parente
 		super.configure(type, properties, dialect);
 		
-		// Récupération du nombre de caractère à prendre sur le nom de la classe
+		// Rcupration du nombre de caractre  prendre sur le nom de la classe
 		characterNumber = PropertiesHelper.getInteger(SXKeyClassGenerationStructure.GENERATION_NAME_SIZE_COLUMN_NAME, properties);
 		
-		// Si ce nombre est null : On initialise à
+		// Si ce nombre est null : On initialise 
 		if(characterNumber == null) characterNumber = new Integer(0);
 		
-		// Récupération du Préfix
+		// Rcupration du Prfix
 		prefixGeneratorClassName = PropertiesHelper.getString(SXKeyClassGenerationStructure.PREFIX_GENERATOR_CLASS_NAME, properties, "").trim();
 	}
 	

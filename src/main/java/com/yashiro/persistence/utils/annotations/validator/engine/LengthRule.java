@@ -12,7 +12,7 @@ import org.hibernate.validator.Validator;
 import com.yashiro.persistence.utils.annotations.validator.Length;
 
 /**
- * Classe d'implémentation de la règle de gestion de la taille
+ * Classe d'implementation de la regle de gestion de la taille
  * @author Jean-Jacques
  * @version 1.0
  */

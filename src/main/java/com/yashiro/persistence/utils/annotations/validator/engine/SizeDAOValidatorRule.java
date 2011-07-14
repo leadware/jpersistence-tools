@@ -57,7 +57,7 @@ public class SizeDAOValidatorRule extends AbstractExpressionBasedDAOValidatorRul
 		// Si le type est HQL|JPQL|EJBQL
 		if(type.equals(ValidatorExpressionType.HQL) || type.equals(ValidatorExpressionType.JPQL) || type.equals(ValidatorExpressionType.EJBQL)) {
 			
-			// On construit la requête
+			// On construit la requte
 			Query query = this.buildQuery(entity);
 			
 			// Execution
@@ -82,9 +82,9 @@ public class SizeDAOValidatorRule extends AbstractExpressionBasedDAOValidatorRul
 			if((min > size) || (max < size)) {
 
 				// Un message
-				logger.debug("SizeDAOValidatorRule#processValidation - Règle non vérifiée");
+				logger.debug("SizeDAOValidatorRule#processValidation - Rgle non vrifie");
 				
-				// On lève une exception
+				// On lve une exception
 				throw new DAOValidationException(getMessage(), getMessageParameters(entity));
 			}
 		}

@@ -57,7 +57,7 @@ public class NotEmptyDAOValidatorRule extends AbstractExpressionBasedDAOValidato
 		// Si le type est HQL|JPQL|EJBQL
 		if(type.equals(ValidatorExpressionType.HQL) || type.equals(ValidatorExpressionType.JPQL) || type.equals(ValidatorExpressionType.EJBQL)) {
 			
-			// On construit la requête
+			// On construit la requete
 			Query query = this.buildQuery(entity);
 			
 			// Execution

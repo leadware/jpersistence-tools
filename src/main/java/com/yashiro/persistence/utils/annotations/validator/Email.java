@@ -14,7 +14,7 @@ import org.hibernate.validator.ValidatorClass;
 import com.yashiro.persistence.utils.annotations.validator.engine.EmailRule;
 
 /**
- * Annotation permettant de valider la validité d'un Email
+ * Annotation permettant de valider la validite d'un Email
  * @author Jean-Jacques
  * @version 1.0
  */
@@ -30,7 +30,7 @@ public @interface Email {
 	String message();
 
 	/**
-	 * Methode permettant de savoir si on contrôle la chaine vide
+	 * Methode permettant de savoir si on controle la chaine vide
 	 * @return	Etat de contole de la chaine vide
 	 */
 	boolean matchOnEmpty() default true;

@@ -8,7 +8,7 @@ import org.hibernate.validator.Validator;
 import com.yashiro.persistence.utils.annotations.validator.Interval;
 
 /**
- * Classe implementant la regle de validation contrôlant que la valeur d'une propriété
+ * Classe implementant la regle de validation contrlant que la valeur d'une proprit
  * se trouve dans un intervalle donne
  * @author Jean-Jacques
  * @version 1.0
@@ -34,10 +34,10 @@ public class IntervalRule implements Validator<Interval> {
 		// Si l'annotation est nulle : on sort
 		if(annotation == null) return;
 		
-		// On récupère la valeur minimum de l'annotation
+		// On rcupre la valeur minimum de l'annotation
 		min = annotation.min();
 		
-		// On récupère la valeur maximum de l'annotation
+		// On rcupre la valeur maximum de l'annotation
 		max = annotation.max();
 	}
 

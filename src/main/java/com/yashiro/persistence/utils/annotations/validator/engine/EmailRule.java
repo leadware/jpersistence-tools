@@ -65,7 +65,7 @@ public class EmailRule implements Validator<Email> {
 		// On caste
 		String stringValue = (String) value;
 
-		// Si la chaîne est vide : false
+		// Si la chaÃ®ne est vide : false
 		if(stringValue == null || stringValue.length() == 0) return matchOnEmpty;
 		
 		// On retourne le matching

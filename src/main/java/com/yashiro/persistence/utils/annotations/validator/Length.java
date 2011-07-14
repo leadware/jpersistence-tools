@@ -14,7 +14,7 @@ import org.hibernate.validator.ValidatorClass;
 import com.yashiro.persistence.utils.annotations.validator.engine.LengthRule;
 
 /**
- * Annotation permettant de vérifier que la longueur d'une chaine 
+ * Annotation permettant de verifier que la longueur d'une chaine
  * ou d'une collection se trouve dans un intervalle
  * @author Jean-Jacques
  * @version 1.0

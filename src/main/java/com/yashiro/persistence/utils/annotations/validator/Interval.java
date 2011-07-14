@@ -14,7 +14,7 @@ import org.hibernate.validator.ValidatorClass;
 import com.yashiro.persistence.utils.annotations.validator.engine.IntervalRule;
 
 /**
- * Annotation de la règle de validation permettant de contrôler que la valeur d'une propriété
+ * Annotation de la regle de validation permettant de contrler que la valeur d'une proprite
  * se trouve bien dans un intervalle donne
  * @author Jean-Jacques
  * @version 1.0

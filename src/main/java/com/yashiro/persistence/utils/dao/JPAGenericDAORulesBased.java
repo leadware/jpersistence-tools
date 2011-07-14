@@ -155,7 +155,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 	@Override
 	public <T> List<T> clean(Class<T> entityClass) {
 		
-		// La requête
+		// La requete
 		Query q = getEntityManager().createQuery("from " + entityClass.getCanonicalName());
 		
 		// Execution
@@ -270,7 +270,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 		}
 
 		// Une information
-		logger.trace("JPAGenericDAORulesBased#save[List] - Initialisation du Résultat");
+		logger.trace("JPAGenericDAORulesBased#save[List] - Initialisation du Resultat");
 		
 		// Initialisation du resultat
 		SaveListResult<T> result = new SaveListResult<T>(registered, notRegistered);
@@ -366,9 +366,9 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 		Session session = (Session) getEntityManager().getDelegate();
 		
 		// Un Log
-		logger.trace("JPAGenericDAORulesBased#findByPrimaryKey - Creation de la requête Criteria");
+		logger.trace("JPAGenericDAORulesBased#findByPrimaryKey - Creation de la requete Criteria");
 		
-		// Creation de la requête de recherche
+		// Creation de la requete de recherche
 		Criteria criteria = session.createCriteria(entityClass);
 		
 		// Un Log
@@ -384,9 +384,9 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 		addProperties(criteria, properties);
 		
 		// Un Log
-		logger.trace("JPAGenericDAORulesBased#findByPrimaryKey - Execution de la requête");
+		logger.trace("JPAGenericDAORulesBased#findByPrimaryKey - Execution de la requete");
 		
-		// Execution de la requête
+		// Execution de la requete
 		T result = (T) criteria.uniqueResult();
 
 		// Un Log
@@ -421,9 +421,9 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 		Session session = (Session) getEntityManager().getDelegate();
 		
 		// Un Log
-		logger.trace("JPAGenericDAORulesBased#filter - Creation de la requête Criteria");
+		logger.trace("JPAGenericDAORulesBased#filter - Creation de la requete Criteria");
 		
-		// Creation de la requête de recherche
+		// Creation de la requete de recherche
 		Criteria criteria = session.createCriteria(entityClass);
 		
 		// Liste resultat
@@ -471,12 +471,12 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 		addLoaderMode(criteria, loaderModes);
 		
 		// Un Log
-		logger.trace("JPAGenericDAORulesBased#filter - Exceution de la requête");
+		logger.trace("JPAGenericDAORulesBased#filter - Exceution de la requete");
 		
 		// On positionne la distinction des enregistrements
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		
-		// Exceution de la requête
+		// Exceution de la requete
 		result = criteria.list();
 
 		// Un Log
@@ -504,7 +504,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 			throw new BaseJPersistenceUtilsException("JPAGenericDAORulesBased.filter.class.null");
 		}
 		
-		// Si la classe du type de retour n'est pas precisée
+		// Si la classe du type de retour n'est pas precisee
 		if(selectedColumnClass == null) {
 			
 			// Un Log
@@ -514,11 +514,11 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 			throw new BaseJPersistenceUtilsException("JPAGenericDAORulesBased.filter.returnvalue.class.null");
 		}
 
-		// Si le nom de la propriété a retourner est vide
+		// Si le nom de la propriete a retourner est vide
 		if(selectedColumName == null || selectedColumName.trim().length() == 0) {
 			
 			// Un Log
-			logger.trace("JPAGenericDAORulesBased#filter - Nom de la propriété a retourner est vide");
+			logger.trace("JPAGenericDAORulesBased#filter - Nom de la propriete a retourner est vide");
 			
 			// On leve une exception
 			throw new BaseJPersistenceUtilsException("JPAGenericDAORulesBased.filter.returnvalue.name.null");
@@ -531,9 +531,9 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 		Session session = (Session) getEntityManager().getDelegate();
 		
 		// Un Log
-		logger.trace("JPAGenericDAORulesBased#filter - Creation de la requête Criteria");
+		logger.trace("JPAGenericDAORulesBased#filter - Creation de la requete Criteria");
 		
-		// Creation de la requête de recherche
+		// Creation de la requete de recherche
 		Criteria criteria = session.createCriteria(entityClass);
 		
 		// Liste resultat
@@ -581,12 +581,12 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 		addLoaderMode(criteria, loaderModes);
 		
 		// Un Log
-		logger.trace("JPAGenericDAORulesBased#filter - Exceution de la requête");
+		logger.trace("JPAGenericDAORulesBased#filter - Exceution de la requete");
 		
 		// On ajoute la projection
 		criteria.setProjection(Projections.property(selectedColumName.trim()));
 		
-		// Exceution de la requête
+		// Exceution de la requete
 		result = criteria.list();
 
 		// Un Log
@@ -718,7 +718,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 			};
 			
 			// Une information
-			logger.trace("JPAGenericDAORulesBased#buildDefaultValidatorAnnotation - Annotation instanciée [" + defaultDeleteAnnotation.annotationType().getName() + "]");
+			logger.trace("JPAGenericDAORulesBased#buildDefaultValidatorAnnotation - Annotation instanciee [" + defaultDeleteAnnotation.annotationType().getName() + "]");
 			
 			// On retourne l'annotation
 			return defaultDeleteAnnotation;
@@ -742,7 +742,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 			};
 			
 			// Une information
-			logger.trace("JPAGenericDAORulesBased#buildDefaultValidatorAnnotation - Annotation instanciée [" + defaultPOSTCONDITIONAnnotation.annotationType().getName() + "]");
+			logger.trace("JPAGenericDAORulesBased#buildDefaultValidatorAnnotation - Annotation instanciee [" + defaultPOSTCONDITIONAnnotation.annotationType().getName() + "]");
 			
 			// On retourne l'annotation
 			return defaultPOSTCONDITIONAnnotation;
@@ -777,7 +777,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 		};
 
 		// Une information
-		logger.trace("JPAGenericDAORulesBased#buildDefaultValidatorAnnotation - Annotation instanciée [" + defaultSaveOrUpdateAnnotation.annotationType().getName() + "]");
+		logger.trace("JPAGenericDAORulesBased#buildDefaultValidatorAnnotation - Annotation instanciee [" + defaultSaveOrUpdateAnnotation.annotationType().getName() + "]");
 		
 		// On retourne l'annotation
 		return defaultSaveOrUpdateAnnotation;

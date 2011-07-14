@@ -19,7 +19,7 @@ public class ValidatorEngine {
 
 	/**
 	 * Methode permettant de valider une classe
-	 * @param o	Objet à valider
+	 * @param o	Objet  valider
 	 */
 	
 	public static void validate(Object o) {
@@ -27,13 +27,13 @@ public class ValidatorEngine {
 		// Le Moteur de validation
 		ClassValidator validator = new ClassValidator(o.getClass());
 		
-		// Obtention de la liste des valeurs indésirables
+		// Obtention de la liste des valeurs indsirables
 		InvalidValue[] values = validator.getInvalidValues(o);
 		
 		// Si la liste est vide
 		if(values == null || values.length == 0) return;
 				
-		// On lève une Exception
+		// On lve une Exception
 		throw new InvalidEntityInstanceStateException(new InvalidStateException(values));
 	}
 }

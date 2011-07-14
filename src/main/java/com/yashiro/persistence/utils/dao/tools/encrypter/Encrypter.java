@@ -183,7 +183,7 @@ public class Encrypter {
 	/**
 	 * Methode de hachage d'un texte
 	 * @param text	Texte a hacher
-	 * @return	Texte haché
+	 * @return	Texte hach 
 	 */
 	public synchronized String hashText(String text) {
 		
@@ -198,7 +198,7 @@ public class Encrypter {
 		
 		try {
 			
-			// Generation de la cle DES basées sur une mot de passe
+			// Generation de la cle DES bas es sur une mot de passe
 			DESKeySpec desKeySpec = new DESKeySpec(keytext.getBytes());
 			
 			// On retourne la cle DES

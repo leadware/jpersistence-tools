@@ -16,7 +16,7 @@ import com.yashiro.persistence.utils.dao.constant.DAOValidatorEvaluationTime;
 import com.yashiro.persistence.utils.dao.constant.ValidatorExpressionType;
 
 /**
- * Validateur permettant de vérifier qu'une liste de champs est unique sur le Contexte de Persistence
+ * Validateur permettant de verifier qu'une liste de champs est unique sur le Contexte de Persistence
  * @author Jean-Jacques
  * @version 2.0
  */
