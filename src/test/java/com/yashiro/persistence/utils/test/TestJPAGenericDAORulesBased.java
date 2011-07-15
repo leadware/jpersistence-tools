@@ -1,8 +1,16 @@
 package com.yashiro.persistence.utils.test;
 
+import com.yashiro.persistence.utils.annotations.validator.engine.exceptions.DAOValidationException;
+import com.yashiro.persistence.utils.dao.tools.RestrictionsContainer;
+import com.yashiro.persistence.utils.dao.tools.SaveListResult;
 import com.yashiro.persistence.utils.test.dao.api.IDummyDAO;
 import com.yashiro.persistence.utils.test.dao.entities.Country;
-import junit.framework.Assert;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertSame;
+import static junit.framework.Assert.fail;
+
+import org.hibernate.criterion.Restrictions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,6 +20,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe de test de l'implémentation de la DAO Générique basées sur l'évaluation des règles
@@ -51,7 +61,7 @@ public class TestJPAGenericDAORulesBased {
         Country c01 = new Country();
 
         // Le Code
-        c01.setCode("0001");
+        c01.setCode("CMR");
         c01.setDesignation("CAMEROUN");
 
         // Un log
@@ -60,11 +70,84 @@ public class TestJPAGenericDAORulesBased {
         // Enregistrement
         c01 = dao.save(c01);
 
+        // Un log
+        System.out.println("Pays Enregistré: " + c01);
+
         // Assertion d'ID non Null
-        Assert.assertNotNull(c01.getId());
+        assertNotNull(c01.getId());
 
         // Assertion d'existence en BD
-        Assert.assertNotNull(dao.findByPrimaryKey(Country.class, c01.getId(), null));
+        assertNotNull(dao.findByPrimaryKey(Country.class, c01.getId(), null));
+
+
+        // Enregistrement d'un pays avec un code existant
+
+        // Ancien ID
+        Long oldID = c01.getId();
+
+        try{
+
+            // Tentative d'enregistrement
+            c01 = dao.save(c01);
+
+            // Une erreur
+            fail("Une exception de validation aurait dûe être levée: Le code @code est déja attribué".replaceFirst("@code", c01.getCode()));
+
+        } catch (DAOValidationException e) {
+
+            // On vérifie que l'objet a le même ID
+            assertEquals(oldID, c01.getId());
+        }
+
+        // On nettoeis
+        dao.clean(Country.class);
+
+        // Vérification
+        assertEquals(0, dao.filter(Country.class, null, null, null, null, 0, -1).size());
+
+        // Enregistrement d'une Liste de Pays
+
+        // La liste de Pays
+        List<Country> lCountries = new ArrayList<Country>();
+
+        // Ajout du Pays 01
+        lCountries.add(c01);
+
+        // Pays 02
+        Country c02 = new Country();
+
+        // Le Code
+        c02.setCode("NGR");
+        c02.setDesignation("NIGERIA");
+
+        // Ajout
+        lCountries.add(c02);
+
+        // Pays 03
+        Country c03 = new Country();
+
+        // Le Code
+        c03.setCode("GHA");
+        c03.setDesignation("GHANA");
+
+        // Ajout
+        lCountries.add(c03);
+
+        // Enregistrement
+        SaveListResult<Country> saveListResult = dao.saveList(lCountries, true);
+
+        // On vérifie que tous les Objets ont été enregistrés
+        assertEquals(lCountries.size(), saveListResult.getRegistered().size());
+
+
+        // Restriction de recherche
+        RestrictionsContainer restrictionsContainer = RestrictionsContainer.getInstance();
+
+        // Restriction sur le code
+        restrictionsContainer.add(Restrictions.like("code", c01.getCode() + "%"));
+
+        // Recherche
+        assertEquals(1, dao.filter(Country.class, null, restrictionsContainer, null, null, 0, -1).size());
     }
 
 }
