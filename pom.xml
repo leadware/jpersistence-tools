@@ -1,217 +1,306 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>BULK-INFO</groupId>
-  <artifactId>JPersistenceTools</artifactId>
-  <version>2.0</version>
-  <name>JPersistenceTools</name>
-  <description>Framework de gestion automatique, dynamique et configurable de la DAO.</description>
-  
-  <url>http://maven.apache.org</url>
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  <scm>
-      <connection>scm:git:git@github.com:yashiro/JPersistenceTools.git</connection>
-      <developerConnection>scm:git:git://github.com/yashiro/JPersistenceTools.git</developerConnection>
-      <url>git://github.com/yashiro/JPersistenceTools.git</url>
-  </scm>
-  <issueManagement>
-  	<system>Jira</system>
-  	<url>http://jira.enjtec.com</url>
-  </issueManagement>
-  <ciManagement>
-  	<system>Hudson</system>
-  	<url>http://hudson.enjtec.com</url>
-  </ciManagement>
-  <developers>
-  	<developer>
-  		<name>Jean-Jacques ETUNE NGI</name>
-  		<email>shinjetune@gmail.com</email>
-  		<organization>Synergie Logiciel</organization>
-  		<timezone>GMT+1</timezone>
-  		<roles>
-  			<role>Développeur</role>
-  		</roles>
-  	</developer>
-  	<developer>
-  		<name>Jean-Vincent NGA NTI</name>
-  		<email>vince_nti@gmail.com</email>
-  		<organization>Synergie Logiciel</organization>
-  		<timezone>GMT+1</timezone>
-  		<roles>
-  			<role>Débeloppeur</role>
-  		</roles>
-  	</developer>
-  </developers>
-  <organization>
-  	<name>BULK-INFO</name>
-  	<url>www.bulk-info.com</url>
-  </organization>
+	
+	<!-- Project parent -->
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+	
+	<!-- Pom model version -->
+	<modelVersion>4.0.0</modelVersion>
+	
+	<!-- Project group ID -->
+	<groupId>bulk-software-inc</groupId>
+	
+	<!-- Project Artifact ID -->
+	<artifactId>jpersistence-tools</artifactId>
+	
+	<!-- Project name -->
+	<name>jpersistence-tools</name>
+	
+	<!-- Project description -->
+	<description>Framework de gestion automatique, dynamique et configurable de la DAO.</description>
+	
+	<!-- Project Version -->
+	<version>1.0.SNAPSHOT</version>
+	
+	<!-- Project source URL -->
+	<url>http://code.google.com/p/jpersistence-tools/</url>
+	
+	<!-- Project licence -->
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	
+	<!-- Project scm -->
+	<scm>
+		<connection>scm:git:https://code.google.com/p/jpersistence-tools</connection>
+		<developerConnection>scm:git:https://code.google.com/p/jpersistence-tools</developerConnection>
+		<url>https://code.google.com/p/jpersistence-tools</url>
+	</scm>
+	
+	<!-- Project issue managment -->
+	<issueManagement>
+		<system>Jira</system>
+		<url>http://jira.jpersistence-tools.bulk-inc.com</url>
+	</issueManagement>
+	
+	<!-- Project Continuous integration system -->
+	<ciManagement>
+		<system>Bamboo</system>
+		<url>http://bamboo.jpersistence-tools.bulk-inc.com</url>
+	</ciManagement>
+	
+	<!-- Project developpers -->
+	<developers>
+		<developer>
+			<name>Jean-Jacques ETUNE NGI</name>
+			<email>shinjetune@gmail.com</email>
+			<organization>BULK Software Inc.</organization>
+			<timezone>GMT+1</timezone>
+			<roles>
+				<role>owner</role>
+				<role>Technical lead</role>
+				<role>Développeur</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Jean-Vincent NGA NTI</name>
+			<email>globvince@gmail.com</email>
+			<organization>Synergie Logiciel</organization>
+			<timezone>GMT+1</timezone>
+			<roles>
+				<role>Développeur</role>
+			</roles>
+		</developer>
+	</developers>
+	
+	<!-- Project organisation -->
+	<organization>
+		<name>BULK Software Inc.</name>
+		<url>http://www.bulk-inc.com</url>
+	</organization>
+	
+	<!-- Project properties -->
+	<properties>
+		<hibernate.version>3.2.1.ga</hibernate.version>
+		<jta.version>1.1</jta.version>
+		<common.dbpc.version>1.4</common.dbpc.version>
+		<juel.version>2.2.3</juel.version>
+		<junit.version>4.8.2</junit.version>
+		<hsql.version>2.0.0</hsql.version>
+		<spring.version>2.5.6</spring.version>
+		<inject.version>1</inject.version>
+		<slf4j.version>1.6.1</slf4j.version>
+		<jre.source.version>1.6</jre.source.version>
+		<jre.target.version>1.6</jre.target.version>
+		<maven.javadoc.plugin.version>2.8</maven.javadoc.plugin.version>
+		<apache.rat.plugin.version>0.8</apache.rat.plugin.version>
+	</properties>
+	
+	<!-- Project dependencies -->
+	<dependencies>
+		
+		<!-- Hibernate dependencies -->
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate</artifactId>
+		    <version>${hibernate.version}</version>
+		    <exclusions>
+		        <exclusion>
+		            <groupId>javax.transaction</groupId>
+		            <artifactId>jta</artifactId>
+		        </exclusion>
+		    </exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-annotations</artifactId>
+		    <version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-entitymanager</artifactId>
+		    <version>${hibernate.version}</version>
+		</dependency>
+		
+		<!-- Hsql dependencies -->
+		<dependency>
+		    <groupId>org.hsqldb</groupId>
+		    <artifactId>hsqldb</artifactId>
+		    <version>${hsql.version}</version>
+		</dependency>
+		
+		<!-- JTA Dependencies -->
+		<dependency>
+		    <groupId>javax.transaction</groupId>
+		    <artifactId>jta</artifactId>
+		    <version>${jta.version}</version>
+		</dependency>
+		
+		<!-- Common DBPC dependencies -->
+		<dependency>
+		    <groupId>commons-dbcp</groupId>
+		    <artifactId>commons-dbcp</artifactId>
+		    <version>${common.dbpc.version}</version>
+		</dependency>
+		
+		<!-- Juel dependencies -->
+		<dependency>
+		    <groupId>de.odysseus.juel</groupId>
+		    <artifactId>juel-spi</artifactId>
+		    <version>${juel.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>de.odysseus.juel</groupId>
+		    <artifactId>juel-api</artifactId>
+		    <version>${juel.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>de.odysseus.juel</groupId>
+		    <artifactId>juel-impl</artifactId>
+		    <version>${juel.version}</version>
+		</dependency>
+		
+		<!-- JUnit dependencies -->
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>${junit.version}</version>
+		</dependency>
+		
+		<!-- Spring dependencies -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-core</artifactId>
+		    <version>${spring.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>${spring.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-orm</artifactId>
+		    <version>${spring.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-aop</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jdbc</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-tx</artifactId>
+		    <version>${spring.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<!-- Inject dependencies -->
+		<dependency>
+		    <groupId>javax.inject</groupId>
+		    <artifactId>javax.inject</artifactId>
+		    <version>${inject.version}</version>
+		</dependency>
+		
+		<!-- SLF4J dependencies -->
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-api</artifactId>
+		    <version>${slf4j.version}</version>
+		</dependency>
+	
+	</dependencies>
 
-  <dependencies>
-  	
-    <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate</artifactId>
-        <version>3.2.1.ga</version>
-        <exclusions>
-            <exclusion>
-                <groupId>javax.transaction</groupId>
-                <artifactId>jta</artifactId>
-            </exclusion>
-        </exclusions>
-    </dependency>
-
-    <dependency>
-        <groupId>javax.transaction</groupId>
-        <artifactId>jta</artifactId>
-        <version>1.1</version>
-    </dependency>
-
-    <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-annotations</artifactId>
-        <version>3.2.1.ga</version>
-    </dependency>
-
-    <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-entitymanager</artifactId>
-        <version>3.2.1.ga</version>
-    </dependency>
-
-    <dependency>
-        <groupId>commons-dbcp</groupId>
-        <artifactId>commons-dbcp</artifactId>
-        <version>1.4</version>
-    </dependency>
-
-    <dependency>
-        <groupId>de.odysseus.juel</groupId>
-        <artifactId>juel-spi</artifactId>
-        <version>2.2.3</version>
-    </dependency>
-
-    <dependency>
-        <groupId>de.odysseus.juel</groupId>
-        <artifactId>juel-api</artifactId>
-        <version>2.2.2</version>
-    </dependency>
-
-    <dependency>
-        <groupId>de.odysseus.juel</groupId>
-        <artifactId>juel-impl</artifactId>
-        <version>2.2.2</version>
-    </dependency>
-
-    <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.8.2</version>
-    </dependency>
-
-    <dependency>
-        <groupId>org.hsqldb</groupId>
-        <artifactId>hsqldb</artifactId>
-        <version>2.0.0</version>
-    </dependency>
-
-    <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-core</artifactId>
-        <version>2.5.6</version>
-        <scope>test</scope>
-    </dependency>
-
-    <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-test</artifactId>
-        <version>2.5.6</version>
-        <scope>test</scope>
-    </dependency>
-
-    <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-orm</artifactId>
-        <version>2.5.6</version>
-        <scope>test</scope>
-    </dependency>
-
-    <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-aop</artifactId>
-        <version>2.5.6</version>
-    </dependency>
-    <dependency>
-        <groupId>javax.inject</groupId>
-        <artifactId>javax.inject</artifactId>
-        <version>1</version>
-    </dependency>
-
-    <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-jdbc</artifactId>
-        <version>2.5.6</version>
-    </dependency>
-
-    <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-tx</artifactId>
-        <version>2.5.6</version>
-    </dependency>
-
-    <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>1.6.1</version>
-    </dependency>
-
-  </dependencies>
-
-  <build>
-    <resources>
-        <resource>
-            <directory>${basedir}/src/main/resources</directory>
-            <filtering>true</filtering>
-        </resource>
-        <resource>
-            <directory>${basedir}</directory>
-            <targetPath>META-INF</targetPath>
-            <includes>
-                <include>LICENSE</include>
-                <include>NOTICE</include>
-            </includes>
-        </resource>
-    </resources>
-    <testResources>
-        <testResource>
-            <filtering>true</filtering>
-            <directory>src/test/resources</directory>
-        </testResource>
-    </testResources>
-  	<plugins>
-  		<plugin>
-  			<groupId>org.apache.maven.plugins</groupId>
-  			<artifactId>maven-compiler-plugin</artifactId>
-  			<configuration>
-  				<source>1.6</source>
-  				<target>1.6</target>
-  			</configuration>
-  		</plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.8</version>
-            <configuration>
-                <show>private</show>
-                <nohelp>false</nohelp>
-            </configuration>
-        </plugin>
-
-  	</plugins>
-  </build>
+	<!-- Project build configuration -->
+	<build>
+	
+		<!-- Project resources -->
+		<resources>
+			<resource>
+			    <directory>${basedir}/src/main/resources</directory>
+			    <filtering>true</filtering>
+			</resource>
+			<resource>
+			    <directory>${basedir}</directory>
+			    <targetPath>META-INF</targetPath>
+			    <includes>
+			        <include>LICENSE</include>
+			        <include>NOTICE</include>
+			    </includes>
+			</resource>
+		</resources>
+		
+		<!-- Project test resources -->
+		<testResources>
+		    <testResource>
+		        <filtering>true</filtering>
+		        <directory>src/test/resources</directory>
+		    </testResource>
+		</testResources>
+		
+		<!-- Project plugins -->
+		<plugins>
+		
+			<!-- Maven Compiler plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${jre.source.version}</source>
+					<target>${jre.target.version}</target>
+				</configuration>
+			</plugin>
+			
+			<!-- Maven Javadoc plugin -->
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-javadoc-plugin</artifactId>
+			    <version>${maven.javadoc.plugin.version}</version>
+			    <configuration>
+			        <show>private</show>
+			        <nohelp>false</nohelp>
+			    </configuration>
+			</plugin>
+			
+			<!-- Apache RAT plugin -->
+			<plugin>
+				<groupId>org.apache.rat</groupId>
+				<artifactId>apache-rat-plugin</artifactId>
+				<version>${apache.rat.plugin.version}</version>
+				<configuration>
+					<excludes>
+						<exclude>**/.git/**</exclude>
+						<exclude>**/test/resources/**</exclude>
+						<exclude>**/.gitignore/**</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+		</plugins>
+		
+	</build>
+	
 </project>
