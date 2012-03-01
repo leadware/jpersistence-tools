@@ -41,7 +41,7 @@
 	<scm>
 		<connection>scm:git:git@github.com:yashiro/JPersistenceTools.git</connection>
 		<developerConnection>scm:git:git@github.com:yashiro/JPersistenceTools.git</developerConnection>
-		<url>https://yashiro@github.com/yashiro/JPersistenceTools.git</url>
+		<url>git@github.com:yashiro/JPersistenceTools.git</url>
 	</scm>
 	
 	<!-- Project issue managment -->
