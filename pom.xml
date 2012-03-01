@@ -5,11 +5,7 @@
   <version>2.0</version>
   <name>JPersistenceTools</name>
   <description>Framework de gestion automatique, dynamique et configurable de la DAO.</description>
-  <parent>
-      <groupId>org.sonatype.oss</groupId>
-      <artifactId>oss-parent</artifactId>
-      <version>6</version>
-  </parent>
+  
   <url>http://maven.apache.org</url>
   <licenses>
     <license>
