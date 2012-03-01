@@ -39,9 +39,9 @@
 	
 	<!-- Project scm -->
 	<scm>
-		<connection>scm:git:https://code.google.com/p/jpersistence-tools</connection>
-		<developerConnection>scm:git:https://code.google.com/p/jpersistence-tools</developerConnection>
-		<url>https://code.google.com/p/jpersistence-tools</url>
+		<connection>scm:git:git@github.com:yashiro/JPersistenceTools.git</connection>
+		<developerConnection>scm:git:git@github.com:yashiro/JPersistenceTools.git</developerConnection>
+		<url>https://yashiro@github.com/yashiro/JPersistenceTools.git</url>
 	</scm>
 	
 	<!-- Project issue managment -->
@@ -101,6 +101,7 @@
 		<jre.target.version>1.6</jre.target.version>
 		<maven.javadoc.plugin.version>2.8</maven.javadoc.plugin.version>
 		<apache.rat.plugin.version>0.8</apache.rat.plugin.version>
+		<gpg.version>1.4</gpg.version>
 	</properties>
 	
 	<!-- Project dependencies -->
@@ -294,6 +295,25 @@
 						<phase>verify</phase>
 						<goals>
 							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<!-- GPG Plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>${gpg.version}</version>
+				<configuration>
+					<passphrase>sakazaki</passphrase>
+				</configuration>
+				<executions>
+					<execution>
+						<id>sign-artifact</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
 						</goals>
 					</execution>
 				</executions>
