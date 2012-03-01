@@ -1,14 +1,13 @@
 package com.yashiro.persistence.utils.test;
 
-import com.yashiro.persistence.utils.annotations.validator.engine.exceptions.DAOValidationException;
-import com.yashiro.persistence.utils.dao.tools.RestrictionsContainer;
-import com.yashiro.persistence.utils.dao.tools.SaveListResult;
-import com.yashiro.persistence.utils.test.dao.api.IDummyDAO;
-import com.yashiro.persistence.utils.test.dao.entities.Country;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertSame;
 import static junit.framework.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.hibernate.criterion.Restrictions;
 import org.junit.Test;
@@ -19,9 +18,11 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
+import com.yashiro.persistence.utils.annotations.validator.engine.exceptions.DAOValidationException;
+import com.yashiro.persistence.utils.dao.tools.RestrictionsContainer;
+import com.yashiro.persistence.utils.dao.tools.SaveListResult;
+import com.yashiro.persistence.utils.test.dao.api.IDummyDAO;
+import com.yashiro.persistence.utils.test.dao.entities.Country;
 
 /**
  * Classe de test de l'implémentation de la DAO Générique basées sur l'évaluation des règles
