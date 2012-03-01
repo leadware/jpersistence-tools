@@ -86,6 +86,16 @@
 		<url>http://www.bulk-inc.com</url>
 	</organization>
 	
+        <!-- Repositories -->
+        <repositories>
+            <!-- Sonatype repository -->
+            <repository>
+                <id>opencast-nexus-sonatype</id>
+                <name>Opencast project Nexus sonatype repository</name>
+                <url>http://repository.opencastproject.org/nexus/content/repositories/sonatype</url>
+            </repository>
+        </repositories>
+        
 	<!-- Project properties -->
 	<properties>
 		<hibernate.version>3.2.1.ga</hibernate.version>
