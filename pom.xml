@@ -11,7 +11,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<!-- Project group ID -->
-	<groupId>bulk-software-inc</groupId>
+	<groupId>com.bulk-inc</groupId>
 	
 	<!-- Project Artifact ID -->
 	<artifactId>jpersistence-tools</artifactId>
