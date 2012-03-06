@@ -23,7 +23,7 @@
 	<description>Framework de gestion automatique, dynamique et configurable de la DAO.</description>
 	
 	<!-- Project Version -->
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	
 	<!-- Project source URL -->
 	<url>https://github.com/yashiro/JPersistenceTools/</url>
