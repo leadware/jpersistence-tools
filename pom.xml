@@ -66,16 +66,16 @@
 			<roles>
 				<role>owner</role>
 				<role>Technical lead</role>
-				<role>Développeur</role>
+				<role>Developper</role>
 			</roles>
 		</developer>
 		<developer>
 			<name>Jean-Vincent NGA NTI</name>
 			<email>globvince@gmail.com</email>
-			<organization>Synergie Logiciel</organization>
+			<organization>BULK Software Inc.</organization>
 			<timezone>GMT+1</timezone>
 			<roles>
-				<role>Développeur</role>
+				<role>Developper</role>
 			</roles>
 		</developer>
 	</developers>
