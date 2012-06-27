@@ -16,21 +16,31 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.bulksoft.persistence.utils.test.dao.api;
+package com.bulk.persistence.tools.validator.annotations;
 
-import com.bulk.persistence.tools.dao.IJPAGenericDAO;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import com.bulk.persistence.tools.validator.SizeDAOValidatorsRule;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Hippolyte TAPAMO
- * Date: 14/07/11
- * Time: 17:20
- * To change this template use File | Settings | File Templates.
+ * Annotation permettant de valider sur la base d'une liste de validateurs de type @SizeDAOValidator
+ * @author Jean-Jacques ETUNÈ NGI
  */
-public interface IDummyDAO extends IJPAGenericDAO {
-
-    /**
-     * Nom du service DAO
-     */
-    public static final String SERVICE_NAME = "DummyDAO";
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@DAOConstraint(validatedBy = SizeDAOValidatorsRule.class)
+public @interface SizeDAOValidators {
+	
+	/**
+	 * Methode d'obtention de la liste des validateurs
+	 * @return	Liste des validateurs
+	 */
+	public SizeDAOValidator[] value();
 }

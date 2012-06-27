@@ -16,21 +16,29 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.bulksoft.persistence.utils.test.dao.api;
+package com.bulk.persistence.tools.validator;
 
-import com.bulk.persistence.tools.dao.IJPAGenericDAO;
+import javax.persistence.EntityManager;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Hippolyte TAPAMO
- * Date: 14/07/11
- * Time: 17:20
- * To change this template use File | Settings | File Templates.
+ * Interface definissant le contrat des classes de validation des contraintes
+ * d'integrites et referentielles sur un objet metier
+ * @author Jean-Jacques ETUNÈ NGI
  */
-public interface IDummyDAO extends IJPAGenericDAO {
-
-    /**
-     * Nom du service DAO
-     */
-    public static final String SERVICE_NAME = "DummyDAO";
+public interface IJPAConstraintValidator {
+	
+	/**
+	 * Initialisation du Validateur
+	 */
+	public void init(EntityManager entityManager, Object entity);
+	
+	/**
+	 * Methode de valiodation des contraintes d'integrites
+	 */
+	public void validateIntegrityConstraint();
+	
+	/**
+	 * Methode de validation des contraintes referentielles
+	 */
+	public void validateReferentialConstraint();
 }

@@ -18,7 +18,7 @@
  */
 package com.bulksoft.persistence.utils.test.dao.impl;
 
-import com.bulksoft.persistence.utils.dao.JPAGenericDAORulesBased;
+import com.bulk.persistence.tools.dao.JPAGenericDAORulesBased;
 import com.bulksoft.persistence.utils.test.dao.api.IDummyDAO;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;

@@ -16,21 +16,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.bulksoft.persistence.utils.test.dao.api;
+package com.bulk.persistence.tools.validator.annotations;
 
-import com.bulk.persistence.tools.dao.IJPAGenericDAO;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import com.bulk.persistence.tools.validator.IdentityDAOValidatorRule;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Hippolyte TAPAMO
- * Date: 14/07/11
- * Time: 17:20
- * To change this template use File | Settings | File Templates.
+ * Annotation permettant de specifier une classe de validation qui ne fait rien du tout
+ * @author Jean-Jacques ETUNÈ NGI
  */
-public interface IDummyDAO extends IJPAGenericDAO {
-
-    /**
-     * Nom du service DAO
-     */
-    public static final String SERVICE_NAME = "DummyDAO";
-}
+@Target(value = ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@DAOConstraint(validatedBy = IdentityDAOValidatorRule.class)
+public @interface IdentityDAOValidator {}

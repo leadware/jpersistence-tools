@@ -16,21 +16,27 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.bulksoft.persistence.utils.test.dao.api;
+package com.bulk.persistence.tools.exceptions;
 
-import com.bulk.persistence.tools.dao.IJPAGenericDAO;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Hippolyte TAPAMO
- * Date: 14/07/11
- * Time: 17:20
- * To change this template use File | Settings | File Templates.
+ * Exception levee lors d'une operation sur une entite nulle
+ * @author Jean-Jacques
+ * @version 1.0
  */
-public interface IDummyDAO extends IJPAGenericDAO {
-
-    /**
-     * Nom du service DAO
-     */
-    public static final String SERVICE_NAME = "DummyDAO";
+public class NullEntityException extends JPersistenceToolsException {
+	
+	/**
+	 * ID Genere par Eclipse
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Constructeur par defaut
+	 */
+	public NullEntityException() {
+		
+		// Initialisation Parente
+		super("NullEntityException.message");
+	}
 }

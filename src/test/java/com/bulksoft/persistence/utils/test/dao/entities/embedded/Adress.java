@@ -24,8 +24,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import com.bulksoft.persistence.utils.annotations.validator.Email;
-import com.bulksoft.persistence.utils.annotations.validator.PhoneNumber;
+import com.bulk.persistence.tools.validator.jsr303ext.annotations.Email;
+import com.bulk.persistence.tools.validator.jsr303ext.annotations.PhoneNumber;
 
 /**
  * Classe representant une adresse

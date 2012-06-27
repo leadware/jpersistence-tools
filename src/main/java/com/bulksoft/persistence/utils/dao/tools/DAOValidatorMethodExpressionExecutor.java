@@ -23,17 +23,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.bulksoft.persistence.utils.dao.tools.encrypter.Encrypter;
-
 /**
  * Classe permettant de resoudre l'execution de certaines methodes sur l'objet contexte
  * @author Jean-Jacques
  * @version 2.0
  */
-public class DAOValidatorMethodExpressionExecutor extends Encrypter {
+public class DAOValidatorMethodExpressionExecutor {
 	
 	/**
 	 * Map des methodes
@@ -59,20 +54,11 @@ public class DAOValidatorMethodExpressionExecutor extends Encrypter {
 	 * Delimiteur de fin de fonction
 	 */
 	public static final String SIMPLE_FUNCTION_END_DELIMITER = "}";
-		
-	
-	/**
-	 * Un logger
-	 */
-	protected Log logger = LogFactory.getLog(DAOValidatorMethodExpressionExecutor.class);
 	
 	/**
 	 * Constructeur par defaut
 	 */
 	public DAOValidatorMethodExpressionExecutor() {
-		
-		// Un Log
-		logger.debug("DAOValidatorMethodExpressionExecutor#Ctor");
 		
 		// Mise en place des methodes
 		try {
@@ -85,8 +71,6 @@ public class DAOValidatorMethodExpressionExecutor extends Encrypter {
 				
 				// Parcours
 				for (Method method : allMethods) {
-					
-					logger.debug(method.getName());
 					
 					// Ajout dans la liste
 					methods.put(method.getName(), method);
@@ -142,8 +126,6 @@ public class DAOValidatorMethodExpressionExecutor extends Encrypter {
 		if(method == null) return null;
 		
 		try {
-			
-			logger.debug("INVOKE - " + methodName + ", LENGTH: " + parameters.length);
 			
 			// Apel
 			Object result = method.invoke(this, parameters);

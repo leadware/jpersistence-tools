@@ -36,7 +36,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bulksoft.persistence.utils.annotations.validator.engine.exceptions.DAOValidationException;
+import com.bulk.persistence.tools.exceptions.DAOValidationException;
 import com.bulksoft.persistence.utils.dao.tools.RestrictionsContainer;
 import com.bulksoft.persistence.utils.dao.tools.SaveListResult;
 import com.bulksoft.persistence.utils.test.dao.api.IDummyDAO;
@@ -49,7 +49,7 @@ import com.bulksoft.persistence.utils.test.dao.entities.Country;
  * 	<b>
  * 		<i>Class Under Test</i>
  * 		<ol>
- * 			<li>{@link com.yashiro.persistence.utils.dao.JPAGenericDAORulesBased}
+ * 			<li>{@link com.bulk.persistence.tools.dao.yashiro.persistence.utils.dao.JPAGenericDAORulesBased}
  * 		</ol>
  * 	</b>
  * @version 2.0

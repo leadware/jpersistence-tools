@@ -18,25 +18,14 @@
  */
 package com.bulksoft.persistence.utils.dao.tools;
 
-import java.io.File;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-
 import javax.el.ValueExpression;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.bulksoft.persistence.utils.annotations.Parameter;
-import com.bulksoft.persistence.utils.annotations.validator.DAOValidatorRule;
-import com.bulksoft.persistence.utils.annotations.validator.engine.IDAOValidator;
-
+import com.bulk.persistence.tools.validator.IDAOValidator;
+import com.bulk.persistence.tools.validator.annotations.DAOConstraint;
 import de.odysseus.el.ExpressionFactoryImpl;
 
 /**
@@ -46,12 +35,6 @@ import de.odysseus.el.ExpressionFactoryImpl;
  */
 public class DAOValidatorHelper {
 	
-	/**
-	 *  Un Logger
-	 */
-	private static Log logger = LogFactory.getLog(DAOValidatorHelper.class);
-
-
 	/**
 	 * Delimiteur gauche Simple
 	 */
@@ -90,66 +73,25 @@ public class DAOValidatorHelper {
 	public static String FUNC_CHAIN_PATTERN = FUNCTION_LEFT_DELIMITER + FUNCTION_NAME + FUNCTION_OPEN + FUNCTION_PARAMETER + FUNCTION_CLOSE;
 	
 	/**
-	 * Methode permettant de verifier qu'un objet est un parametre
-	 * @param entity	Entite a verifier
-	 * @return	Etat de parametrage
-	 */
-	public static final boolean isParameter(Object entity) {
-		
-		// Si l'Objet est null
-		if(entity == null) return false;
-
-		// On obtient la classe
-		Class<?> entityClass = entity.getClass();
-		
-		// Si l'Objet est une instance de classe
-		if(entity instanceof Class<?>) entityClass = (Class<?>) entity;
-		
-		// Recherche du marqueur
-		Parameter marqueur = entityClass.getAnnotation(Parameter.class);
-		
-		// On retourne l'etat
-		return marqueur != null;
-	}
-	
-	/**
 	 * Methode permettant de verifier si une annotation est
-	 * compatible avec le Framework JPersistenceUtils
+	 * compatible avec le Framework jpersistence-tools
 	 * @param annotation	Annotation a controler
 	 * @return	Etat d'appartenance
 	 */
 	public static boolean isDAOValidatorAnnotation(Annotation annotation) {
 		
-		// Un Log
-		logger.debug("DAOValidatorHelper#isDAOValidatorAnnotation");
-		
 		// Si lm'annotation est nulle
 		if(annotation == null) {
-			
-			// Un Log
-			logger.debug("DAOValidatorHelper#isDAOValidatorAnnotation - Annotation nulle");
 			
 			// On retourne false
 			return false;
 		}
 		
-		// Un Log
-		logger.debug("DAOValidatorHelper#isDAOValidatorAnnotation - Obtention de la classe de l'annotation");
-		
 		// Obtention de la classe de cette annotation
 		Class<?> annotationClass = annotation.annotationType();
 		
-		// Un Log
-		logger.debug("DAOValidatorHelper#isDAOValidatorAnnotation - Classe de l'annotation [" + annotationClass.getName() + "]");
-		
-		// Un Log
-		logger.debug("DAOValidatorHelper#isDAOValidatorAnnotation - Recherche de l'annotation de reference du Framework [" + DAOValidatorRule.class.getName() + "]");
-		
 		// Recherchje de l'annotation de validation
-		DAOValidatorRule logicAnnotation = annotationClass.getAnnotation(DAOValidatorRule.class);
-
-		// Un Log
-		logger.debug("DAOValidatorHelper#isDAOValidatorAnnotation [" + (logicAnnotation != null) + "]");
+		DAOConstraint logicAnnotation = annotationClass.getAnnotation(DAOConstraint.class);
 		
 		// On retourne le resultat
 		return logicAnnotation != null;
@@ -162,24 +104,15 @@ public class DAOValidatorHelper {
 	 */
 	public static List<Annotation> loadDAOValidatorAnnotations(Object object) {
 		
-		// Un Log
-		logger.debug("DAOValidatorHelper#loadDAOValidatorAnnotations");
-		
 		// Liste des annotations retrouvees
 		List<Annotation> daoAnnotations = new ArrayList<Annotation>();
 		
 		// Si l'objet est null
 		if(object == null) {
 			
-			// Un Log
-			logger.debug("DAOValidatorHelper#loadDAOValidatorAnnotations - L'objet a inpecter est null");
-			
 			// On retourne une liste vide
 			return daoAnnotations;
 		}
-		
-		// Un Log
-		logger.debug("DAOValidatorHelper#loadDAOValidatorAnnotations - Obtention de toutes les annotations de l'objet");
 		
 		// Obtention des annotations de la classe
 		Annotation[] objectAnnotations = object.getClass().getAnnotations();
@@ -187,32 +120,20 @@ public class DAOValidatorHelper {
 		// Si le tableau est vide
 		if(objectAnnotations == null || objectAnnotations.length == 0) {
 			
-			// Un Log
-			logger.debug("DAOValidatorHelper#loadDAOValidatorAnnotations - L'objet n'est pas annote");
-			
 			// On retourne une liste vide
 			return daoAnnotations;
 		}
-		
-		// Un Log
-		logger.debug("DAOValidatorHelper#loadDAOValidatorAnnotations - Parcours de la liste de ses annotations");
 		
 		// Parcours
 		for (Annotation annotation : objectAnnotations) {
 			
 			// Si c'est une annotation du Framework
 			if(isDAOValidatorAnnotation(annotation)) {
-
-				// Un Log
-				logger.debug("DAOValidatorHelper#loadDAOValidatorAnnotations - Ajout de l'annotation");
 				
 				// On ajoute l'annotation
 				daoAnnotations.add(annotation);
 			}
 		}
-		
-		// Un Log
-		logger.debug("DAOValidatorHelper#loadDAOValidatorAnnotations - On retourne la liste");
 		
 		// On retourne la liste
 		return daoAnnotations;
@@ -225,40 +146,25 @@ public class DAOValidatorHelper {
 	 */
 	public static List<Class<? extends IDAOValidator<? extends Annotation>>> loadDAOValidatorClass(Object object) {
 		
-		// Un Log
-		logger.debug("DAOValidatorHelper#loadDAOValidatorClass");
-		
 		// Liste de classes de validation retrouvees
 		List<Class<? extends IDAOValidator<? extends Annotation>>> result = new ArrayList<Class<? extends IDAOValidator<? extends Annotation>>>();
 		
 		// Si l'objet est null
 		if(object == null) {
 			
-			// Un Log
-			logger.debug("DAOValidatorHelper#loadDAOValidatorClass - L'objet a inspecter est null");
-			
 			// On retourne une liste vide
 			return result;
 		}
-
-		// Un Log
-		logger.debug("DAOValidatorHelper#loadDAOValidatorClass - Obtention de toutes les annotations de l'objet");
 		
 		// Obtention des annotations de la classe
 		Annotation[] objectAnnotations = object.getClass().getAnnotations();
 		
 		// Si le tableau est vide
 		if(objectAnnotations == null || objectAnnotations.length == 0) {
-
-			// Un Log
-			logger.debug("DAOValidatorHelper#loadDAOValidatorClass - L'objet n'est pas annote");
 			
 			// On retourne une liste vide
 			return result;
 		}
-
-		// Un Log
-		logger.debug("DAOValidatorHelper#loadDAOValidatorClass - Parcours de la liste de ses annotations");
 		
 		// Parcours
 		for (Annotation annotation : objectAnnotations) {
@@ -266,22 +172,13 @@ public class DAOValidatorHelper {
 			// Si c'est une annotation du Framework
 			if(isDAOValidatorAnnotation(annotation)) {
 				
-				// Un Log
-				logger.debug("DAOValidatorHelper#loadDAOValidatorClass - Annotation du Framework [" + annotation.getClass().getName() + "]");
-				
 				// Obtention de l'annotation de validfation
-				DAOValidatorRule daoAnnotation = annotation.annotationType().getAnnotation(DAOValidatorRule.class);
-
-				// Un Log
-				logger.debug("DAOValidatorHelper#loadDAOValidatorClass - Ajout de la classe d'implementation de l'annotation");
+				DAOConstraint daoAnnotation = annotation.annotationType().getAnnotation(DAOConstraint.class);
 				
 				// On ajoute l'annotation
-				result.add(daoAnnotation.logicClass());
+				result.add(daoAnnotation.validatedBy());
 			}
 		}
-		
-		// Un Log
-		logger.debug("DAOValidatorHelper#loadDAOValidatorClass - On retourne la liste");
 		
 		// On retourne la liste
 		return result;
@@ -296,33 +193,18 @@ public class DAOValidatorHelper {
 	 */
 	public static Class<? extends IDAOValidator<? extends Annotation>> getValidationLogicClass(Annotation annotation) {
 		
-		// Un Log
-		logger.debug("DAOValidatorHelper#getValidationLogicClass");
-		
 		// Si l'annotation est nulle
 		if(annotation == null) {
-
-			// Un Log
-			logger.debug("DAOValidatorHelper#getValidationLogicClass - Annotation nulle");
 			
 			// On retourne null
 			return null;
 		}
 		
-		// Un Log
-		logger.debug("DAOValidatorHelper#getValidationLogicClass - Obtention de l'annotation de Reference");
-		
 		// Obtention de l'annotation DAO
-		DAOValidatorRule logicAnnotation = annotation.annotationType().getAnnotation(DAOValidatorRule.class);
-		
-		// Un Log
-		logger.debug("DAOValidatorHelper#getValidationLogicClass - L'annotation de validation est-elle Nulle? : [" + (logicAnnotation == null) + "]");
-		
-		// Un Log
-		logger.debug("DAOValidatorHelper#getValidationLogicClass - Classe de regle: [" + logicAnnotation.logicClass().getName() + "]");
+		DAOConstraint logicAnnotation = annotation.annotationType().getAnnotation(DAOConstraint.class);
 		
 		// On retourne cette annotation
-		return logicAnnotation.logicClass();
+		return logicAnnotation.validatedBy();
 	}
 	
 	/**
@@ -333,14 +215,8 @@ public class DAOValidatorHelper {
 	 */
 	public static <T extends Object> boolean arraryContains(T[] array, T value) {
 		
-		// Un log
-		logger.debug("DAOValidatorHelper#arraryContains");
-		
 		// Si le tableau est vide
 		if(array == null || array.length == 0) {
-			
-			// Un log
-			logger.debug("DAOValidatorHelper#arraryContains - Empty Array");
 			
 			// On retourne false
 			return false;
@@ -349,16 +225,10 @@ public class DAOValidatorHelper {
 		// Si le mode est vide
 		if(value == null) {
 			
-			// Un log
-			logger.debug("DAOValidatorHelper#arraryContains - Empty Value");
-			
 			// On retourne false
 			return false;
 		}
-		
-		// Un Log
-		logger.debug("DAOValidatorHelper#arraryContains - Value: " + value.toString());
-				
+			
 		// Mode dedans
 		boolean modeIn = false;
 		
@@ -370,9 +240,6 @@ public class DAOValidatorHelper {
 			
 			// Valeur du Tableau
 			T tValue = array[index++];
-			
-			// On affiche les valeurs a comparer
-			logger.debug("DAOValidatorHelper#arraryContains - Value: " + value.toString() + ", ArrayValue: " + tValue.toString());
 			
 			modeIn = tValue.equals(value);
 		}
@@ -388,14 +255,8 @@ public class DAOValidatorHelper {
 	 */
 	public static boolean isExpressionContainsENV(String expression) {
 		
-		// Un Log
-		logger.debug("DAOValidatorHelper#isExpressionContainsENV");
-		
 		// Si la chaine est vide : false
 		if(expression == null || expression.trim().length() == 0) {
-			
-			// Un Log
-			logger.debug("DAOValidatorHelper#isExpressionContainsENV - La chaene est vide");
 			
 			// On retourne false
 			return false;
@@ -412,12 +273,6 @@ public class DAOValidatorHelper {
 	 */
 	public static String[] getENVTokens(String expression) {
 		
-		// Un Log
-		logger.debug("DAOValidatorHelper#getFunctionTokens");
-		
-		// Un log
-		logger.debug("DAOValidatorHelper#getFunctionTokens - Chaene : " + expression);
-		
 		// On retourne le tableau
 		return extractToken(expression, ENV_CHAIN_PATTERN);
 	}
@@ -429,50 +284,29 @@ public class DAOValidatorHelper {
 	 */
 	public static String resolveEnvironmentsParameters(String expression) {
 
-		// Un Log
-		logger.debug("DAOValidatorHelper#resolveEnvironmentsParameters");
-		
 		// Si l'expression est vide
 		if(expression == null || expression.trim().length() == 0) {
-			
-			// Un Log
-			logger.debug("DAOValidatorHelper#resolveEnvironmentsParameters - Expression vide");
 			
 			// On retourne null
 			return null;
 		}
 		
-		// Un Log
-		logger.debug("DAOValidatorHelper#resolveEnvironmentsParameters - Expression [" + expression + "]");
-		
 		// Tant que la chaene traitee contient des ENVs
 		while(isExpressionContainPattern(expression, ENV_CHAIN_PATTERN)) {
 
-			// Un Log
-			logger.debug("DAOValidatorHelper#resolveEnvironmentsParameters - Expression contenant des ENVs: Extraction des ENVs...");
-			
 			// Obtention de la liste des ENVs
 			String[] envs = extractToken(expression, ENV_CHAIN_PATTERN);
 
-			// Un Log
-			logger.debug("DAOValidatorHelper#resolveEnvironmentsParameters - Nombre de ENVs: " + envs.length);
-			
 			// Parcours
 			for (String env : envs) {
 				
 				String cleanEnv = env.replace("${", "");
 				cleanEnv = cleanEnv.replace("}", "");
 				
-				// Un Log
-				logger.debug("DAOValidatorHelper#resolveEnvironmentsParameters - ENV Courant [" + cleanEnv + "]");
-				
 				// On remplace l'occurence courante par le nom de la variable
 				expression = expression.replace(env, System.getProperty(cleanEnv));
 			}
 		}
-
-		// Un Log
-		logger.debug("DAOValidatorHelper#resolveEnvironmentsParameters - Expression resolue: " + expression);
 		
 		// On retourne l'expression
 		return expression;
@@ -485,21 +319,12 @@ public class DAOValidatorHelper {
 	 */
 	public static ExpressionModel computeExpression(String expression) {
 		
-		// Un Log
-		logger.debug("DAOValidatorHelper#computeExpression");
-		
 		// Si l'expression est vide
 		if(expression == null || expression.trim().length() == 0) {
-			
-			// Un Log
-			logger.debug("DAOValidatorHelper#computeExpression - Expression vide");
 			
 			// On retourne null
 			return null;
 		}
-		
-		// Un Log
-		logger.debug("DAOValidatorHelper#computeExpression - Expression [" + expression + "]");
 		
 		// On Instancie un model d'expression
 		ExpressionModel expressionModel = new ExpressionModel(expression.trim());
@@ -510,14 +335,8 @@ public class DAOValidatorHelper {
 		// Si la chaine contient des Fonctions
 		if(isExpressionContainPattern(expression.trim(), FUNC_CHAIN_PATTERN)) {
 			
-			// Un Log
-			logger.debug("DAOValidatorHelper#computeExpression - Expression contenant des fonction: Extraction des fonctions...");
-			
 			// Obtention de la liste des Fonctions
 			String[] functions = extractToken(expression, FUNC_CHAIN_PATTERN);
-
-			// Un Log
-			logger.debug("DAOValidatorHelper#computeExpression - Nombre de fonctions: " + functions.length);
 			
 			// Parcours
 			for (String function : functions) {
@@ -525,26 +344,14 @@ public class DAOValidatorHelper {
 				// Chaine en cours
 				String currentExpression = expressionModel.getComputedExpression();
 				
-				// Un Log
-				logger.debug("DAOValidatorHelper#computeExpression - Fonction Courante [" + function + "]");
-				
 				// Nom de la Variable
 				String parameterName = "var" + i++;
-
-				// Un Log
-				logger.debug("DAOValidatorHelper#computeExpression - Nom du Parametre courant [" + parameterName + "]");
 				
 				// On remplace l'occurence courante par le nom de la variable
 				currentExpression = currentExpression.replace(function, ":" + parameterName);
 				
-				// Un Log
-				logger.debug("DAOValidatorHelper#computeExpression - Mise a jour de l'expression");
-
 				// On met a jour l'expression computee
 				expressionModel.setComputedExpression(currentExpression);
-				
-				// Un Log
-				logger.debug("DAOValidatorHelper#computeExpression - Ajout du Parametre dans le modele");
 				
 				// On ajoute les parametres
 				expressionModel.addParameter(parameterName, function);
@@ -555,14 +362,8 @@ public class DAOValidatorHelper {
 		// Tant que la chaene traitee contient des ENVs
 		while(isExpressionContainPattern(expressionModel.getComputedExpression(), ENV_CHAIN_PATTERN)) {
 			
-			// Un Log
-			logger.debug("DAOValidatorHelper#computeExpression - Expression contenant des ENVs: Extraction des ENVs...");
-			
 			// Obtention de la liste des ENVs
 			String[] envs = extractToken(expressionModel.getComputedExpression(), ENV_CHAIN_PATTERN);
-
-			// Un Log
-			logger.debug("DAOValidatorHelper#computeExpression - Nombre de ENVs: " + envs.length);
 			
 			// Parcours
 			for (String env : envs) {
@@ -570,34 +371,19 @@ public class DAOValidatorHelper {
 				// Chaine en cours
 				String currentExpression = expressionModel.getComputedExpression();
 				
-				// Un Log
-				logger.debug("DAOValidatorHelper#computeExpression - ENV Courant [" + env + "]");
-				
 				// Nom de la Variable
 				String parameterName = "var" + i++;
-
-				// Un Log
-				logger.debug("DAOValidatorHelper#computeExpression - Nom du Parametre courant [" + parameterName + "]");
 				
 				// On remplace l'occurence courante par le nom de la variable
 				currentExpression = currentExpression.replace(env, ":" + parameterName);
 				
-				// Un Log
-				logger.debug("DAOValidatorHelper#computeExpression - Mise a jour de l'expression");
-
 				// On met a jour l'expression computee
 				expressionModel.setComputedExpression(currentExpression);
-				
-				// Un Log
-				logger.debug("DAOValidatorHelper#computeExpression - Ajout du Parametre dans le modele");
 				
 				// On ajoute les parametres
 				expressionModel.addParameter(parameterName, env);
 			}
 		}
-		
-		// Un Log
-		logger.debug("DAOValidatorHelper#computeExpression - On retourne le modele");
 		
 		// On retourne l'expression
 		return expressionModel;
@@ -610,14 +396,8 @@ public class DAOValidatorHelper {
 	 */
 	public static boolean isExpressionContainsFunction(String expression) {
 		
-		// Un Log
-		logger.debug("DAOValidatorHelper#isExpressionContainsFunction");
-		
 		// Si la chaine est vide : false
 		if(expression == null || expression.trim().length() == 0) {
-			
-			// Un Log
-			logger.debug("DAOValidatorHelper#isExpressionContainsFunction - La chaene est vide");
 			
 			// On retourne false
 			return false;
@@ -636,22 +416,12 @@ public class DAOValidatorHelper {
 		
 		try {
 			
-			// Un Log
-			logger.debug("DAOValidatorHelper#isExpressionContainPattern");
-			
 			// Si la chaine est vide : false
 			if(expression == null || expression.trim().length() == 0) {
-				
-				// Un Log
-				logger.debug("DAOValidatorHelper#isExpressionContainPattern - La chaene est vide");
 				
 				// On retourne false
 				return false;
 			}
-			
-			// Un Log
-			logger.debug("DAOValidatorHelper#isExpressionContainPattern - Pattern: " + pattern);
-			logger.debug("DAOValidatorHelper#isExpressionContainPattern - Chaene : " + expression);
 			
 			// Construction d'un Pattern
 			Pattern regex = Pattern.compile(".*" + pattern + ".*");
@@ -660,9 +430,6 @@ public class DAOValidatorHelper {
 			return regex.matcher(expression).matches();
 			
 		} catch (PatternSyntaxException e) {
-			
-			// On affiche
-			e.printStackTrace();
 			
 			// On leve l'exception relative
 			throw new RuntimeException(pattern, e);
@@ -676,12 +443,6 @@ public class DAOValidatorHelper {
 	 * @return	Derniere occurence
 	 */
 	public static String [] getFunctionTokens(String expression) {
-		
-		// Un Log
-		logger.debug("DAOValidatorHelper#getFunctionTokens");
-		
-		// Un log
-		logger.debug("DAOValidatorHelper#getFunctionTokens - Chaene : " + expression);
 		
 		// On retourne le tableau
 		return extractToken(expression, FUNC_CHAIN_PATTERN);
@@ -697,9 +458,6 @@ public class DAOValidatorHelper {
 		// Si le Token est null
 		if(functionToken == null || functionToken.trim().length() == 0){
 			
-			// Un Log
-			logger.debug("DAOValidatorHelper#extractFunctionName - La chaene est vide");
-			
 			// On retourne la chaine
 			return functionToken;
 		}
@@ -709,9 +467,6 @@ public class DAOValidatorHelper {
 		
 		// Extraction du nom de la fonction
 		String fName = functionToken.substring(index0 + SIMPLE_FUNCTION_LEFT_DELIMITER.length(), index1);
-		
-		// Un Log
-		logger.debug("DAOValidatorHelper#extractFunctionName - Function Name: " + fName);
 		
 		// On retourne la deuxieme
 		return fName;
@@ -746,18 +501,8 @@ public class DAOValidatorHelper {
 	 */
 	public static String[] extractToken(String expression, String pattern) {
 		
-		// Un Log
-		logger.debug("DAOValidatorHelper#extractToken");
-		
-		// Un log
-		logger.debug("DAOValidatorHelper#extractToken - Chaene Mere : " + expression);
-		logger.debug("DAOValidatorHelper#extractToken - Pattern     : " + pattern);
-		
 		// Si la chaine est vide
 		if(expression == null || expression.trim().length() == 0) {
-			
-			// Un Log
-			logger.debug("DAOValidatorHelper#extractToken - Expression vide");
 			
 			// On retourne null;
 			return null;
@@ -765,9 +510,6 @@ public class DAOValidatorHelper {
 		
 		// Si le pattern est null
 		if(pattern == null) {
-			
-			// Un Log
-			logger.debug("DAOValidatorHelper#extractToken - Pattern Nul");
 			
 			// On retourne null;
 			return null;
@@ -820,9 +562,6 @@ public class DAOValidatorHelper {
 		// Fabrique d'expression
 		ExpressionFactoryImpl expressionFactory = new ExpressionFactoryImpl();
 		
-		// Un message
-		logger.debug("DAOValidatorHelper#evaluateValueExpression");
-		
 		// Si l'expression est nulle
 		if(expression == null || expression.trim().length() == 0) return null;
 		
@@ -844,9 +583,6 @@ public class DAOValidatorHelper {
 			// Resultat de l'evaluation des parametres
 			Object parameterEvaluation = null;
 			
-			// Un message
-			logger.debug("DAOValidatorHelper#evaluateValueExpression - Expression fonctionnelle");
-			
 			// Obtention du Nom de la fonction
 			functionName = DAOValidatorHelper.extractFunctionName(expression);
 			
@@ -856,24 +592,15 @@ public class DAOValidatorHelper {
 			// Si le parametre est une fonction
 			if(DAOValidatorHelper.isExpressionContainPattern(functionParameter, DAOValidatorHelper.FUNC_CHAIN_PATTERN)) {
 				
-				// Un message
-				logger.debug("DAOValidatorHelper#evaluateValueExpression - Le parametre est Expression fonctionnelle : Appel recursif");
-				
 				// Appel recursif
 				parameterEvaluation = evaluateValueExpression(functionParameter, target);
 				
 			} else if(DAOValidatorHelper.isExpressionContainPattern(functionParameter, DAOValidatorHelper.ENV_CHAIN_PATTERN)) {
 				
-				// Un message
-				logger.debug("DAOValidatorHelper#evaluateValueExpression - Le parametre est Expression ENV : Appel recursif");
-				
 				// Appel recursif
 				parameterEvaluation = evaluateValueExpression(functionParameter, target);
 				
 			} else if(functionParameter != null && functionParameter.equals("$$")) {
-				
-				// Un message
-				logger.debug("DAOValidatorHelper#evaluateValueExpression - Le parametre null: Action sur l'Objet en cours");
 				
 				// Appel recursif
 				parameterEvaluation = target;
@@ -883,9 +610,6 @@ public class DAOValidatorHelper {
 			// Si l'executeur de fonction possede cette fonction
 			if(methodExecutor.getMethodsName().contains(functionName)) {
 				
-				// Un message
-				logger.debug("DAOValidatorHelper#evaluateValueExpression - Methode existante pour l'executeur de methode");
-				
 				// Si la chaene parametre est vide
 				if(functionParameter == null || functionParameter.trim().length() == 0) result = methodExecutor.invoke(functionName);
 				
@@ -893,9 +617,6 @@ public class DAOValidatorHelper {
 				result = methodExecutor.invoke(functionName, parameterEvaluation);
 				
 			} else {
-
-				// Un message
-				logger.debug("DAOValidatorHelper#evaluateValueExpression - Methode non existante pour l'executeur de methode (On retourne l'evaluation du parametre)");
 				
 				// On recupere le parametre
 				result = parameterEvaluation;
@@ -903,21 +624,12 @@ public class DAOValidatorHelper {
 			}
 			
 		} else if(DAOValidatorHelper.isExpressionContainPattern(expression, DAOValidatorHelper.ENV_CHAIN_PATTERN)) {
-					
-			// Un message
-			logger.debug("DAOValidatorHelper#evaluateValueExpression - Expression contenant des ENVs : Initialisation de l'objet de Base");
 			
 			// Initialisation de la cible dans le resolver
 			resolver.setBase(target);
-
-			// Un message
-			logger.debug("DAOValidatorHelper#evaluateValueExpression - Initialisation du Resolver");
 			
 			// Initialisation du resolver dans le contexte
 			context.setELResolver(resolver);
-
-			// Un message
-			logger.debug("DAOValidatorHelper#evaluateValueExpression - Creation de l'expression");
 			
 			// Instanciation d'une expression
 			ValueExpression ve = expressionFactory.createValueExpression(context, localExpression, Object.class);
@@ -927,319 +639,10 @@ public class DAOValidatorHelper {
 			
 		}
 		
-		// On affiche le resultat
-		logger.debug("DAOValidatorHelper#evaluateValueExpression - Resultat de l'expression: " + result);
-		
 		// On retourne le resultat de l'evalo
 		return result;
 	}
 
-	/**
-	 * Methode permettant de tester si un fichier represente une archive EAR
-	 * @param path	Chemin vers le fichier
-	 * @return Resultat du test
-	 */
-	public static boolean isEARArchive(String path) {
-		
-		// Un Log
-		logger.debug("DAOValidatorHelper#isEARArchive");
-		
-		// EAR Descriptor File
-		String earMarker = "META-INF/application.xml";
-				
-		// Fichier Jar
-		JarFile jarFile = null;
-		
-		// Si le chemin est null : false
-		if(path == null || path.trim().length() == 0) return false;
-		
-		// Un Objet File
-		File file = new File(path);
-		
-		// Si le fichier n'existe pas
-		if(!file.exists()) return false;
-		
-		// Si c'est un repertoire
-		if(file.isDirectory()) return false;
-		
-		// Si l'extension n'est pas EAR
-		if(!path.endsWith(".ear")) return false;
-		
-		// Tentative de creation d'une representation de l'archive en memoire
-		try {
-			
-			// Le JarFile
-			jarFile = new JarFile(new File(path), true);
-			
-		} catch (Exception e) {
-			
-			// On retourne la liste vide
-			return false;
-		}
-		
-		// Enumeration des Entrees de l'EAR
-		Enumeration<JarEntry> jarEntries = jarFile.entries();
-		
-		// Si l'enumeration est vide
-		if(jarEntries == null || !jarEntries.hasMoreElements()) return false;
-		
-		// Parcours
-		while(jarEntries.hasMoreElements()) {
-			
-			// Obtention d'une entree
-			JarEntry jarEntry = (JarEntry) jarEntries.nextElement();
-			
-			// Si l'entree correspond e notre marqueur
-			if(jarEntry.getName().equals(earMarker)) return true;
-		}
-		
-		// On renvoie false
-		return false;
-	}
-	
-	/**
-	 * Methode permettant de tester si un fichier represente une archive WAR
-	 * @param path	Chemin vers le fichier
-	 * @return Resultat du test
-	 */
-	public static boolean isWARArchive(String path) {
-		
-		// Un Log
-		logger.debug("DAOValidatorHelper#isWARArchive");
-		
-		// EAR Descriptor File
-		String earMarker = "WEB-INF/web.xml";
-				
-		// Fichier Jar
-		JarFile jarFile = null;
-		
-		// Si le chemin est null : false
-		if(path == null || path.trim().length() == 0) return false;
-		
-		// Un Objet File
-		File file = new File(path);
-		
-		// Si le fichier n'existe pas
-		if(!file.exists()) return false;
-
-		// Si c'est un repertoire
-		if(file.isDirectory()) return false;
-
-		// Si l'extension n'est pas JAR
-		if(!path.endsWith(".war")) return false;
-		
-		// Tentative de creation d'une representation de l'archive en memoire
-		try {
-			
-			// Le JarFile
-			jarFile = new JarFile(new File(path), true);
-			
-		} catch (Exception e) {
-			
-			// On retourne la liste vide
-			return false;
-		}
-		
-		// Enumeration des Entrees de l'EAR
-		Enumeration<JarEntry> jarEntries = jarFile.entries();
-		
-		// Si l'enumeration est vide
-		if(jarEntries == null || !jarEntries.hasMoreElements()) return false;
-		
-		// Parcours
-		while(jarEntries.hasMoreElements()) {
-			
-			// Obtention d'une entree
-			JarEntry jarEntry = (JarEntry) jarEntries.nextElement();
-			
-			// Si l'entree correspond e notre marqueur
-			if(jarEntry.getName().equals(earMarker)) return true;
-		}
-		
-		// On renvoie false
-		return false;
-	}
-	
-	/**
-	 * Methode permettant de tester si un fichier Jar est invalide
-	 * @param path	Chemin vers le fichier
-	 * @return Resultat du test
-	 */
-	public static boolean isJARArchive(String path) {
-
-		// Un Log
-		logger.debug("DAOValidatorHelper#isWARArchive");
-		
-		// Fichier Jar
-		JarFile jarFile = null;
-		
-		// Si le chemin est null : false
-		if(path == null || path.trim().length() == 0) return false;
-		
-		// Un Objet File
-		File file = new File(path);
-		
-		// Si le fichier n'existe pas
-		if(!file.exists()){
-			
-			// On retourne False
-			return false;
-		}
-		
-		// Si c'est un repertoire
-		if(file.isDirectory()) {
-					
-			// On retourne false
-			return false;
-		}
-		
-		// Si l'extension n'est pas JAR
-		if(!path.endsWith(".jar")) {
-			
-			// On retourne false
-			return false;
-		}
-		
-		// Tentative de creation d'une representation de l'archive en memoire
-		try {
-			
-			// Le JarFile
-			jarFile = new JarFile(new File(path), true);
-			
-		} catch (Exception e) {
-					
-			// On retourne la liste vide
-			return false;
-		}
-		
-		// Enumeration des Entrees de l'EAR
-		Enumeration<JarEntry> jarEntries = jarFile.entries();
-		
-		// Si l'enumeration est vide
-		if(jarEntries == null || !jarEntries.hasMoreElements()){
-				
-			// On retourne false
-			return false;
-		}
-		
-		// On renvoie false
-		return true;
-	}
-	
-	/**
-	 * Methode permettant de tester si une archive contient une entree donnee
-	 * @param path	Chemin vers le fichier
-	 * @param entryName Nom de l'entree recherchee
-	 * @return Resultat du test
-	 */
-	public static boolean isArchiveContainsEntry(String path, String entryName) {
-		
-		// Si l'entry est vide
-		if(entryName == null || entryName.trim().length() == 0) return false;
-		
-		// Entry Name
-		String entry = entryName;
-		
-		// Fichier Jar
-		JarFile jarFile = null;
-		
-		// Si le chemin est null : false
-		if(path == null || path.trim().length() == 0) return false;
-		
-		// Un Objet File
-		File file = new File(path);
-		
-		// Si le fichier n'existe pas
-		if(!file.exists()) return false;
-		
-		// Tentative de creation d'une representation de l'archive en memoire
-		try {
-			
-			// Le JarFile
-			jarFile = new JarFile(new File(path), true);
-			
-		} catch (Exception e) {
-			
-			// On retourne la liste vide
-			return false;
-		}
-		
-		// Enumeration des Entrees de l'EAR
-		Enumeration<JarEntry> jarEntries = jarFile.entries();
-		
-		// Si l'enumeration est vide
-		if(jarEntries == null || !jarEntries.hasMoreElements()) return false;
-		
-		// Parcours
-		while(jarEntries.hasMoreElements()) {
-			
-			// Obtention d'une entree
-			JarEntry jarEntry = (JarEntry) jarEntries.nextElement();
-			
-			// Si l'entree correspond e notre marqueur
-			if(jarEntry.getName().equals(entry)) return true;
-		}
-		
-		// On renvoie false
-		return false;
-	}
-	
-	/**
-	 * Methode permettant de savoir si une nom de fichier se termine par l'extension .jar)
-	 * @param path	Nom du fichier
-	 * @return	Resultat du controle
-	 */
-	public static boolean isJarFileName(String path) {
-		
-		// Si le nom est null
-		if(path == null || path.trim().length() == 0) return false;
-		
-		// On retourne la comparaison
-		return path.endsWith(".jar");
-	}
-	
-	/**
-	 * Methode permettant de savoir si une nom de fichier se termine par l'extension .war)
-	 * @param path	Nom du fichier
-	 * @return	Resultat du controle
-	 */
-	public static boolean isWarFileName(String path) {
-		
-		// Si le nom est null
-		if(path == null || path.trim().length() == 0) return false;
-		
-		// On retourne la comparaison
-		return path.endsWith(".war");
-	}
-	
-	/**
-	 * Methode permettant de savoir si une nom de fichier se termine par l'extension .sar)
-	 * @param path	Nom du fichier
-	 * @return	Resultat du controle
-	 */
-	public static boolean isSarFileName(String path) {
-		
-		// Si le nom est null
-		if(path == null || path.trim().length() == 0) return false;
-		
-		// On retourne la comparaison
-		return path.endsWith(".sar");
-	}
-	
-	/**
-	 * Methode permettant de savoir si une nom de fichier se termine par l'extension .beans)
-	 * @param path	Nom du fichier
-	 * @return	Resultat du controle
-	 */
-	public static boolean isBeansArchiveFileName(String path) {
-		
-		// Si le nom est null
-		if(path == null || path.trim().length() == 0) return false;
-		
-		// On retourne la comparaison
-		return path.endsWith(".beans");
-	}
-	
 	/**
 	 * Methode qui teste si une chaine donnee contient un des caracteres d'une liste
 	 * @param text	Chaine dans laquelle on rcherche les caracteres

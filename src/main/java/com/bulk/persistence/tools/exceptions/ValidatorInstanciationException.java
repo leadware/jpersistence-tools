@@ -16,21 +16,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.bulksoft.persistence.utils.test.dao.api;
-
-import com.bulk.persistence.tools.dao.IJPAGenericDAO;
+package com.bulk.persistence.tools.exceptions;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Hippolyte TAPAMO
- * Date: 14/07/11
- * Time: 17:20
- * To change this template use File | Settings | File Templates.
+ * Exception levee lors de l'instanciation du Validateur
+ * @author Jean-Jacques
+ * @version 1.0
  */
-public interface IDummyDAO extends IJPAGenericDAO {
+public class ValidatorInstanciationException extends JPersistenceToolsException {
 
-    /**
-     * Nom du service DAO
-     */
-    public static final String SERVICE_NAME = "DummyDAO";
+	/**
+	 * ID Genere par Eclipse
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Constructeur par defaut
+	 */
+	public ValidatorInstanciationException(Throwable cause) {
+		
+		// Initialisation Parente
+		super("ValidatorInstanciationException.message", cause);
+	}
 }

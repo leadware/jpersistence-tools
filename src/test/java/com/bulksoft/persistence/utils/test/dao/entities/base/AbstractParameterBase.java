@@ -27,8 +27,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
-
-import com.bulksoft.persistence.utils.annotations.validator.Length;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -72,14 +71,14 @@ public class AbstractParameterBase implements Serializable, Comparable<AbstractP
 	 * Code du parametre
 	 */
 	@Column(name = "CODE", nullable = false, length = CODE_MAX_LENGTH)
-	@Length(min = CODE_MIN_LENGTH, max = CODE_MAX_LENGTH, message = "AbstractParameterBase.code.length")
+	@Size(min = CODE_MIN_LENGTH, max = CODE_MAX_LENGTH, message = "AbstractParameterBase.code.length")
 	protected String code;
 	
 	/**
 	 * Libelle du parametre
 	 */
 	@Column(name = "DESIGNATION", nullable = false, length = DESIGNATION_MAX_LENGTH)
-	@Length(min = 1, max = DESIGNATION_MAX_LENGTH, message = "AbstractParameterBase.designation.length")
+	@Size(min = 1, max = DESIGNATION_MAX_LENGTH, message = "AbstractParameterBase.designation.length")
 	protected String designation;
 	
 	/**

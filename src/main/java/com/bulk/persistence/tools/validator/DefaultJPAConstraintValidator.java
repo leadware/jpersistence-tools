@@ -16,21 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.bulksoft.persistence.utils.test.dao.api;
+package com.bulk.persistence.tools.validator;
 
-import com.bulk.persistence.tools.dao.IJPAGenericDAO;
+import com.bulk.persistence.tools.validator.base.AbstractJPAConstraintValidator;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Hippolyte TAPAMO
- * Date: 14/07/11
- * Time: 17:20
- * To change this template use File | Settings | File Templates.
+ * Classe de validation par defaut des contraintes sur l'entite 
+ * (Elle n'effectue que la validation des contraintes d'integrites)
+ * @author Jean-Jacques ETUNÈ NGI
  */
-public interface IDummyDAO extends IJPAGenericDAO {
+public class DefaultJPAConstraintValidator extends AbstractJPAConstraintValidator {
 
-    /**
-     * Nom du service DAO
-     */
-    public static final String SERVICE_NAME = "DummyDAO";
+	/* (non-Javadoc)
+	 * @see com.yashiro.persistence.utils.annotations.validator.engine.IJPAConstraintValidator#validateReferentialConstraint()
+	 */
+	@Override
+	public void validateReferentialConstraint() {}
+
 }

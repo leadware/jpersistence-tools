@@ -23,13 +23,12 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import com.bulksoft.persistence.utils.test.dao.entities.base.TPSParameterBase;
-import org.hibernate.validator.NotNull;
-
-import com.bulksoft.persistence.utils.annotations.validator.SizeDAOValidator;
-import com.bulksoft.persistence.utils.annotations.validator.SizeDAOValidators;
+import com.bulk.persistence.tools.validator.annotations.SizeDAOValidator;
+import com.bulk.persistence.tools.validator.annotations.SizeDAOValidators;
 import com.bulksoft.persistence.utils.dao.constant.DAOMode;
+import com.bulksoft.persistence.utils.test.dao.entities.base.TPSParameterBase;
 
 /**
  * Classe representant une region du systeme

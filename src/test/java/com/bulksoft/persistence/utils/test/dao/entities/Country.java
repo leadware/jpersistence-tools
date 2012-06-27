@@ -20,8 +20,9 @@ package com.bulksoft.persistence.utils.test.dao.entities;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import com.bulksoft.persistence.utils.annotations.validator.SizeDAOValidator;
-import com.bulksoft.persistence.utils.annotations.validator.SizeDAOValidators;
+
+import com.bulk.persistence.tools.validator.annotations.SizeDAOValidator;
+import com.bulk.persistence.tools.validator.annotations.SizeDAOValidators;
 import com.bulksoft.persistence.utils.dao.constant.DAOMode;
 import com.bulksoft.persistence.utils.test.dao.entities.base.TPHParameterBase;
 

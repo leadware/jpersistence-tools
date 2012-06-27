@@ -25,17 +25,16 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import com.bulk.persistence.tools.validator.annotations.SizeDAOValidator;
+import com.bulk.persistence.tools.validator.annotations.SizeDAOValidators;
+import com.bulksoft.persistence.utils.dao.constant.DAOMode;
 import com.bulksoft.persistence.utils.test.dao.entities.base.TPSParameterBase;
 import com.bulksoft.persistence.utils.test.dao.entities.embedded.Adress;
-import org.hibernate.validator.Length;
-import org.hibernate.validator.NotNull;
-import org.hibernate.validator.Range;
-import org.hibernate.validator.Valid;
-import com.bulksoft.persistence.utils.annotations.validator.SizeDAOValidator;
-import com.bulksoft.persistence.utils.annotations.validator.SizeDAOValidators;
-import com.bulksoft.persistence.utils.dao.constant.DAOMode;
-import com.bulksoft.persistence.utils.dao.tools.encrypter.Encrypter;
 
 /**
  * Classe representant une Entreprise
@@ -57,7 +56,7 @@ public class Enterprise extends TPSParameterBase {
 	/**
 	 * Code d'iodentification interne de la configuration
 	 */
-	public static final String DEFAULT_CODE = Encrypter.getInstance().hashText("Kenji Katsumoto").toUpperCase();
+	public static final String DEFAULT_CODE = "Kenji Katsumoto";
 	
     /**
 	 * ID Genere Par Eclipse
@@ -68,14 +67,14 @@ public class Enterprise extends TPSParameterBase {
 	 * Sigle de l'entreprise
 	 */
 	@Column(name = "SIGLE", nullable = false)
-	@Length(min = 1, message = "Enterprise.sigle.length")
+	@Size(min = 1, message = "Enterprise.sigle.length")
 	private String sigle;
 	
 	/**
      * Si�ge de l'entreprise
      */
 	@Column(name = "SIEGE", nullable = false)
-	@Length(min = 1, message = "Enterprise.siege.length")
+	@Size(min = 1, message = "Enterprise.siege.length")
 	private String siege; 
      
     /**
@@ -83,21 +82,21 @@ public class Enterprise extends TPSParameterBase {
      */
 	@Column(name = "CAPITAL", nullable = false)
 	@NotNull(message = "Enterprise.capital.notnull")
-	@Range(min = 0, message = "Enterprise.capital.range")
+	@Min(value = 0, message = "Enterprise.capital.range")
 	private Double capital;
     
     /**
      * Num�ro de contribuable de l'entreprise
      */
 	@Column(name = "TAXPAYERNUMBER", unique = true)
-	@Length(min = 1, message = "Enterprise.taxPayerNumber.length")
+	@Size(min = 1, message = "Enterprise.taxPayerNumber.length")
 	private String taxPayerNumber;
     
     /**
      * Secteur d'activit� de l'entreprise
      */
 	@Column(name = "ACTIVITY_SECTOR")
-	@Length(min = 1, message = "Enterprise.activitySector.length")
+	@Size(min = 1, message = "Enterprise.activitySector.length")
 	private String activitySector;
     
     /**
