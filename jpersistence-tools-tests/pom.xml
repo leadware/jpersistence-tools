@@ -1,106 +1,51 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  	
+  	<!--
+	  Copyright [2012] - 29/06/2012 by BULK Inc.
 	
+	  Licensed under the Apache License, Version 2.0 (the "License");
+	  you may not use this file except in compliance with the License.
+	  You may obtain a copy of the License at
+	
+	      http://www.apache.org/licenses/LICENSE-2.0
+	
+	  Unless required by applicable law or agreed to in writing, software
+	  distributed under the License is distributed on an "AS IS" BASIS,
+	  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	  See the License for the specific language governing permissions and
+	  limitations under the License.
+	
+	  $29/06/2012$
+  	-->
+  	
 	<!-- Project parent -->
 	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
+		<groupId>com.bulk-inc</groupId>
+		<artifactId>jpersistence-tools</artifactId>
+		<version>2.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	
 	<!-- Pom model version -->
 	<modelVersion>4.0.0</modelVersion>
 	
-	<!-- Project group ID -->
-	<groupId>com.bulk-inc</groupId>
-	
 	<!-- Project Artifact ID -->
-	<artifactId>jpersistence-tools</artifactId>
+	<artifactId>jpersistence-tools-tests</artifactId>
+	
+	<!-- Project Packaging -->
+	<packaging>jar</packaging>
 	
 	<!-- Project name -->
-	<name>jpersistence-tools</name>
+	<name>jpersistence-tools :: tests</name>
 	
 	<!-- Project description -->
-	<description>Framework de gestion automatique, dynamique et configurable de la DAO.</description>
+	<description>Module de test du Framework jpersistence-tools</description>
 	
-	<!-- Project Version -->
-	<version>2.0-SNAPSHOT</version>
-	
-	<!-- Packaging -->
-	<packaging>pom</packaging>
-	
-	<!-- Project source URL -->
-	<url>https://github.com/yashiro/jpersistence-tools/</url>
-	
-	<!-- Project licence -->
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-	
-	<!-- Project scm -->
-	<scm>
-		<connection>scm:git:git@github.com:yashiro/jpersistence-tools.git</connection>
-		<developerConnection>scm:git:git@github.com:yashiro/jpersistence-tools.git</developerConnection>
-		<url>git@github.com:yashiro/jpersistence-tools.git</url>
-	</scm>
-	
-	<!-- Project issue managment -->
-	<issueManagement>
-		<system>Jira</system>
-		<url>http://jira.jpersistence-tools.bulk-inc.com</url>
-	</issueManagement>
-	
-	<!-- Project Continuous integration system -->
-	<ciManagement>
-		<system>Bamboo</system>
-		<url>http://bamboo.jpersistence-tools.bulk-inc.com</url>
-	</ciManagement>
-	
-	<!-- Project developpers -->
-	<developers>
-		<developer>
-			<name>Jean-Jacques ETUNE NGI</name>
-			<email>shinjetune@gmail.com</email>
-			<organization>BULK Software Inc.</organization>
-			<timezone>GMT+1</timezone>
-			<roles>
-				<role>owner</role>
-				<role>Technical lead</role>
-				<role>Developper</role>
-			</roles>
-		</developer>
-		<developer>
-			<name>Jean-Vincent NGA NTI</name>
-			<email>globvince@gmail.com</email>
-			<organization>BULK Software Inc.</organization>
-			<timezone>GMT+1</timezone>
-			<roles>
-				<role>Developper</role>
-			</roles>
-		</developer>
-	</developers>
-	
-	<!-- Project organisation -->
-	<organization>
-		<name>BULK Software Inc.</name>
-		<url>http://www.bulk-inc.com</url>
-	</organization>
 	
 	<!-- Project properties -->
 	<properties>
-		
-		<!-- Hibernate JPA 2.0 Version Property -->
-		<hibernate-jpa-2.0.version>1.0.1.Final</hibernate-jpa-2.0.version>
-		
-		<!-- Validation API Version Property (JSR 303) -->
-		<validation-api.version>1.0.0.GA</validation-api.version>
-		
-		<!-- Juel version Property -->
-		<juel.version>2.2.3</juel.version>
 		
 		<!-- Testing dependencies Version -->
 		
@@ -158,13 +103,17 @@
 		<!-- GPG Version Property -->
 		<gpg.version>1.4</gpg.version>
 		
-		<!-- m2e lifecycle mapping version property -->
-		<m2e-lifecycle-mapping.version>1.0.0</m2e-lifecycle-mapping.version>
-		
 	</properties>
 	
 	<!-- Project dependencies -->
 	<dependencies>
+		
+		<!-- jpersistence-tools Core -->
+		<dependency>
+			<groupId>com.bulk-inc</groupId>
+			<artifactId>jpersistence-tools-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		
 		<!-- JPA-2.0 dependencies -->
 		<dependency>
@@ -347,98 +296,31 @@
 
 	<!-- Project build configuration -->
 	<build>
+	
+		<!-- Project resources -->
+		<resources>
+			<resource>
+			    <directory>${basedir}/src/main/resources</directory>
+			    <filtering>true</filtering>
+			</resource>
+			<resource>
+			    <directory>${basedir}</directory>
+			    <targetPath>META-INF</targetPath>
+			    <includes>
+			        <include>LICENSE</include>
+			        <include>NOTICE</include>
+			    </includes>
+			</resource>
+		</resources>
 		
-		<!-- Project plugins -->
-		<plugins>
-		
-			<!-- Maven Compiler plugin -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>${jre.source.version}</source>
-					<target>${jre.target.version}</target>
-				</configuration>
-			</plugin>
-			
-			<!-- Maven Source plugin -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>${maven.source.plugin.version}</version>
-				<executions>
-			    	<execution>
-			    		<phase>verify</phase>
-			    		<goals>
-			    			<goal>jar-no-fork</goal>
-			    			<goal>test-jar-no-fork</goal>
-			    		</goals>
-			    	</execution>
-			    </executions>
-			</plugin>
-			
-			<!-- Maven Javadoc plugin -->
-			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-javadoc-plugin</artifactId>
-			    <version>${maven.javadoc.plugin.version}</version>
-			    <configuration>
-			        <show>private</show>
-			        <nohelp>false</nohelp>
-			    </configuration>
-			</plugin>
-			
-			<!-- Apache RAT plugin -->
-			<plugin>
-				<groupId>org.apache.rat</groupId>
-				<artifactId>apache-rat-plugin</artifactId>
-				<version>${apache.rat.plugin.version}</version>
-				<configuration>
-					<excludes>
-						<exclude>**/.git/**</exclude>
-						<exclude>**/test/resources/**</exclude>
-						<exclude>**/.gitignore/**</exclude>
-                        <exclude>**/catalog.xml</exclude>
-					</excludes>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>verify</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			
-			<!-- GPG Plugin -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>${gpg.version}</version>
-				<configuration>
-					<passphrase>sakazaki</passphrase>
-				</configuration>
-				<executions>
-					<execution>
-						<id>sign-artifact</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			
-		</plugins>
+		<!-- Project test resources -->
+		<testResources>
+		    <testResource>
+		        <filtering>true</filtering>
+		        <directory>src/test/resources</directory>
+		    </testResource>
+		</testResources>
 		
 	</build>
-	
-	<!-- Modules -->
-	<modules>
-		<module>jpersistence-tools-api</module>
-		<module>jpersistence-tools-core</module>
-		<module>jpersistence-tools-tests</module>
-	</modules>
 	
 </project>
