@@ -74,4 +74,10 @@ public @interface Length {
 	 * @return	etat de validation en cas d'objet null
 	 */
 	public boolean validOnNullObject() default false;
+	
+	/**
+	 * Méthode de positionnement de la suppression des espaces extérieurs
+	 * @return	etat de suppression des espaces extérieurs
+	 */
+	public boolean trimString() default true;
 }

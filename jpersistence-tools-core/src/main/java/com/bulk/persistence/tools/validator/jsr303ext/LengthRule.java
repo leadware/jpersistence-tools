@@ -46,6 +46,11 @@ public class LengthRule implements ConstraintValidator<Length, Object> {
 	 * Etat de validation en cas d'objet null
 	 */
 	private boolean validOnNullObject;
+	
+	/**
+	 * Etat de suppression des espaces exterieurs
+	 */
+	private boolean trimString;
 		
 	/*
 	 * (non-Javadoc)
@@ -58,6 +63,7 @@ public class LengthRule implements ConstraintValidator<Length, Object> {
 		min = annotation.min();
 		max = annotation.max();
 		validOnNullObject = annotation.validOnNullObject();
+		trimString = annotation.trimString();
 	}
 
 	/*
@@ -103,8 +109,14 @@ public class LengthRule implements ConstraintValidator<Length, Object> {
 		// Si l'Objet est une instance de Chaine
 		if(obj instanceof String) {
 			
+			// Chaine locale
+			String localString = ((String) obj);
+			
+			// Si on doit trimmer
+			if(trimString) localString = localString.trim();
+			
 			// Taille
-			int size = ((String) obj).length();
+			int size = localString.length();
 			
 			// On retourne la comparaison
 			return (size >= min && size <= max);
