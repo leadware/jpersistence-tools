@@ -16,22 +16,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.bulk.persistence.tools.dao.api.constants;
+package com.bulk.persistence.tools.test.dao.api;
+
+import com.bulk.persistence.tools.dao.IJPAGenericDAO;
+import com.bulk.persistence.tools.test.dao.entities.Country;
 
 /**
- * Constantes representant un moment d'évaluation
- * @author Jean-Jacques
- * @version 1.0
+ * Created by IntelliJ IDEA.
+ * User: Hippolyte TAPAMO
+ * Date: 14/07/11
+ * Time: 17:20
+ * To change this template use File | Settings | File Templates.
  */
-public enum DAOValidatorEvaluationTime {
-	
-	/**
-	 * Evaluation en Pre-condition
-	 */
-	PRE_CONDITION,
-	
-	/**
-	 * Evaluation en Pre-condition
-	 */
-	POST_CONDITION
+public interface IDummyDAO extends IJPAGenericDAO<Country> {
+
+    /**
+     * Nom du service DAO
+     */
+    public static final String SERVICE_NAME = "DummyDAO";
 }

@@ -66,17 +66,123 @@ import com.bulk.persistence.tools.validator.engine.JSR303ValidatorEngine;
  * 			<li>{@link IDAOValidator}</li>
  * 		</ol>
  * 	</b>
- * @version 2.0
  */
 @SuppressWarnings("unchecked")
-public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
+public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAGenericDAO<T> {
+	
+	/**
+	 * Etat de validation des constraintes d'integrites en mode SAVE
+	 */
+	protected boolean validateIntegrityConstraintOnSave = true;
+
+	/**
+	 * Etat de validation des constraintes d'integrites en mode UPDATE
+	 */
+	protected boolean validateIntegrityConstraintOnUpdate = true;
+	
+	/**
+	 * Etat de pré-validation des contraintes referentielles en mode SAVE
+	 */
+	protected boolean preValidateReferentialConstraintOnSave = true;
+
+	/**
+	 * Etat de post-validation des contraintes referentielles en mode SAVE
+	 */
+	protected boolean postValidateReferentialConstraintOnSave = true;
+
+	/**
+	 * Etat de pré-validation des contraintes referentielles en mode UPDATE
+	 */
+	protected boolean preValidateReferentialConstraintOnUpdate = true;
+
+	/**
+	 * Etat de post-validation des contraintes referentielles en mode UPDATE
+	 */
+	protected boolean postValidateReferentialConstraintOnUpdate = true;
+
+	/**
+	 * Etat de pré-validation des contraintes referentielles en mode DELETE
+	 */
+	protected boolean preValidateReferentialConstraintOnDelete = true;
+
+	/**
+	 * Etat de post-validation des contraintes referentielles en mode DELETE
+	 */
+	protected boolean postValidateReferentialConstraintOnDelete = true;
+
+	
+	
+	/**
+	 * Méthode de mise à jour de l'Etat de validation des constraintes d'integrites en mode SAVE
+	 * @param validateIntegrityConstraint Etat de validation des constraintes d'integrites en mode SAVE
+	 */
+	public void setValidateIntegrityConstraintOnSave(boolean validateIntegrityConstraintOnSave) {
+		this.validateIntegrityConstraintOnSave = validateIntegrityConstraintOnSave;
+	}
+
+	/**
+	 * Méthode de mise à jour de l'Etat de validation des constraintes d'integrites en mode UPDATE
+	 * @param validateIntegrityConstraint Etat de validation des constraintes d'integrites en mode UPDATE
+	 */
+	public void setValidateIntegrityConstraintOnUpdate(boolean validateIntegrityConstraintOnUpdate) {
+		this.validateIntegrityConstraintOnUpdate = validateIntegrityConstraintOnUpdate;
+	}
+	
+	/**
+	 * Méthode de mise à jour de l'Etat de pré-validation des contraintes referentielles en mode SAVE
+	 * @param preValidateReferentialConstraintOnSave Etat de pré-validation des contraintes referentielles en mode SAVE
+	 */
+	public void setPreValidateReferentialConstraintOnSave(boolean preValidateReferentialConstraintOnSave) {
+		this.preValidateReferentialConstraintOnSave = preValidateReferentialConstraintOnSave;
+	}
+
+	/**
+	 * Méthode de mise à jour de l'Etat de post-validation des contraintes referentielles en mode SAVE
+	 * @param validateReferentialConstraint Etat de postvalidation des contraintes referentielles en mode SAVE
+	 */
+	public void setPostValidateReferentialConstraintOnSave(boolean postValidateReferentialConstraintOnSave) {
+		this.postValidateReferentialConstraintOnSave = postValidateReferentialConstraintOnSave;
+	}
+
+	/**
+	 * Méthode de mise à jour de l'Etat de pré-validation des contraintes referentielles en mode UPDATE
+	 * @param preValidateReferentialConstraintOnUpdate Etat de pré-validation des contraintes referentielles en mode UPDATE
+	 */
+	public void setPreValidateReferentialConstraintOnUpdate(boolean preValidateReferentialConstraintOnUpdate) {
+		this.preValidateReferentialConstraintOnUpdate = preValidateReferentialConstraintOnUpdate;
+	}
+
+	/**
+	 * Méthode de mise à jour de l'Etat de post-validation des contraintes referentielles en mode UPDATE
+	 * @param postValidateReferentialConstraintOnUpdate Etat de postvalidation des contraintes referentielles en mode UPDATE
+	 */
+	public void setPostValidateReferentialConstraintOnUpdate(boolean postValidateReferentialConstraintOnUpdate) {
+		this.postValidateReferentialConstraintOnUpdate = postValidateReferentialConstraintOnUpdate;
+	}
+
+	/**
+	 * Méthode de mise à jour de l'Etat de pré-validation des contraintes referentielles en mode DELETE
+	 * @param preValidateReferentialConstraintOnDelete Etat de pré-validation des contraintes referentielles en mode DELETE
+	 */
+	public void setPreValidateReferentialConstraintOnDelete(boolean preValidateReferentialConstraintOnDelete) {
+		this.preValidateReferentialConstraintOnDelete = preValidateReferentialConstraintOnDelete;
+	}
+
+	/**
+	 * Méthode de mise à jour de l'Etat de post-validation des contraintes referentielles en mode DELETE
+	 * @param postValidateReferentialConstraintOnDelete Etat de postvalidation des contraintes referentielles en mode DELETE
+	 */
+	public void setPostValidateReferentialConstraintOnDelete(boolean postValidateReferentialConstraintOnDelete) {
+		this.postValidateReferentialConstraintOnDelete = postValidateReferentialConstraintOnDelete;
+	}
+	
 	
 	/*
 	 * (non-Javadoc)
 	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#delete(java.lang.Class, java.lang.Object)
 	 */
 	@Override
-	public <T> void delete(Class<T> entityClass, Object entityID) {
+	public void delete(Class<T> entityClass, Object entityID) {
 
 		// Si la Classe a interroger est nulle
 		if(entityClass == null) {
@@ -107,7 +213,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 		}
 
 		// Validation de l'entite
-		validateEntityConstraints(entity, DAOMode.DELETE, DAOValidatorEvaluationTime.PRE_CONDITION);
+		if(this.preValidateReferentialConstraintOnDelete) validateEntityReferentialConstraint(entity, DAOMode.DELETE, DAOValidatorEvaluationTime.PRE_CONDITION);
 
 		try {
 			
@@ -121,7 +227,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 		}
 		
 		// Validation de l'entite
-		validateEntityConstraints(entity, DAOMode.DELETE, DAOValidatorEvaluationTime.POST_CONDITION);
+		if(this.postValidateReferentialConstraintOnDelete) validateEntityReferentialConstraint(entity, DAOMode.DELETE, DAOValidatorEvaluationTime.POST_CONDITION);
 	}
 
 	/*
@@ -129,7 +235,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#clean(java.lang.Class)
 	 */
 	@Override
-	public <T> void clean(Class<T> entityClass) {
+	public void clean(Class<T> entityClass) {
 		
 		// La requete
 		Query q = getEntityManager().createQuery("delete from " + entityClass.getCanonicalName());
@@ -152,13 +258,16 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#save(java.lang.Object)
 	 */
 	@Override
-	public <T> T save(T entity) {
+	public T save(T entity) {
 		
 		// Si l'entite est nulle
 		if(entity == null) throw new NullEntityException();
 		
-		// Validation de l'entite
-		validateEntityConstraints(entity, DAOMode.SAVE, DAOValidatorEvaluationTime.PRE_CONDITION);
+		// Si on doit valider les contraintes d'integrites
+		if(this.validateIntegrityConstraintOnSave) validateEntityIntegrityConstraint(entity, DAOMode.SAVE, DAOValidatorEvaluationTime.PRE_CONDITION);
+		
+		// Si on doit pre-valider les contraintes referentielles
+		if(this.preValidateReferentialConstraintOnSave) validateEntityReferentialConstraint(entity, DAOMode.SAVE, DAOValidatorEvaluationTime.PRE_CONDITION);
 		
 		try {
 			
@@ -172,7 +281,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 		}
 		
 		// Validation de l'entite
-		validateEntityConstraints(entity, DAOMode.SAVE, DAOValidatorEvaluationTime.POST_CONDITION);
+		if(this.postValidateReferentialConstraintOnSave) validateEntityReferentialConstraint(entity, DAOMode.SAVE, DAOValidatorEvaluationTime.POST_CONDITION);
 		
 		// On retourne l'entite enregistree
 		return entity;
@@ -183,13 +292,16 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#update(java.lang.Object)
 	 */
 	@Override
-	public <T> T update(T entity) {
+	public T update(T entity) {
 		
 		// Si l'entite est nulle
 		if(entity == null) throw new NullEntityException();
+
+		// Si on doit valider les contraintes d'integrites
+		if(this.validateIntegrityConstraintOnUpdate) validateEntityIntegrityConstraint(entity, DAOMode.UPDATE, DAOValidatorEvaluationTime.PRE_CONDITION);
 		
-		// Validation de l'entite
-		validateEntityConstraints(entity, DAOMode.UPDATE, DAOValidatorEvaluationTime.PRE_CONDITION);
+		// Si on doit pre-valider les contraintes referentielles
+		if(this.preValidateReferentialConstraintOnUpdate) validateEntityReferentialConstraint(entity, DAOMode.UPDATE, DAOValidatorEvaluationTime.PRE_CONDITION);
 		
 		// Le resultat
 		T result = null;
@@ -211,7 +323,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 		}
 
 		// Validation de l'entite
-		validateEntityConstraints(entity, DAOMode.UPDATE, DAOValidatorEvaluationTime.POST_CONDITION);
+		if(this.postValidateReferentialConstraintOnUpdate) validateEntityReferentialConstraint(entity, DAOMode.UPDATE, DAOValidatorEvaluationTime.POST_CONDITION);
 		
 		// On retourne le resultat
 		return result;
@@ -222,7 +334,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#findByPrimaryKey(java.lang.Class, java.lang.String, java.lang.Object, java.util.HashSet)
 	 */
 	@Override
-	public <T> T findByPrimaryKey(Class<T> entityClass, String entityIDName, Object entityID, HashSet<String> properties) {
+	public T findByPrimaryKey(Class<T> entityClass, String entityIDName, Object entityID, HashSet<String> properties) {
 		
 		// Si la Classe a interroger est nulle
 		if(entityClass == null) {
@@ -294,7 +406,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#filter(java.lang.Class, java.util.List, java.util.List, java.util.Set, int, int)
 	 */
 	@Override
-	public <T extends Object> List<T> filter(Class<T> entityClass, List<Predicate> predicates, List<Order> orders, Set<String> properties, int firstResult, int maxResult) {
+	public List<T> filter(Class<T> entityClass, List<Predicate> predicates, List<Order> orders, Set<String> properties, int firstResult, int maxResult) {
 
 		// Si la Classe a interroger est nulle
 		if(entityClass == null) {
@@ -351,7 +463,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 	 * @param criteriaQuery	Requete de critères
 	 * @param orders	Liste des ordres
 	 */
-	protected <T> void addOrders(CriteriaQuery<T> criteriaQuery, List<Order> orders) {
+	protected void addOrders(CriteriaQuery<T> criteriaQuery, List<Order> orders) {
 		
 		// Si la liste est vide
 		if(orders == null || orders.size() == 0) return;
@@ -367,7 +479,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 	 * @param criteriaQuery	Requete de critères
 	 * @param predicates	Liste des predicats
 	 */
-	protected <T> void addPredicates(CriteriaBuilder criteriaBuilder, CriteriaQuery<T> criteriaQuery, List<Predicate> predicates) {
+	protected void addPredicates(CriteriaBuilder criteriaBuilder, CriteriaQuery<T> criteriaQuery, List<Predicate> predicates) {
 		
 		// Si la liste de predicats est vide
 		if(predicates == null || predicates.size() == 0) return;
@@ -385,7 +497,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 	 * @param root	Entités objet du from
 	 * @param properties	Conteneur de propriétés
 	 */
-	protected <T> void addProperties(Root<T> root, Set<String> properties) {
+	protected void addProperties(Root<T> root, Set<String> properties) {
 		
 		// Si le conteneur est vide
 		if(properties == null || properties.size() == 0) return;
@@ -408,7 +520,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 	 * @param query Requete sur l'entité
 	 * @param properties	Conteneur de propriétés
 	 */
-	protected <T> void addProperties(Root<T> root, CriteriaQuery<T> query, Set<String> properties) {
+	protected void addProperties(Root<T> root, CriteriaQuery<T> query, Set<String> properties) {
 		
 		// Ajout des ppt
 		addProperties(root, properties);
@@ -424,7 +536,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 	 * @param stringPath	Chemin sous forme de chaine
 	 * @return	Chemin recherché sous forme Path
 	 */
-	protected <T> Path<T> buildPropertyPath(Root<T> root, String stringPath) {
+	protected Path<T> buildPropertyPath(Root<T> root, String stringPath) {
 		
 		// Si la racine est nulle
 		if(root == null) return null;
@@ -453,18 +565,30 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 	}
 	
 	/**
-	 * Methode de validation des contraintes sur l'entite
-	 * @param entity	Entite a valider
+	 * Méthode de validation des contraintes d'integrités
+	 * @param entity	Entité à valider
+	 * @param mode	Mode DAO
+	 * @param validationTime	Moment d'évaluation
 	 */
-	private void validateEntityConstraints(Object entity, DAOMode mode, DAOValidatorEvaluationTime validationTime) {
-		
-		// Si on est en PRE-CONDITION
-		if(validationTime.equals(DAOValidatorEvaluationTime.PRE_CONDITION)) {
+	protected void validateEntityIntegrityConstraint(Object entity, DAOMode mode, DAOValidatorEvaluationTime validationTime) {
+
+		// Si on est en PRE-CONDITION et en mode Engegistrement ou Modification
+		if(validationTime.equals(DAOValidatorEvaluationTime.PRE_CONDITION)  && !mode.equals(DAOMode.DELETE)) {
 			
 			// Validation des contraintes d'integrites
 			JSR303ValidatorEngine.getDefaultInstance().validate(entity);
 		}
 		
+	}
+	
+	/**
+	 * Méthode de validation des contraintes referentielles
+	 * @param entity	Entité à valider
+	 * @param mode	Mode DAO
+	 * @param validationTime	Moment d'évaluation
+	 */
+	protected void validateEntityReferentialConstraint(Object entity, DAOMode mode, DAOValidatorEvaluationTime validationTime) {
+
 		// Obtention de la liste des annotations DAO qui sont sur la classe
 		List<Annotation> daoAnnotations = DAOValidatorHelper.loadDAOValidatorAnnotations(entity);
 		
@@ -502,7 +626,7 @@ public abstract class JPAGenericDAORulesBased implements IJPAGenericDAO {
 			validator.processValidation(entity);
 		}
 	}
-
+	
 	/**
 	 * Methode de construction de la classe de validation par defaut pour le mode DAO donne ainsi que son annotation
 	 * @param mode	Mode DAO

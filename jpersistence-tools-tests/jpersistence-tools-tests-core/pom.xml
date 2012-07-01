@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  
+  	<!--
+	  Copyright [2012] - 29/06/2012 by BULK Inc.
+	
+	  Licensed under the Apache License, Version 2.0 (the "License");
+	  you may not use this file except in compliance with the License.
+	  You may obtain a copy of the License at
+	
+	      http://www.apache.org/licenses/LICENSE-2.0
+	
+	  Unless required by applicable law or agreed to in writing, software
+	  distributed under the License is distributed on an "AS IS" BASIS,
+	  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	  See the License for the specific language governing permissions and
+	  limitations under the License.
+	
+	  $29/06/2012$
+  	-->
+  	
+	<!-- Project parent -->
+	<parent>
+		<groupId>com.bulk-inc</groupId>
+		<artifactId>jpersistence-tools-tests</artifactId>
+		<version>2.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	
+	<!-- Pom model version -->
+	<modelVersion>4.0.0</modelVersion>
+	
+	<!-- Project Artifact ID -->
+	<artifactId>jpersistence-tools-tests-core</artifactId>
+	
+	<!-- Project Packaging -->
+	<packaging>jar</packaging>
+	
+	<!-- Project name -->
+	<name>jpersistence-tools :: tests-core</name>
+	
+	<!-- Project description -->
+	<description>Composant D'implémentation du Module de test du Framework jpersistence-tools</description>
+	
+	<!-- Project dependencies -->
+	<dependencies>
+		
+		<!-- jpersistence-tools api -->
+		<dependency>
+			<groupId>com.bulk-inc</groupId>
+			<artifactId>jpersistence-tools-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<!-- jpersistence-tools core -->
+		<dependency>
+			<groupId>com.bulk-inc</groupId>
+			<artifactId>jpersistence-tools-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<!-- jpersistence-tools test-model -->
+		<dependency>
+			<groupId>com.bulk-inc</groupId>
+			<artifactId>jpersistence-tools-tests-model</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<!-- jpersistence-tools Core -->
+		<dependency>
+			<groupId>com.bulk-inc</groupId>
+			<artifactId>jpersistence-tools-tests-dao</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<!-- JPA-2.0 dependencies -->
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>${hibernate-jpa-2.0.version}</version>
+		</dependency>
+		
+		<!-- Validation API (JSR 303) dependencies -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>${validation-api.version}</version>
+		</dependency>
+		
+		<!-- Juel dependencies -->
+		<dependency>
+		    <groupId>de.odysseus.juel</groupId>
+		    <artifactId>juel-spi</artifactId>
+		    <version>${juel.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>de.odysseus.juel</groupId>
+		    <artifactId>juel-api</artifactId>
+		    <version>${juel.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>de.odysseus.juel</groupId>
+		    <artifactId>juel-impl</artifactId>
+		    <version>${juel.version}</version>
+		</dependency>
+		
+		<!-- JTA Dependencies -->
+		<dependency>
+		    <groupId>javax.transaction</groupId>
+		    <artifactId>jta</artifactId>
+		    <version>${jta.version}</version>
+		</dependency>
+		
+		<!-- Common DBPC dependencies -->
+		<dependency>
+		    <groupId>commons-dbcp</groupId>
+		    <artifactId>commons-dbcp</artifactId>
+		    <version>${common.dbpc.version}</version>
+		</dependency>
+		
+		<!-- Inject dependencies -->
+		<dependency>
+		    <groupId>javax.inject</groupId>
+		    <artifactId>javax.inject</artifactId>
+		    <version>${inject.version}</version>
+		</dependency>
+		
+		<!-- SLF4J dependencies -->
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-api</artifactId>
+		    <version>${slf4j.version}</version>
+		</dependency>
+		
+		<!-- H2 dependencies -->
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		    <version>${h2.version}</version>
+		</dependency>
+		
+		<!-- Hibernate Libraries -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.validator.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.validation</groupId>
+		  			<artifactId>validation-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<!-- Spring dependencies -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-core</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-orm</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-aop</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jdbc</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-tx</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+		
+		<!-- JUnit dependencies -->
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>${junit.version}</version>
+		</dependency>
+		
+	</dependencies>
+	
+	<!-- Project build configuration -->
+	<build>
+		
+		<!-- Project test resources -->
+		<testResources>
+		    <testResource>
+		        <filtering>true</filtering>
+		        <directory>src/test/resources</directory>
+		    </testResource>
+		    <testResource>
+		    	<directory>${basedir}</directory>
+			    <targetPath>META-INF</targetPath>
+			    <includes>
+			        <include>LICENSE</include>
+			        <include>NOTICE</include>
+			    </includes>
+		    </testResource>
+		</testResources>
+		
+	</build>
+	
+</project>

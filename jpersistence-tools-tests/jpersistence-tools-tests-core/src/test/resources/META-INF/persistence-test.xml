@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd ">
+	<persistence-unit name="jpersistence-tools" transaction-type="RESOURCE_LOCAL">
+		
+		<!-- Fournisseur de Persistence -->
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		
+		<!-- Entities Class -->
+		<class>com.bulk.persistence.tools.test.dao.entities.base.AbstractParameterBase</class>
+		<class>com.bulk.persistence.tools.test.dao.entities.base.TPHParameterBase</class>
+		<class>com.bulk.persistence.tools.test.dao.entities.base.TPSParameterBase</class>
+		<class>com.bulk.persistence.tools.test.dao.entities.Country</class>
+		<class>com.bulk.persistence.tools.test.dao.entities.Region</class>
+		<class>com.bulk.persistence.tools.test.dao.entities.Town</class>
+		<class>com.bulk.persistence.tools.test.dao.entities.sx.base.UserBase</class>
+		<class>com.bulk.persistence.tools.test.dao.entities.sx.SXGroup</class>
+		<class>com.bulk.persistence.tools.test.dao.entities.sx.SXRole</class>
+		<class>com.bulk.persistence.tools.test.dao.entities.sx.SXUser</class>
+		
+		<!-- Proprietes -->
+		<properties>
+		
+			<!-- Entity Detection -->
+			<property name="hibernate.archive.autodetection" value="class"/>
+			
+			<!-- SQL Log -->
+			<property name="hibernate.format_sql" value="${hibernate.format_sql}"/>
+			<property name="hibernate.use_sql_comments" value="${hibernate.use_sql_comments}"/>
+			
+			<!-- Cache -->
+			<property name="hibernate.cache.use_second_level_cache" value="${hibernate.cache.use_second_level_cache}"/>
+			<property name="hibernate.cache.use_query_cache" value="${hibernate.cache.use_query_cache}"/>
+			<property name="hibernate.cache.region.factory_class" value="${hibernate.cache.region.factory_class}"/>
+			
+			<!-- Others -->
+			<property name="hibernate.max_fetch_depth" value="${hibernate.max_fetch_depth}"/>
+			<property name="hibernate.query.substitutions" value="${hibernate.query.substitutions}"/>
+			<property name="hibernate.jdbc.use_scrollable_resultset" value="${hibernate.jdbc.use_scrollable_resultset}"/>
+			<property name="hibernate.jdbc.use_getGeneratedKeys" value="${hibernate.jdbc.use_getGeneratedKeys}"/>
+			<property name="hibernate.connection.isolation" value="${hibernate.connection.isolation}"/>
+			
+		</properties>
+		
+	</persistence-unit>
+</persistence>

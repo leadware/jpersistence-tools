@@ -42,26 +42,6 @@
 	<!-- Project description -->
 	<description>Module central du Framework jpersistence-tools</description>
 	
-	<!-- Project properties -->
-	<properties>
-		
-		<!-- Hibernate JPA 2.0 Version Property -->
-		<hibernate-jpa-2.0.version>1.0.1.Final</hibernate-jpa-2.0.version>
-		
-		<!-- Validation API Version Property (JSR 303) -->
-		<validation-api.version>1.0.0.GA</validation-api.version>
-		
-		<!-- Juel version Property -->
-		<juel.version>2.2.3</juel.version>
-		
-		<!-- Apache RAT Plugin Version Property -->
-		<apache.rat.plugin.version>0.8</apache.rat.plugin.version>
-		
-		<!-- GPG Version Property -->
-		<gpg.version>1.4</gpg.version>
-		
-	</properties>
-	
 	<!-- Project dependencies -->
 	<dependencies>
 		

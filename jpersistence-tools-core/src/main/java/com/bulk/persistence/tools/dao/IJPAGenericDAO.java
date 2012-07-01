@@ -28,10 +28,9 @@ import javax.persistence.criteria.Predicate;
 
 /**
  * Interface de la DAO Generique compatible JPA
- * @author Jean-Jacques
- * @version 1.0
+ * @author Jean-Jacques ETUNÈ NGI
  */
-public interface IJPAGenericDAO {
+public interface IJPAGenericDAO<T extends Object> {
 	
 	/**
 	 * Nom du Service DAO
@@ -40,38 +39,33 @@ public interface IJPAGenericDAO {
 	
 	/**
 	 * Methode generique d'enregistrement d'une entite JPA annotee
-	 * @param <T>	Parametre de type generique
 	 * @param entity	Entite a enregistrer
 	 * @return	Entite enregistree
 	 */
-	public <T extends Object> T save(T entity);
+	public T save(T entity);
 	
 	/**
 	 * Methode generique de mise a jour d'une entite JPA annotee
-	 * @param <T>	Parametre de type generique
 	 * @param entity	Entite a mettre a jour
 	 * @return	Entite mise a jour
 	 */
-	public <T extends Object> T update(T entity);
+	public T update(T entity);
 	
 	/**
 	 * Methode generique de suppression d'une entite JPA annotee
-	 * @param <T>	Parametre de type generique
 	 * @param entityClass	Classe de l'etité à supprimer
 	 * @param entityID	Identifiant de l'entité à supprimer
 	 */
-	public <T extends Object> void delete(Class<T> entityClass, Object entityID);
+	public void delete(Class<T> entityClass, Object entityID);
 	
 	/**
 	 * Methode de nettoyage d'une table
-	 * @param <T>	Parametre de type
 	 * @param entityClass	Classe a nettoyer
 	 */
-	public <T> void clean(Class<T> entityClass);
+	public void clean(Class<T> entityClass);
 	
 	/**
 	 * Methode de filtre des entites d'une classe donnee en fonction des criteres de filtres donnees
-	 * @param <T>	Parametre de Type
 	 * @param entityClass	Classe des Objets a filtrer
 	 * @param predicates	Liste des prédicats
 	 * @param orders	Liste des Ordre de tri
@@ -80,18 +74,17 @@ public interface IJPAGenericDAO {
 	 * @param maxResult	Nombre maximum d'elements retournes
 	 * @return	Liste des objet trouves
 	 */
-	public <T extends Object> List<T> filter(Class<T> entityClass, List<Predicate> predicates, List<Order> orders, Set<String> properties, int firstResult, int maxResult);
+	public List<T> filter(Class<T> entityClass, List<Predicate> predicates, List<Order> orders, Set<String> properties, int firstResult, int maxResult);
 	
 	/**
 	 * Methode de chargement immediat des proprietes d'une instance de classe
-	 * @param <T>	Parametre de type
 	 * @param entityClass	Classe de l'entite cible
 	 * @param entityIDName Nom de la propriété ID de l'entité
 	 * @param entityID	ID de l'instance de l'entite
 	 * @param properties	Ensemble de proprietes a charger
 	 * @return	Instance de la classe avec les proprietes charges
 	 */
-	public <T extends Object> T findByPrimaryKey(Class<T> entityClass, String entityIDName, Object entityID, HashSet<String>  properties);
+	public T findByPrimaryKey(Class<T> entityClass, String entityIDName, Object entityID, HashSet<String>  properties);
 		
 	/**
 	 * Methode d'obtention du gestionnaire d'entites
