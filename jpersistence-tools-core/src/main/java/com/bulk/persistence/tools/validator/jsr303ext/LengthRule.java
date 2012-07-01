@@ -45,7 +45,7 @@ public class LengthRule implements ConstraintValidator<Length, Object> {
 	/**
 	 * Etat de validation en cas d'objet null
 	 */
-	private boolean validOnNullObject;
+	private boolean acceptNullObject;
 	
 	/**
 	 * Etat de suppression des espaces exterieurs
@@ -62,7 +62,7 @@ public class LengthRule implements ConstraintValidator<Length, Object> {
 		// On initialise les parametres
 		min = annotation.min();
 		max = annotation.max();
-		validOnNullObject = annotation.validOnNullObject();
+		acceptNullObject = annotation.acceptNullObject();
 		trimString = annotation.trimString();
 	}
 
@@ -74,7 +74,7 @@ public class LengthRule implements ConstraintValidator<Length, Object> {
 	public boolean isValid(Object obj, ConstraintValidatorContext constraintContext) {
 		
 		// Si l'Objet est null
-		if(obj == null) return validOnNullObject;
+		if(obj == null) return acceptNullObject;
 		
 		// Si l'Objet est un tableau
 		if(obj.getClass().isArray()) {

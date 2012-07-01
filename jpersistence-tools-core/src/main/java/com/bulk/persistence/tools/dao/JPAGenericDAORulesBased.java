@@ -181,25 +181,22 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#delete(java.lang.Class, java.lang.Object)
 	 */
 	@Override
-	public void delete(Class<T> entityClass, Object entityID) {
+	public void delete(Object entityID) {
 		
 		// Suppression
-		delete(entityClass, entityID, preValidateReferentialConstraintOnDelete, postValidateReferentialConstraintOnDelete);
+		delete(entityID, preValidateReferentialConstraintOnDelete, postValidateReferentialConstraintOnDelete);
 	}
 	
 	/*
 	 * (non-Javadoc)
 	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#delete(java.lang.Class, java.lang.Object, boolean, boolean)
 	 */
-	public void delete(Class<T> entityClass, Object entityID, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint) {
-
-		// Si la Classe a interroger est nulle
-		if(entityClass == null) {
-			
-			// On leve une exception
-			throw new JPersistenceToolsException("jpagenericdaorulesbased.delete.class.null");
-		}
-
+	@Override
+	public void delete(Object entityID, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint) {
+		
+		// Classe de l'entité
+		Class<T> entityClass = getManagedEntityClass();
+		
 		// Si l'ID de l'Objet est null
 		if(entityID == null) {
 			
@@ -244,10 +241,10 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#clean(java.lang.Class)
 	 */
 	@Override
-	public void clean(Class<T> entityClass) {
+	public void clean() {
 		
 		// La requete
-		Query q = getEntityManager().createQuery("delete from " + entityClass.getCanonicalName());
+		Query q = getEntityManager().createQuery("delete from " + getManagedEntityClass().getCanonicalName());
 		
 		// Execution
 		try {
@@ -365,15 +362,11 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#findByPrimaryKey(java.lang.Class, java.lang.String, java.lang.Object, java.util.HashSet)
 	 */
 	@Override
-	public T findByPrimaryKey(Class<T> entityClass, String entityIDName, Object entityID, HashSet<String> properties) {
+	public T findByPrimaryKey(String entityIDName, Object entityID, HashSet<String> properties) {
 		
-		// Si la Classe a interroger est nulle
-		if(entityClass == null) {
-			
-			// On leve une exception
-			throw new JPersistenceToolsException("jpagenericdaorulesbased.findbyprimarykey.class.null");
-		}
-
+		// Classe de l'entité
+		Class<T> entityClass = getManagedEntityClass();
+		
 		// Si le nom de la propriété ID de l'Objet est null
 		if(entityIDName == null || entityIDName.trim().length() == 0) {
 			
@@ -437,14 +430,10 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#filter(java.lang.Class, java.util.List, java.util.List, java.util.Set, int, int)
 	 */
 	@Override
-	public List<T> filter(Class<T> entityClass, List<Predicate> predicates, List<Order> orders, Set<String> properties, int firstResult, int maxResult) {
+	public List<T> filter(List<Predicate> predicates, List<Order> orders, Set<String> properties, int firstResult, int maxResult) {
 
-		// Si la Classe a interroger est nulle
-		if(entityClass == null) {
-			
-			// On leve une exception
-			throw new JPersistenceToolsException("jpagenericdaorulesbased.filter.class.null");
-		}
+		// Classe de l'entité
+		Class<T> entityClass = getManagedEntityClass();
 		
 		// Constructeur de Criteres
 		CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
@@ -742,5 +731,4 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 		// On retourne l'annotation
 		return defaultSaveOrUpdateAnnotation;
 	}
-
 }

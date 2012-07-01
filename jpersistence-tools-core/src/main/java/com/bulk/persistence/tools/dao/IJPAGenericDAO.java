@@ -122,29 +122,25 @@ public interface IJPAGenericDAO<T extends Object> {
 	
 	/**
 	 * Methode generique de suppression d'une entite JPA annotee
-	 * @param entityClass	Classe de l'etité à supprimer
 	 * @param entityID	Identifiant de l'entité à supprimer
 	 */
-	public void delete(Class<T> entityClass, Object entityID);
+	public void delete(Object entityID);
 
 	/**
 	 * Methode generique de suppression d'une entite JPA annotee
-	 * @param entityClass	Classe de l'etité à supprimer
 	 * @param entityID	Identifiant de l'entité à supprimer
 	 * @param preValidateReferentialConstraint Etat de pré-validation des contraintes référentielles
 	 * @param postValidateReferentialConstraint Etat de post-validation des contraintes référentielles
 	 */
-	public void delete(Class<T> entityClass, Object entityID, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint);
+	public void delete(Object entityID, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint);
 	
 	/**
-	 * Methode de nettoyage d'une table
-	 * @param entityClass	Classe a nettoyer
+	 * Methode de nettoyage de la table de l'entité
 	 */
-	public void clean(Class<T> entityClass);
+	public void clean();
 	
 	/**
 	 * Methode de filtre des entites d'une classe donnee en fonction des criteres de filtres donnees
-	 * @param entityClass	Classe des Objets a filtrer
 	 * @param predicates	Liste des prédicats
 	 * @param orders	Liste des Ordre de tri
 	 * @param properties	Ensemble de propriétés à charger
@@ -152,21 +148,26 @@ public interface IJPAGenericDAO<T extends Object> {
 	 * @param maxResult	Nombre maximum d'elements retournes
 	 * @return	Liste des objet trouves
 	 */
-	public List<T> filter(Class<T> entityClass, List<Predicate> predicates, List<Order> orders, Set<String> properties, int firstResult, int maxResult);
+	public List<T> filter(List<Predicate> predicates, List<Order> orders, Set<String> properties, int firstResult, int maxResult);
 	
 	/**
 	 * Methode de chargement immediat des proprietes d'une instance de classe
-	 * @param entityClass	Classe de l'entite cible
 	 * @param entityIDName Nom de la propriété ID de l'entité
 	 * @param entityID	ID de l'instance de l'entite
 	 * @param properties	Ensemble de proprietes a charger
 	 * @return	Instance de la classe avec les proprietes charges
 	 */
-	public T findByPrimaryKey(Class<T> entityClass, String entityIDName, Object entityID, HashSet<String>  properties);
+	public T findByPrimaryKey(String entityIDName, Object entityID, HashSet<String>  properties);
 		
 	/**
 	 * Methode d'obtention du gestionnaire d'entites
 	 * @return	Gestionnaire d'entites
 	 */
 	public EntityManager getEntityManager();
+
+	/**
+	 * Méthode d'obtention de la classe de l'entité gérée par la DAO
+	 * @return	Classe de l'entité gérée par la DAO
+	 */
+	public Class<T> getManagedEntityClass();
 }

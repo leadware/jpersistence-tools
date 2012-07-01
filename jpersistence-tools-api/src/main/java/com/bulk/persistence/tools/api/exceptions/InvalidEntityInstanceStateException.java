@@ -68,4 +68,35 @@ public class InvalidEntityInstanceStateException extends JPersistenceToolsExcept
 	public String getPropertyName() {
 		return this.propertyName;
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Throwable#toString()
+	 */
+	public String toString() {
+		
+		// StringBuilder
+		StringBuilder stringBuilder = new StringBuilder();
+
+		// Ajout du Nom de la classe d'Eception
+		stringBuilder.append("InvalidEntityInstanceStateException ");
+
+		// Ajout du l'accolade ouvrante
+		stringBuilder.append("[");
+		
+		// Ajout de l'entité
+		stringBuilder.append("ENTITY NAME: " + entityName);
+		
+		// Ajout du Nom de la ppt
+		stringBuilder.append(", PROPERTY NAME: " + propertyName);
+
+		// Ajout du Nom du Message
+		stringBuilder.append(", MESSAGE: " + getMessage());
+		
+		// Ajout du l'accolade fermante
+		stringBuilder.append("]");
+		
+		// On retourne la chaine
+		return stringBuilder.toString();
+	}
 }

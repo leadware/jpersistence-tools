@@ -64,7 +64,7 @@
 	</bean>
 	
 	<!-- Gestionnaire des Transactions -->
-	<bean name="JPAHibernateTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+	<bean name="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="JPAHibernateEntityManagerFactory" />
 		<property name="jpaDialect">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
@@ -72,7 +72,7 @@
 	</bean>
 	
 	<!-- Détection des Transaction par annotations -->
-	<tx:annotation-driven transaction-manager="JPAHibernateTransactionManager" />
+	<tx:annotation-driven transaction-manager="transactionManager" />
 	
 	<!-- Traduction des Exceptions -->
 	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />

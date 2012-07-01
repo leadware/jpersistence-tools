@@ -73,7 +73,7 @@ public @interface Length {
 	 * Méthode de positionnement de la validation en cas d'objet null
 	 * @return	etat de validation en cas d'objet null
 	 */
-	public boolean validOnNullObject() default false;
+	public boolean acceptNullObject() default false;
 	
 	/**
 	 * Méthode de positionnement de la suppression des espaces extérieurs

@@ -60,4 +60,11 @@ public class CountryDAOImpl extends JPAGenericDAORulesBased<Country> implements 
     public EntityManager getEntityManager() {
         return this.entityManager;
     }
+
+	@Override
+	public Class<Country> getManagedEntityClass() {
+		
+		// On retourne la classe
+		return Country.class;
+	}
 }
