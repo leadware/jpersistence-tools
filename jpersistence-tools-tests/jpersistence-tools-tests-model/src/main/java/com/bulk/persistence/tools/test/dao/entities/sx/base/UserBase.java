@@ -23,6 +23,9 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import javax.validation.constraints.Min;
@@ -30,6 +33,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import com.bulk.persistence.tools.api.validator.jsr303ext.annotations.NotEmpty;
+import com.bulk.persistence.tools.test.dao.entities.Town;
 import com.bulk.persistence.tools.test.dao.entities.sx.constants.Sex;
 import com.bulk.persistence.tools.test.dao.entities.sx.constants.UserState;
 
@@ -90,7 +94,15 @@ public class UserBase implements Serializable, Comparable<UserBase> {
 	@Column(name = "PHONE", nullable = true)
 	@Pattern(regexp = "\\+{0,1}\\d{5,20}", message = "userbase.phone.invalidphone")
 	protected String phone;
-
+	
+	/**
+	 * Ville de l'Utilisateur
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "TOWN_ID", nullable = false)
+	@NotNull(message = "userbase.town.null")
+	protected Town town;
+	
 	/**
 	 * Etat de l'utilisateur (Valide ou Suspendu)
 	 */

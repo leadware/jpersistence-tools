@@ -33,7 +33,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bulk.persistence.tools.api.exceptions.DAOValidationException;
-import com.bulk.persistence.tools.test.dao.api.IDummyDAO;
+import com.bulk.persistence.tools.test.dao.api.CountryDAO;
 import com.bulk.persistence.tools.test.dao.entities.Country;
 
 /**
@@ -59,8 +59,8 @@ public class TestJPAGenericDAORulesBased {
     /**
      * La DAO a tester
      */
-    @Resource(name =  IDummyDAO.SERVICE_NAME)
-    private IDummyDAO dao;
+    @Resource(name =  CountryDAO.SERVICE_NAME)
+    private CountryDAO dao;
 
     /**
      * Méthode de test d'opération DAO sur l'entité Country

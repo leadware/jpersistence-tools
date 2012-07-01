@@ -37,12 +37,71 @@ public interface IJPAGenericDAO<T extends Object> {
 	 */
 	public static final String SERVICE_NAME = "JPAGenericDAO";
 	
+	
+	/**
+	 * Méthode de mise à jour de l'Etat de validation des constraintes d'integrites en mode SAVE
+	 * @param validateIntegrityConstraint Etat de validation des constraintes d'integrites en mode SAVE
+	 */
+	public void setValidateIntegrityConstraintOnSave(boolean validateIntegrityConstraintOnSave);
+	
+	/**
+	 * Méthode de mise à jour de l'Etat de validation des constraintes d'integrites en mode UPDATE
+	 * @param validateIntegrityConstraint Etat de validation des constraintes d'integrites en mode UPDATE
+	 */
+	public void setValidateIntegrityConstraintOnUpdate(boolean validateIntegrityConstraintOnUpdate);
+
+	/**
+	 * Méthode de mise à jour de l'Etat de pré-validation des contraintes referentielles en mode SAVE
+	 * @param preValidateReferentialConstraintOnSave Etat de pré-validation des contraintes referentielles en mode SAVE
+	 */
+	public void setPreValidateReferentialConstraintOnSave(boolean preValidateReferentialConstraintOnSave);
+
+	/**
+	 * Méthode de mise à jour de l'Etat de post-validation des contraintes referentielles en mode SAVE
+	 * @param validateReferentialConstraint Etat de postvalidation des contraintes referentielles en mode SAVE
+	 */
+	public void setPostValidateReferentialConstraintOnSave(boolean postValidateReferentialConstraintOnSave);
+
+	/**
+	 * Méthode de mise à jour de l'Etat de pré-validation des contraintes referentielles en mode UPDATE
+	 * @param preValidateReferentialConstraintOnUpdate Etat de pré-validation des contraintes referentielles en mode UPDATE
+	 */
+	public void setPreValidateReferentialConstraintOnUpdate(boolean preValidateReferentialConstraintOnUpdate);
+
+	/**
+	 * Méthode de mise à jour de l'Etat de post-validation des contraintes referentielles en mode UPDATE
+	 * @param postValidateReferentialConstraintOnUpdate Etat de postvalidation des contraintes referentielles en mode UPDATE
+	 */
+	public void setPostValidateReferentialConstraintOnUpdate(boolean postValidateReferentialConstraintOnUpdate);
+
+	/**
+	 * Méthode de mise à jour de l'Etat de pré-validation des contraintes referentielles en mode DELETE
+	 * @param preValidateReferentialConstraintOnDelete Etat de pré-validation des contraintes referentielles en mode DELETE
+	 */
+	public void setPreValidateReferentialConstraintOnDelete(boolean preValidateReferentialConstraintOnDelete);
+
+	/**
+	 * Méthode de mise à jour de l'Etat de post-validation des contraintes referentielles en mode DELETE
+	 * @param postValidateReferentialConstraintOnDelete Etat de postvalidation des contraintes referentielles en mode DELETE
+	 */
+	public void setPostValidateReferentialConstraintOnDelete(boolean postValidateReferentialConstraintOnDelete);
+	
 	/**
 	 * Methode generique d'enregistrement d'une entite JPA annotee
 	 * @param entity	Entite a enregistrer
 	 * @return	Entite enregistree
 	 */
 	public T save(T entity);
+
+	/**
+	 * Methode generique d'enregistrement d'une entite JPA annotee
+	 * @param entity	Entite a enregistrer
+	 * @param validateIntegrityConstraint Etat de validation des contraintes d'integrites
+	 * @param preValidateReferentialConstraint Etat de pré-validation des contraintes référentielles
+	 * @param postValidateReferentialConstraint Etat de post-validation des contraintes référentielles
+	 * @return	Entite enregistree
+	 */
+	public T save(T entity, boolean validateIntegrityConstraint, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint);
 	
 	/**
 	 * Methode generique de mise a jour d'une entite JPA annotee
@@ -50,6 +109,16 @@ public interface IJPAGenericDAO<T extends Object> {
 	 * @return	Entite mise a jour
 	 */
 	public T update(T entity);
+
+	/**
+	 * Methode generique de mise a jour d'une entite JPA annotee
+	 * @param entity	Entite a mettre a jour
+	 * @param validateIntegrityConstraint Etat de validation des contraintes d'integrites
+	 * @param preValidateReferentialConstraint Etat de pré-validation des contraintes référentielles
+	 * @param postValidateReferentialConstraint Etat de post-validation des contraintes référentielles
+	 * @return	Entite mise a jour
+	 */
+	public T update(T entity, boolean validateIntegrityConstraint, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint);
 	
 	/**
 	 * Methode generique de suppression d'une entite JPA annotee
@@ -57,6 +126,15 @@ public interface IJPAGenericDAO<T extends Object> {
 	 * @param entityID	Identifiant de l'entité à supprimer
 	 */
 	public void delete(Class<T> entityClass, Object entityID);
+
+	/**
+	 * Methode generique de suppression d'une entite JPA annotee
+	 * @param entityClass	Classe de l'etité à supprimer
+	 * @param entityID	Identifiant de l'entité à supprimer
+	 * @param preValidateReferentialConstraint Etat de pré-validation des contraintes référentielles
+	 * @param postValidateReferentialConstraint Etat de post-validation des contraintes référentielles
+	 */
+	public void delete(Class<T> entityClass, Object entityID, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint);
 	
 	/**
 	 * Methode de nettoyage d'une table

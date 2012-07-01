@@ -109,68 +109,67 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	 * Etat de post-validation des contraintes referentielles en mode DELETE
 	 */
 	protected boolean postValidateReferentialConstraintOnDelete = true;
-
 	
 	
-	/**
-	 * Méthode de mise à jour de l'Etat de validation des constraintes d'integrites en mode SAVE
-	 * @param validateIntegrityConstraint Etat de validation des constraintes d'integrites en mode SAVE
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#setValidateIntegrityConstraintOnSave(boolean)
 	 */
 	public void setValidateIntegrityConstraintOnSave(boolean validateIntegrityConstraintOnSave) {
 		this.validateIntegrityConstraintOnSave = validateIntegrityConstraintOnSave;
 	}
 
-	/**
-	 * Méthode de mise à jour de l'Etat de validation des constraintes d'integrites en mode UPDATE
-	 * @param validateIntegrityConstraint Etat de validation des constraintes d'integrites en mode UPDATE
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#setValidateIntegrityConstraintOnUpdate(boolean)
 	 */
 	public void setValidateIntegrityConstraintOnUpdate(boolean validateIntegrityConstraintOnUpdate) {
 		this.validateIntegrityConstraintOnUpdate = validateIntegrityConstraintOnUpdate;
 	}
 	
-	/**
-	 * Méthode de mise à jour de l'Etat de pré-validation des contraintes referentielles en mode SAVE
-	 * @param preValidateReferentialConstraintOnSave Etat de pré-validation des contraintes referentielles en mode SAVE
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#setPreValidateReferentialConstraintOnSave(boolean)
 	 */
 	public void setPreValidateReferentialConstraintOnSave(boolean preValidateReferentialConstraintOnSave) {
 		this.preValidateReferentialConstraintOnSave = preValidateReferentialConstraintOnSave;
 	}
 
-	/**
-	 * Méthode de mise à jour de l'Etat de post-validation des contraintes referentielles en mode SAVE
-	 * @param validateReferentialConstraint Etat de postvalidation des contraintes referentielles en mode SAVE
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#setPostValidateReferentialConstraintOnSave(boolean)
 	 */
 	public void setPostValidateReferentialConstraintOnSave(boolean postValidateReferentialConstraintOnSave) {
 		this.postValidateReferentialConstraintOnSave = postValidateReferentialConstraintOnSave;
 	}
-
-	/**
-	 * Méthode de mise à jour de l'Etat de pré-validation des contraintes referentielles en mode UPDATE
-	 * @param preValidateReferentialConstraintOnUpdate Etat de pré-validation des contraintes referentielles en mode UPDATE
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#setPreValidateReferentialConstraintOnUpdate(boolean)
 	 */
 	public void setPreValidateReferentialConstraintOnUpdate(boolean preValidateReferentialConstraintOnUpdate) {
 		this.preValidateReferentialConstraintOnUpdate = preValidateReferentialConstraintOnUpdate;
 	}
 
-	/**
-	 * Méthode de mise à jour de l'Etat de post-validation des contraintes referentielles en mode UPDATE
-	 * @param postValidateReferentialConstraintOnUpdate Etat de postvalidation des contraintes referentielles en mode UPDATE
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#setPostValidateReferentialConstraintOnUpdate(boolean)
 	 */
 	public void setPostValidateReferentialConstraintOnUpdate(boolean postValidateReferentialConstraintOnUpdate) {
 		this.postValidateReferentialConstraintOnUpdate = postValidateReferentialConstraintOnUpdate;
 	}
 
-	/**
-	 * Méthode de mise à jour de l'Etat de pré-validation des contraintes referentielles en mode DELETE
-	 * @param preValidateReferentialConstraintOnDelete Etat de pré-validation des contraintes referentielles en mode DELETE
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#setPreValidateReferentialConstraintOnDelete(boolean)
 	 */
 	public void setPreValidateReferentialConstraintOnDelete(boolean preValidateReferentialConstraintOnDelete) {
 		this.preValidateReferentialConstraintOnDelete = preValidateReferentialConstraintOnDelete;
 	}
 
-	/**
-	 * Méthode de mise à jour de l'Etat de post-validation des contraintes referentielles en mode DELETE
-	 * @param postValidateReferentialConstraintOnDelete Etat de postvalidation des contraintes referentielles en mode DELETE
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#setPostValidateReferentialConstraintOnDelete(boolean)
 	 */
 	public void setPostValidateReferentialConstraintOnDelete(boolean postValidateReferentialConstraintOnDelete) {
 		this.postValidateReferentialConstraintOnDelete = postValidateReferentialConstraintOnDelete;
@@ -183,6 +182,16 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	 */
 	@Override
 	public void delete(Class<T> entityClass, Object entityID) {
+		
+		// Suppression
+		delete(entityClass, entityID, preValidateReferentialConstraintOnDelete, postValidateReferentialConstraintOnDelete);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#delete(java.lang.Class, java.lang.Object, boolean, boolean)
+	 */
+	public void delete(Class<T> entityClass, Object entityID, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint) {
 
 		// Si la Classe a interroger est nulle
 		if(entityClass == null) {
@@ -213,7 +222,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 		}
 
 		// Validation de l'entite
-		if(this.preValidateReferentialConstraintOnDelete) validateEntityReferentialConstraint(entity, DAOMode.DELETE, DAOValidatorEvaluationTime.PRE_CONDITION);
+		if(preValidateReferentialConstraint) validateEntityReferentialConstraint(entity, DAOMode.DELETE, DAOValidatorEvaluationTime.PRE_CONDITION);
 
 		try {
 			
@@ -227,9 +236,9 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 		}
 		
 		// Validation de l'entite
-		if(this.postValidateReferentialConstraintOnDelete) validateEntityReferentialConstraint(entity, DAOMode.DELETE, DAOValidatorEvaluationTime.POST_CONDITION);
+		if(postValidateReferentialConstraint) validateEntityReferentialConstraint(entity, DAOMode.DELETE, DAOValidatorEvaluationTime.POST_CONDITION);
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#clean(java.lang.Class)
@@ -260,14 +269,25 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	@Override
 	public T save(T entity) {
 		
+		// On retourne l'entite enregistree
+		return save(entity, validateIntegrityConstraintOnSave, preValidateReferentialConstraintOnSave, postValidateReferentialConstraintOnSave);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#save(java.lang.Object, boolean, boolean, boolean)
+	 */
+	@Override
+	public T save(T entity, boolean validateIntegrityConstraint, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint) {
+		
 		// Si l'entite est nulle
 		if(entity == null) throw new NullEntityException();
 		
 		// Si on doit valider les contraintes d'integrites
-		if(this.validateIntegrityConstraintOnSave) validateEntityIntegrityConstraint(entity, DAOMode.SAVE, DAOValidatorEvaluationTime.PRE_CONDITION);
+		if(validateIntegrityConstraint) validateEntityIntegrityConstraint(entity, DAOMode.SAVE, DAOValidatorEvaluationTime.PRE_CONDITION);
 		
 		// Si on doit pre-valider les contraintes referentielles
-		if(this.preValidateReferentialConstraintOnSave) validateEntityReferentialConstraint(entity, DAOMode.SAVE, DAOValidatorEvaluationTime.PRE_CONDITION);
+		if(preValidateReferentialConstraint) validateEntityReferentialConstraint(entity, DAOMode.SAVE, DAOValidatorEvaluationTime.PRE_CONDITION);
 		
 		try {
 			
@@ -281,7 +301,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 		}
 		
 		// Validation de l'entite
-		if(this.postValidateReferentialConstraintOnSave) validateEntityReferentialConstraint(entity, DAOMode.SAVE, DAOValidatorEvaluationTime.POST_CONDITION);
+		if(postValidateReferentialConstraint) validateEntityReferentialConstraint(entity, DAOMode.SAVE, DAOValidatorEvaluationTime.POST_CONDITION);
 		
 		// On retourne l'entite enregistree
 		return entity;
@@ -294,14 +314,25 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	@Override
 	public T update(T entity) {
 		
+		// On retourne le resultat
+		return update(entity, validateIntegrityConstraintOnUpdate, preValidateReferentialConstraintOnUpdate, postValidateReferentialConstraintOnUpdate);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#update(java.lang.Object, boolean, boolean, boolean)
+	 */
+	@Override
+	public T update(T entity, boolean validateIntegrityConstraint, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint) {
+		
 		// Si l'entite est nulle
 		if(entity == null) throw new NullEntityException();
 
 		// Si on doit valider les contraintes d'integrites
-		if(this.validateIntegrityConstraintOnUpdate) validateEntityIntegrityConstraint(entity, DAOMode.UPDATE, DAOValidatorEvaluationTime.PRE_CONDITION);
+		if(validateIntegrityConstraint) validateEntityIntegrityConstraint(entity, DAOMode.UPDATE, DAOValidatorEvaluationTime.PRE_CONDITION);
 		
 		// Si on doit pre-valider les contraintes referentielles
-		if(this.preValidateReferentialConstraintOnUpdate) validateEntityReferentialConstraint(entity, DAOMode.UPDATE, DAOValidatorEvaluationTime.PRE_CONDITION);
+		if(preValidateReferentialConstraint) validateEntityReferentialConstraint(entity, DAOMode.UPDATE, DAOValidatorEvaluationTime.PRE_CONDITION);
 		
 		// Le resultat
 		T result = null;
@@ -323,7 +354,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 		}
 
 		// Validation de l'entite
-		if(this.postValidateReferentialConstraintOnUpdate) validateEntityReferentialConstraint(entity, DAOMode.UPDATE, DAOValidatorEvaluationTime.POST_CONDITION);
+		if(postValidateReferentialConstraint) validateEntityReferentialConstraint(entity, DAOMode.UPDATE, DAOValidatorEvaluationTime.POST_CONDITION);
 		
 		// On retourne le resultat
 		return result;

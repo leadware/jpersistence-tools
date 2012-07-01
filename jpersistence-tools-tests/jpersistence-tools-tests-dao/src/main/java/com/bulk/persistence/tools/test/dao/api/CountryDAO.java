@@ -22,16 +22,13 @@ import com.bulk.persistence.tools.dao.IJPAGenericDAO;
 import com.bulk.persistence.tools.test.dao.entities.Country;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Hippolyte TAPAMO
- * Date: 14/07/11
- * Time: 17:20
- * To change this template use File | Settings | File Templates.
+ * Interface de la DAO de gestion des Country
+ * @author Jean-Jacques ETUNÈ NGI
  */
-public interface IDummyDAO extends IJPAGenericDAO<Country> {
+public interface CountryDAO extends IJPAGenericDAO<Country> {
 
     /**
      * Nom du service DAO
      */
-    public static final String SERVICE_NAME = "DummyDAO";
+    public static final String SERVICE_NAME = "CountryDAO";
 }

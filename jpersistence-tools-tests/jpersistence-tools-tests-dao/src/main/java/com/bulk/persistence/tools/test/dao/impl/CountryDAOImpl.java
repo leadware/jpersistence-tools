@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bulk.persistence.tools.dao.JPAGenericDAORulesBased;
-import com.bulk.persistence.tools.test.dao.api.IDummyDAO;
+import com.bulk.persistence.tools.test.dao.api.CountryDAO;
 import com.bulk.persistence.tools.test.dao.entities.Country;
 
 /**
@@ -35,9 +35,9 @@ import com.bulk.persistence.tools.test.dao.entities.Country;
  * Date: 14/07/11
  * Time: 17:22
  */
-@Repository(value = IDummyDAO.SERVICE_NAME)
+@Repository(value = CountryDAO.SERVICE_NAME)
 @Transactional(propagation = Propagation.REQUIRED)
-public class DummyDAO extends JPAGenericDAORulesBased<Country> implements IDummyDAO {
+public class CountryDAOImpl extends JPAGenericDAORulesBased<Country> implements CountryDAO {
 
     /**
      * Gestionnaire d'entités
@@ -45,6 +45,13 @@ public class DummyDAO extends JPAGenericDAORulesBased<Country> implements IDummy
     @PersistenceContext
     private EntityManager entityManager;
 
+    
+    public CountryDAOImpl() {
+		
+    	// Set the integrityValidator
+    	this.validateIntegrityConstraintOnSave = true;
+	}	
+    
     /**
      * Méthode d'obtention du Gestionnaire d'entités
      * @return  Gestionnaire d'entités
