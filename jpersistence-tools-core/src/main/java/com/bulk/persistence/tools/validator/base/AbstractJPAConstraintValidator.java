@@ -21,7 +21,7 @@ package com.bulk.persistence.tools.validator.base;
 import javax.persistence.EntityManager;
 
 import com.bulk.persistence.tools.validator.IJPAConstraintValidator;
-import com.bulk.persistence.tools.validator.engine.JSR303ValidatorEngine;
+import com.bulk.persistence.tools.validator.jsr303ext.engine.JSR303ValidatorEngine;
 
 
 /**

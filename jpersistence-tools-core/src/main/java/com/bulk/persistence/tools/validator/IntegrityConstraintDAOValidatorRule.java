@@ -26,7 +26,7 @@ import com.bulk.persistence.tools.api.validator.annotations.IntegrityConstraintD
 import com.bulk.persistence.tools.dao.api.constants.DAOMode;
 import com.bulk.persistence.tools.dao.api.constants.DAOValidatorEvaluationTime;
 import com.bulk.persistence.tools.dao.utils.DAOValidatorHelper;
-import com.bulk.persistence.tools.validator.engine.JSR303ValidatorEngine;
+import com.bulk.persistence.tools.validator.jsr303ext.engine.JSR303ValidatorEngine;
 
 /**
  * Classe d'implementation de la validation par defaut des operations d'enregistrement et de mise a jour

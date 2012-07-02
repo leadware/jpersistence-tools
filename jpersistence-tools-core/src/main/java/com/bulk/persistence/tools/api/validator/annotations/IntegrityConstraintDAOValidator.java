@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
 import com.bulk.persistence.tools.dao.api.constants.DAOMode;
 import com.bulk.persistence.tools.dao.api.constants.DAOValidatorEvaluationTime;
 import com.bulk.persistence.tools.validator.IntegrityConstraintDAOValidatorRule;
-import com.bulk.persistence.tools.validator.engine.JSR303ValidatorEngine;
+import com.bulk.persistence.tools.validator.jsr303ext.engine.JSR303ValidatorEngine;
 
 /**
  * Annotation permettant de verifier les contraintes d'intergrites
