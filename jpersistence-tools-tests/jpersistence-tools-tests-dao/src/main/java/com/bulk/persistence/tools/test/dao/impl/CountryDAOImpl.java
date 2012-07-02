@@ -30,10 +30,8 @@ import com.bulk.persistence.tools.test.dao.api.CountryDAO;
 import com.bulk.persistence.tools.test.dao.entities.Country;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Jean-Jacques ETUNE NGI
- * Date: 14/07/11
- * Time: 17:22
+ * Implémentation de la DAO de gestion des Pays
+ * @author Jean-Jacques ETUNÈ NGI
  */
 @Repository(value = CountryDAO.SERVICE_NAME)
 @Transactional(propagation = Propagation.REQUIRED)
@@ -44,23 +42,20 @@ public class CountryDAOImpl extends JPAGenericDAORulesBasedImpl<Country> impleme
      */
     @PersistenceContext
     private EntityManager entityManager;
-
     
-    public CountryDAOImpl() {
-		
-    	// Set the integrityValidator
-    	this.validateIntegrityConstraintOnSave = true;
-	}	
-    
-    /**
-     * Méthode d'obtention du Gestionnaire d'entités
-     * @return  Gestionnaire d'entités
+    /*
+     * (non-Javadoc)
+     * @see com.bulk.persistence.tools.dao.JPAGenericDAO#getEntityManager()
      */
     @Override
     public EntityManager getEntityManager() {
         return this.entityManager;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see com.bulk.persistence.tools.dao.JPAGenericDAO#getManagedEntityClass()
+     */
 	@Override
 	public Class<Country> getManagedEntityClass() {
 		
