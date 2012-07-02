@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.bulk.persistence.tools.dao;
+package com.bulk.persistence.tools.dao.impl;
 
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
@@ -44,6 +44,7 @@ import com.bulk.persistence.tools.api.exceptions.ValidatorInstanciationException
 import com.bulk.persistence.tools.api.validator.annotations.DAOConstraint;
 import com.bulk.persistence.tools.api.validator.annotations.IdentityDAOValidator;
 import com.bulk.persistence.tools.api.validator.annotations.IntegrityConstraintDAOValidator;
+import com.bulk.persistence.tools.dao.JPAGenericDAO;
 import com.bulk.persistence.tools.dao.api.constants.DAOMode;
 import com.bulk.persistence.tools.dao.api.constants.DAOValidatorEvaluationTime;
 import com.bulk.persistence.tools.dao.utils.DAOValidatorHelper;
@@ -68,7 +69,7 @@ import com.bulk.persistence.tools.validator.engine.JSR303ValidatorEngine;
  * 	</b>
  */
 @SuppressWarnings("unchecked")
-public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAGenericDAO<T> {
+public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements JPAGenericDAO<T> {
 	
 	/**
 	 * Etat de validation des constraintes d'integrites en mode SAVE
@@ -88,7 +89,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	/**
 	 * Etat de post-validation des contraintes referentielles en mode SAVE
 	 */
-	protected boolean postValidateReferentialConstraintOnSave = true;
+	protected boolean postValidateReferentialConstraintOnSave = false;
 
 	/**
 	 * Etat de pré-validation des contraintes referentielles en mode UPDATE
@@ -98,7 +99,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	/**
 	 * Etat de post-validation des contraintes referentielles en mode UPDATE
 	 */
-	protected boolean postValidateReferentialConstraintOnUpdate = true;
+	protected boolean postValidateReferentialConstraintOnUpdate = false;
 
 	/**
 	 * Etat de pré-validation des contraintes referentielles en mode DELETE
@@ -108,12 +109,12 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	/**
 	 * Etat de post-validation des contraintes referentielles en mode DELETE
 	 */
-	protected boolean postValidateReferentialConstraintOnDelete = true;
+	protected boolean postValidateReferentialConstraintOnDelete = false;
 	
 	
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#setValidateIntegrityConstraintOnSave(boolean)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#setValidateIntegrityConstraintOnSave(boolean)
 	 */
 	public void setValidateIntegrityConstraintOnSave(boolean validateIntegrityConstraintOnSave) {
 		this.validateIntegrityConstraintOnSave = validateIntegrityConstraintOnSave;
@@ -121,7 +122,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#setValidateIntegrityConstraintOnUpdate(boolean)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#setValidateIntegrityConstraintOnUpdate(boolean)
 	 */
 	public void setValidateIntegrityConstraintOnUpdate(boolean validateIntegrityConstraintOnUpdate) {
 		this.validateIntegrityConstraintOnUpdate = validateIntegrityConstraintOnUpdate;
@@ -129,7 +130,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#setPreValidateReferentialConstraintOnSave(boolean)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#setPreValidateReferentialConstraintOnSave(boolean)
 	 */
 	public void setPreValidateReferentialConstraintOnSave(boolean preValidateReferentialConstraintOnSave) {
 		this.preValidateReferentialConstraintOnSave = preValidateReferentialConstraintOnSave;
@@ -137,7 +138,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#setPostValidateReferentialConstraintOnSave(boolean)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#setPostValidateReferentialConstraintOnSave(boolean)
 	 */
 	public void setPostValidateReferentialConstraintOnSave(boolean postValidateReferentialConstraintOnSave) {
 		this.postValidateReferentialConstraintOnSave = postValidateReferentialConstraintOnSave;
@@ -145,7 +146,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#setPreValidateReferentialConstraintOnUpdate(boolean)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#setPreValidateReferentialConstraintOnUpdate(boolean)
 	 */
 	public void setPreValidateReferentialConstraintOnUpdate(boolean preValidateReferentialConstraintOnUpdate) {
 		this.preValidateReferentialConstraintOnUpdate = preValidateReferentialConstraintOnUpdate;
@@ -153,7 +154,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#setPostValidateReferentialConstraintOnUpdate(boolean)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#setPostValidateReferentialConstraintOnUpdate(boolean)
 	 */
 	public void setPostValidateReferentialConstraintOnUpdate(boolean postValidateReferentialConstraintOnUpdate) {
 		this.postValidateReferentialConstraintOnUpdate = postValidateReferentialConstraintOnUpdate;
@@ -161,7 +162,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#setPreValidateReferentialConstraintOnDelete(boolean)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#setPreValidateReferentialConstraintOnDelete(boolean)
 	 */
 	public void setPreValidateReferentialConstraintOnDelete(boolean preValidateReferentialConstraintOnDelete) {
 		this.preValidateReferentialConstraintOnDelete = preValidateReferentialConstraintOnDelete;
@@ -169,7 +170,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#setPostValidateReferentialConstraintOnDelete(boolean)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#setPostValidateReferentialConstraintOnDelete(boolean)
 	 */
 	public void setPostValidateReferentialConstraintOnDelete(boolean postValidateReferentialConstraintOnDelete) {
 		this.postValidateReferentialConstraintOnDelete = postValidateReferentialConstraintOnDelete;
@@ -178,7 +179,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#delete(java.lang.Class, java.lang.Object)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#delete(java.lang.Class, java.lang.Object)
 	 */
 	@Override
 	public void delete(Object entityID) {
@@ -189,7 +190,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#delete(java.lang.Class, java.lang.Object, boolean, boolean)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#delete(java.lang.Class, java.lang.Object, boolean, boolean)
 	 */
 	@Override
 	public void delete(Object entityID, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint) {
@@ -238,7 +239,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#clean(java.lang.Class)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#clean(java.lang.Class)
 	 */
 	@Override
 	public void clean() {
@@ -261,7 +262,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#save(java.lang.Object)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#save(java.lang.Object)
 	 */
 	@Override
 	public T save(T entity) {
@@ -272,7 +273,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#save(java.lang.Object, boolean, boolean, boolean)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#save(java.lang.Object, boolean, boolean, boolean)
 	 */
 	@Override
 	public T save(T entity, boolean validateIntegrityConstraint, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint) {
@@ -306,7 +307,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#update(java.lang.Object)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#update(java.lang.Object)
 	 */
 	@Override
 	public T update(T entity) {
@@ -317,7 +318,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#update(java.lang.Object, boolean, boolean, boolean)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#update(java.lang.Object, boolean, boolean, boolean)
 	 */
 	@Override
 	public T update(T entity, boolean validateIntegrityConstraint, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint) {
@@ -359,7 +360,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#findByPrimaryKey(java.lang.Class, java.lang.String, java.lang.Object, java.util.HashSet)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#findByPrimaryKey(java.lang.Class, java.lang.String, java.lang.Object, java.util.HashSet)
 	 */
 	@Override
 	public T findByPrimaryKey(String entityIDName, Object entityID, HashSet<String> properties) {
@@ -427,7 +428,7 @@ public abstract class JPAGenericDAORulesBased<T extends Object> implements IJPAG
 	
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.IJPAGenericDAO#filter(java.lang.Class, java.util.List, java.util.List, java.util.Set, int, int)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#filter(java.lang.Class, java.util.List, java.util.List, java.util.Set, int, int)
 	 */
 	@Override
 	public List<T> filter(List<Predicate> predicates, List<Order> orders, Set<String> properties, int firstResult, int maxResult) {

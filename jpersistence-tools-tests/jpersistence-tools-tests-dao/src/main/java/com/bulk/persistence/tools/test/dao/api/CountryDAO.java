@@ -18,14 +18,14 @@
  */
 package com.bulk.persistence.tools.test.dao.api;
 
-import com.bulk.persistence.tools.dao.IJPAGenericDAO;
+import com.bulk.persistence.tools.dao.JPAGenericDAO;
 import com.bulk.persistence.tools.test.dao.entities.Country;
 
 /**
  * Interface de la DAO de gestion des Country
  * @author Jean-Jacques ETUNÈ NGI
  */
-public interface CountryDAO extends IJPAGenericDAO<Country> {
+public interface CountryDAO extends JPAGenericDAO<Country> {
 
     /**
      * Nom du service DAO

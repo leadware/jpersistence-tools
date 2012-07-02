@@ -25,7 +25,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bulk.persistence.tools.dao.JPAGenericDAORulesBased;
+import com.bulk.persistence.tools.dao.impl.JPAGenericDAORulesBasedImpl;
 import com.bulk.persistence.tools.test.dao.api.CountryDAO;
 import com.bulk.persistence.tools.test.dao.entities.Country;
 
@@ -37,7 +37,7 @@ import com.bulk.persistence.tools.test.dao.entities.Country;
  */
 @Repository(value = CountryDAO.SERVICE_NAME)
 @Transactional(propagation = Propagation.REQUIRED)
-public class CountryDAOImpl extends JPAGenericDAORulesBased<Country> implements CountryDAO {
+public class CountryDAOImpl extends JPAGenericDAORulesBasedImpl<Country> implements CountryDAO {
 
     /**
      * Gestionnaire d'entités

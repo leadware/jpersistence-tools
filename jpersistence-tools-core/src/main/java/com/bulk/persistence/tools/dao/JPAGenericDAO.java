@@ -30,7 +30,7 @@ import javax.persistence.criteria.Predicate;
  * Interface de la DAO Generique compatible JPA
  * @author Jean-Jacques ETUNÈ NGI
  */
-public interface IJPAGenericDAO<T extends Object> {
+public interface JPAGenericDAO<T extends Object> {
 	
 	/**
 	 * Nom du Service DAO
