@@ -18,15 +18,21 @@
  */
 package com.bulk.persistence.tools.test.dao.impl;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Predicate;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bulk.persistence.tools.dao.impl.JPAGenericDAORulesBasedImpl;
-import com.bulk.persistence.tools.test.dao.api.CountryDAO;
+import com.bulk.persistence.tools.test.dao.CountryDAO;
 import com.bulk.persistence.tools.test.dao.entities.Country;
 
 /**
@@ -45,7 +51,7 @@ public class CountryDAOImpl extends JPAGenericDAORulesBasedImpl<Country> impleme
     
     /*
      * (non-Javadoc)
-     * @see com.bulk.persistence.tools.dao.JPAGenericDAO#getEntityManager()
+     * @see com.bulk.persistence.tools.test.dao.JPAGenericDAO#getEntityManager()
      */
     @Override
     public EntityManager getEntityManager() {
@@ -54,12 +60,77 @@ public class CountryDAOImpl extends JPAGenericDAORulesBasedImpl<Country> impleme
 
     /*
      * (non-Javadoc)
-     * @see com.bulk.persistence.tools.dao.JPAGenericDAO#getManagedEntityClass()
+     * @see com.bulk.persistence.tools.test.dao.JPAGenericDAO#getManagedEntityClass()
      */
 	@Override
 	public Class<Country> getManagedEntityClass() {
 		
 		// On retourne la classe
 		return Country.class;
+	}
+	
+	@Override
+	public Country save(Country entity) {
+		// TODO Auto-generated method stub
+		return super.save(entity);
+	}
+	
+	@Override
+	public Country save(Country entity, boolean validateIntegrityConstraint,
+			boolean preValidateReferentialConstraint,
+			boolean postValidateReferentialConstraint) {
+		// TODO Auto-generated method stub
+		return super.save(entity, validateIntegrityConstraint,
+				preValidateReferentialConstraint, postValidateReferentialConstraint);
+	}
+	
+	@Override
+	public Country update(Country entity) {
+		// TODO Auto-generated method stub
+		return super.update(entity);
+	}
+	
+	@Override
+	public Country update(Country entity, boolean validateIntegrityConstraint,
+			boolean preValidateReferentialConstraint,
+			boolean postValidateReferentialConstraint) {
+		// TODO Auto-generated method stub
+		return super.update(entity, validateIntegrityConstraint,
+				preValidateReferentialConstraint, postValidateReferentialConstraint);
+	}
+	
+	@Override
+	public void delete(Object entityID) {
+		// TODO Auto-generated method stub
+		super.delete(entityID);
+	}
+	
+	@Override
+	public void delete(Object entityID,
+			boolean preValidateReferentialConstraint,
+			boolean postValidateReferentialConstraint) {
+		// TODO Auto-generated method stub
+		super.delete(entityID, preValidateReferentialConstraint,
+				postValidateReferentialConstraint);
+	}
+	
+	@Override
+	public void clean() {
+		// TODO Auto-generated method stub
+		super.clean();
+	}
+	
+	@Override
+	public List<Country> filter(List<Predicate> predicates, List<Order> orders,
+			Set<String> properties, int firstResult, int maxResult) {
+		// TODO Auto-generated method stub
+		return super.filter(predicates, orders, properties, firstResult, maxResult);
+	}
+	
+	@Override
+	public Country findByPrimaryKey(String entityIDName, Object entityID,
+			HashSet<String> properties) {
+		// TODO Auto-generated method stub
+		return super.findByPrimaryKey(entityIDName, entityID, properties);
 	}
 }

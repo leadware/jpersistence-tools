@@ -51,6 +51,8 @@
 			<groupId>com.bulk-inc</groupId>
 			<artifactId>jpersistence-tools-api</artifactId>
 			<version>${project.version}</version>
+			<scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
 		<!-- jpersistence-tools core -->
@@ -58,27 +60,26 @@
 			<groupId>com.bulk-inc</groupId>
 			<artifactId>jpersistence-tools-core</artifactId>
 			<version>${project.version}</version>
+			<scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
-		<!-- jpersistence-tools test-model -->
+		<!-- jpersistence-tools test model -->
 		<dependency>
 			<groupId>com.bulk-inc</groupId>
 			<artifactId>jpersistence-tools-tests-model</artifactId>
 			<version>${project.version}</version>
+			<scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
-		<!-- jpersistence-tools Core -->
+		<!-- jpersistence-tools test dao -->
 		<dependency>
 			<groupId>com.bulk-inc</groupId>
 			<artifactId>jpersistence-tools-tests-dao</artifactId>
 			<version>${project.version}</version>
-		</dependency>
-		
-		<!-- JPA-2.0 dependencies -->
-		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.0-api</artifactId>
-			<version>${hibernate-jpa-2.0.version}</version>
+			<scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
 		<!-- Validation API (JSR 303) dependencies -->
@@ -86,85 +87,224 @@
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>${validation-api.version}</version>
+			<scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
-		<!-- Juel dependencies -->
+		<!-- JUnit dependencies -->
 		<dependency>
-		    <groupId>de.odysseus.juel</groupId>
-		    <artifactId>juel-spi</artifactId>
-		    <version>${juel.version}</version>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>${junit.version}</version>
+		    <scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
+		<!-- Spring Test -->
 		<dependency>
-		    <groupId>de.odysseus.juel</groupId>
-		    <artifactId>juel-api</artifactId>
-		    <version>${juel.version}</version>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>${spring.version}</version>
+		    <scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
+		<!-- Spring Beans -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+			<optional>true</optional>
+            <exclusions>
+            	<exclusion>
+            		<groupId>org.springframework</groupId>
+            		<artifactId>spring-core</artifactId>
+            	</exclusion>
+            </exclusions>
+        </dependency>
+        
+        <!-- Spring ASM -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-asm</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+			<optional>true</optional>
+        </dependency>
+		
+		<!-- Spring Core -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+			<optional>true</optional>
+            <exclusions>
+            	<exclusion>
+            		<groupId>commons-logging</groupId>
+            		<artifactId>commons-logging</artifactId>
+            	</exclusion>
+            </exclusions>
+        </dependency>
+		
+        <!-- Spring Conext -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+			<optional>true</optional>
+            <exclusions>
+            	<exclusion>
+            		<groupId>org.springframework</groupId>
+            		<artifactId>spring-aop</artifactId>
+            	</exclusion>
+            	<exclusion>
+            		<groupId>org.springframework</groupId>
+            		<artifactId>spring-expression</artifactId>
+            	</exclusion>
+            </exclusions>
+        </dependency>
+		
+        <!-- Spring AOP -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+			<optional>true</optional>
+            <exclusions>
+            	<exclusion>
+            		<groupId>aopalliance</groupId>
+            		<artifactId>aopalliance</artifactId>
+            	</exclusion>
+            </exclusions>
+        </dependency>
+		
+        <!-- Spring Expression -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+			<optional>true</optional>
+        </dependency>
+		
+		<!-- Spring JDBC -->
 		<dependency>
-		    <groupId>de.odysseus.juel</groupId>
-		    <artifactId>juel-impl</artifactId>
-		    <version>${juel.version}</version>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jdbc</artifactId>
+		    <version>${spring.version}</version>
+		    <scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
-		<!-- JTA Dependencies -->
+		<!-- Spring TX -->
 		<dependency>
-		    <groupId>javax.transaction</groupId>
-		    <artifactId>jta</artifactId>
-		    <version>${jta.version}</version>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-tx</artifactId>
+		    <version>${spring.version}</version>
+		    <scope>test</scope>
+			<optional>true</optional>
+		    <exclusions>
+            	<exclusion>
+            		<groupId>aopalliance</groupId>
+            		<artifactId>aopalliance</artifactId>
+            	</exclusion>
+            </exclusions>
 		</dependency>
 		
-		<!-- Common DBPC dependencies -->
+		<!-- AOP Alliance -->
+		<dependency>
+		    <groupId>aopalliance</groupId>
+		    <artifactId>aopalliance</artifactId>
+		    <version>${aopalliance.version}</version>
+		    <scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- Spring ORM -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-orm</artifactId>
+		    <version>${spring.version}</version>
+		    <scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- Spring JDBC -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jdbc</artifactId>
+		    <version>${spring.version}</version>
+		    <scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- Commons Collections -->
+		<dependency>
+		    <groupId>commons-collections</groupId>
+		    <artifactId>commons-collections</artifactId>
+		    <version>${commons-collections.version}</version>
+		    <scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- Commons DPPC -->
 		<dependency>
 		    <groupId>commons-dbcp</groupId>
 		    <artifactId>commons-dbcp</artifactId>
-		    <version>${common.dbpc.version}</version>
+		    <version>${commons-dbpc.version}</version>
+		    <scope>test</scope>
+			<optional>true</optional>
+		    <exclusions>
+		    	<exclusion>
+		    		<groupId>commons-pool</groupId>
+		    		<artifactId>commons-pool</artifactId>
+		    	</exclusion>
+		    </exclusions>
 		</dependency>
 		
-		<!-- Inject dependencies -->
+		<!-- Commons Pool -->
 		<dependency>
-		    <groupId>javax.inject</groupId>
-		    <artifactId>javax.inject</artifactId>
-		    <version>${inject.version}</version>
+		    <groupId>commons-pool</groupId>
+		    <artifactId>commons-pool</artifactId>
+		    <version>${commons-pool.version}</version>
+		    <scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
-		<!-- SLF4J dependencies -->
-		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-api</artifactId>
-		    <version>${slf4j.version}</version>
-		</dependency>
-		
-		<!-- H2 dependencies -->
-		<dependency>
-		    <groupId>com.h2database</groupId>
-		    <artifactId>h2</artifactId>
-		    <version>${h2.version}</version>
-		</dependency>
-		
-		<!-- Hibernate Libraries -->
+		<!-- Hibernate Core -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate.version}</version>
+			<scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
+		<!-- Hibernate EntityManager -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
+			<scope>test</scope>
+			<optional>true</optional>
+			<exclusions>
+				<exclusion>
+					<groupId>asm</groupId>
+					<artifactId>asm</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-ehcache</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-        
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>${hibernate.validator.version}</version>
+			<scope>test</scope>
+			<optional>true</optional>
 			<exclusions>
 				<exclusion>
 					<groupId>javax.validation</groupId>
@@ -173,48 +313,85 @@
 			</exclusions>
 		</dependency>
 		
-		<!-- Spring dependencies -->
+		<!-- ASM -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-core</artifactId>
-		    <version>${spring.version}</version>
+			<groupId>asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>${asm.version}</version>
+			<scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
+		<!-- ASM -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-orm</artifactId>
-		    <version>${spring.version}</version>
+			<groupId>asm</groupId>
+			<artifactId>asm-attrs</artifactId>
+			<version>${asm.attrs.version}</version>
+			<scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
+		<!-- Hibernate Annotations -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-aop</artifactId>
-		    <version>${spring.version}</version>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>${hibernate.annotations.version}</version>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+	
+		<!-- Commons Logging dependencies -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>${commons-logging.version}</version>
+			<scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
+		<!-- Logback Core dependencies -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-jdbc</artifactId>
-		    <version>${spring.version}</version>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${logback.version}</version>
+			<scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
+		<!-- Logback Classic dependencies -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-tx</artifactId>
-		    <version>${spring.version}</version>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+			<scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
+		<!-- SLF4J -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-test</artifactId>
-		    <version>${spring.version}</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
-		<!-- JUnit dependencies -->
+		<!-- SLF4J -->
 		<dependency>
-		    <groupId>junit</groupId>
-		    <artifactId>junit</artifactId>
-		    <version>${junit.version}</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- H2 dependencies -->
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		    <version>${h2.version}</version>
+		    <scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
 	</dependencies>

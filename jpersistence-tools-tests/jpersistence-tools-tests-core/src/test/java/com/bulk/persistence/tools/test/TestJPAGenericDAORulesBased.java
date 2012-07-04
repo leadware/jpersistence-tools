@@ -21,19 +21,21 @@ package com.bulk.persistence.tools.test;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
-import javax.annotation.Resource;
-import javax.validation.ConstraintViolationException;
-
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.annotation.ExpectedException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.bulk.persistence.tools.api.exceptions.InvalidEntityInstanceStateException;
-import com.bulk.persistence.tools.test.dao.api.CountryDAO;
+import com.bulk.persistence.tools.test.dao.CountryDAO;
+import com.bulk.persistence.tools.test.dao.RegionDAO;
+import com.bulk.persistence.tools.test.dao.SXGroupDAO;
+import com.bulk.persistence.tools.test.dao.SXRoleDAO;
+import com.bulk.persistence.tools.test.dao.SXUserDAO;
+import com.bulk.persistence.tools.test.dao.TownDAO;
 import com.bulk.persistence.tools.test.dao.entities.Country;
 
 /**
@@ -43,29 +45,107 @@ import com.bulk.persistence.tools.test.dao.entities.Country;
  * 	<b>
  * 		<i>Class Under Test</i>
  * 		<ol>
- * 			<li>{@link com.bulk.persistence.tools.dao.yashiro.persistence.utils.dao.JPAGenericDAORulesBased}
+ * 			<li>{@link com.bulk.persistence.tools.test.dao.yashiro.persistence.utils.dao.JPAGenericDAORulesBased}
  * 		</ol>
  * 	</b>
- * @version 2.0
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-        "classpath:/META-INF/spring-config-test.xml"
+		"classpath:applicationContext-persistence-test.xml"
 })
 public class TestJPAGenericDAORulesBased {
-
+	
     /**
-     * La DAO a tester
+     * DAO de gestion des Pays
      */
-    @Resource(name =  CountryDAO.SERVICE_NAME)
+	@Autowired
     private CountryDAO countryDao;
 
     /**
-     * Méthode de test d'opération DAO sur l'entité Country
+     * DAO de gestion des Regions
+     */
+	@Autowired
+    private RegionDAO regionDao;
+
+    /**
+     * DAO de gestion des Villes
+     */
+	@Autowired
+    private TownDAO townDao;
+    
+    /**
+     * DAO de gestion des roles
+     */
+	@Autowired
+    private SXRoleDAO roleDAO;
+    
+    /**
+     * DAO de gestion des groupes
+     */
+	@Autowired
+    private SXGroupDAO groupDAO;
+    
+    /**
+     * DAO de gestion des Utilisateurs
+     */
+	@Autowired
+    private SXUserDAO userDAO;
+    
+    
+    /**
+     * Méthode d'initialisation des méthodes de tests
+     */
+    @Before
+    public void setUp() {
+    	
+    	// Initialisation de la base de donnees
+    	populateDataBase();
+    }
+    
+    /**
+     * Méthode de finalisation des méthodes de test
+     */
+    @After
+    public void tearDown() {
+    	
+    	// Vidage de la Base de données
+    	cleanDataBase();
+    }
+
+    /**
+     * Méthode de test d'enregistrement
      */
     @Test
-    @Transactional(propagation = Propagation.REQUIRED)
-    @ExpectedException(value = InvalidEntityInstanceStateException.class)
+    public void testSave() {
+    	
+    	// Nombre initial de Country
+    	int count = countryDao.filter(null, null, null, 0, -1).size();
+    	
+        //////////////////////////////////////////////////////////////////////////////
+        // Interception par la DAO Générique d'une contrainte d'intégrité violée 	//
+        //  		La contrainte en question est une contrainte JSR 303 		 	//
+    	//  	positionnée sur le champ hérité "code" de l'entité Country  		//
+    	//	@Size(min = CODE_MIN_LENGTH, max = CODE_MAX_LENGTH, message = "...")	//
+    	//  protected String code;													//
+        //////////////////////////////////////////////////////////////////////////////
+    	
+    	// Une Country
+    	Country country = new Country("CMR", "CAMEROUN");
+    	
+        // Un log
+        System.out.println("PAYS À ENREGISTRER: " + country);
+
+		// Tentative d'enregistrement
+    	country = countryDao.save(country);
+		
+		// On vérifie qu'il ya eu aucun enregistrement
+		assertEquals(count + 1, countryDao.filter(null, null, null, 0, -1).size());
+    }
+    
+    /**
+     * Méthode de test d'interception de la validation des contraintes d'intégrités (JSR 303) par le Framework
+     */
+    //@Test
     public void testIntegrityConstraintValidation() {
     	
     	// Nombre initial de Country
@@ -88,12 +168,20 @@ public class TestJPAGenericDAORulesBased {
         // Un log
         System.out.println("PAYS À ENREGISTRER: " + noCodeCountry);
         
-		// Tentative d'enregistrement
-		countryDao.save(noCodeCountry);
-		
-		// Echec si pa sd'erreur
-		fail("L'opération DAO devrait lever une exception");
-		
+        try {
+
+    		// Tentative d'enregistrement
+    		countryDao.save(noCodeCountry);
+    		
+    		// Echec si pa sd'erreur
+    		fail("L'opération DAO devrait lever une exception");
+    		
+		} catch (InvalidEntityInstanceStateException e) {
+			
+			// On affiche
+			System.err.println("CONSTRAINT VIOLATION: " + e);
+		}
+        
 		// On vérifie qu'il ya eu aucun enregistrement
 		assertEquals(initialCountryCount, countryDao.filter(null, null, null, 0, -1).size());
     }
@@ -102,9 +190,7 @@ public class TestJPAGenericDAORulesBased {
     /**
      * Méthode de test d'opération DAO sur l'entité Country
      */
-    @Test
-    @Transactional(propagation = Propagation.REQUIRED)
-    @ExpectedException(value = ConstraintViolationException.class)
+    //@Test
     public void testIntegrityConstraintDesactivated() {
 
     	//////////////////////////////////////////////////////////////////////////////
@@ -117,7 +203,7 @@ public class TestJPAGenericDAORulesBased {
         //////////////////////////////////////////////////////////////////////////////
     	
 		// Désactivation de la validation des contraintes d'intégrités
-		countryDao.setValidateIntegrityConstraintOnSave(false);
+		countryDao.setValidateIntegrityConstraintOnSave(true);
 		
     	// Nombre initial de Country
     	int initialCountryCount = countryDao.filter(null, null, null, 0, -1).size();
@@ -131,13 +217,43 @@ public class TestJPAGenericDAORulesBased {
 		// Tentative d'enregistrement
 		countryDao.save(noCodeCountry);
 		
-		// Flush
-		countryDao.getEntityManager().flush();
-		
 		// Un log
 		System.out.println("On vérifie qu'il ya eu aucun enregistrement");
 		
 		// On vérifie qu'il ya eu aucun enregistrement
 		assertEquals(initialCountryCount, countryDao.filter(null, null, null, 0, -1).size());
     }
+    
+    /**
+     * Méthode de vidage de la base de données
+     */
+    protected void cleanDataBase() {
+    	
+    	// Vidage des Utilisateurs
+    	userDAO.clean();
+    	
+    	// Vidage des Groupes
+    	groupDAO.clean();
+    	
+    	// Vidage des Roles
+    	roleDAO.clean();
+    	
+    	// Vidage des Villes
+    	townDao.clean();
+    	
+    	// Vidage des regions
+    	regionDao.clean();
+    	
+    	// Vidage des Pays
+    	countryDao.clean();
+    }
+    
+    
+    /**
+     * Méthode d'initialisation de la base de données
+     */
+    protected void populateDataBase() {
+    	
+    }
+    
 }

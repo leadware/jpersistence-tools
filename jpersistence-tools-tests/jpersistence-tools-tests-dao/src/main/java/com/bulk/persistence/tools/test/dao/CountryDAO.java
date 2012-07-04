@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.bulk.persistence.tools.test.dao.api;
+package com.bulk.persistence.tools.test.dao;
 
 import com.bulk.persistence.tools.dao.JPAGenericDAO;
 import com.bulk.persistence.tools.test.dao.entities.Country;

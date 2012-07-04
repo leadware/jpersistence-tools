@@ -37,6 +37,7 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.validation.ConstraintViolationException;
 
 import com.bulk.persistence.tools.api.exceptions.JPersistenceToolsException;
 import com.bulk.persistence.tools.api.exceptions.NullEntityException;
@@ -204,7 +205,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 			// On leve une exception
 			throw new JPersistenceToolsException("jpagenericdaorulesbased.delete.id.null");
 		}
-		
+		System.out.println("ENTITY ID: " + entityID);
 		// Entité à supprimer
 		T entity = null;
 		
@@ -212,7 +213,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 			
 			// On reattache
 			entity = getEntityManager().find(entityClass, entityID);
-			
+			System.out.println("ENTITY: " + entity);
 		} catch (EntityNotFoundException e) {
 			
 			// On relance
@@ -254,6 +255,12 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 			q.executeUpdate();
 			
 		} catch (Exception e) {
+			e.printStackTrace();
+			// Si c'est une exception de validation
+			if(e instanceof ConstraintViolationException) throw (ConstraintViolationException) e;
+			
+			// Si la classe est une instance de JPersistenceToolsException
+			if(e instanceof JPersistenceToolsException) throw (JPersistenceToolsException) e;
 			
 			// On relance
 			throw new JPersistenceToolsException("jpagenericdaorulesbased.clean.error", e);

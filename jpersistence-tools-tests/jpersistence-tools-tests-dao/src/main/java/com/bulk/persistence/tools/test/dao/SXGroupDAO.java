@@ -16,19 +16,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.bulk.persistence.tools.test.dao.api;
+package com.bulk.persistence.tools.test.dao;
 
 import com.bulk.persistence.tools.dao.JPAGenericDAO;
-import com.bulk.persistence.tools.test.dao.entities.sx.SXRole;
+import com.bulk.persistence.tools.test.dao.entities.sx.SXGroup;
 
 /**
- * Interface de la DAO de gestion des Roles
+ * Interface de la DAO de gestion des Groupes
  * @author Jean-Jacques ETUNÈ NGI
  */
-public interface SXRoleDAO extends JPAGenericDAO<SXRole> {
+public interface SXGroupDAO extends JPAGenericDAO<SXGroup> {
 
     /**
      * Nom du service DAO
      */
-    public static final String SERVICE_NAME = "RoleDAO";
+    public static final String SERVICE_NAME = "GroupDAO";
 }

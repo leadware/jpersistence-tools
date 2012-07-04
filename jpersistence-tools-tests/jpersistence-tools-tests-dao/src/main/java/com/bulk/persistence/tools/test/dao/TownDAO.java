@@ -16,19 +16,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.bulk.persistence.tools.test.dao.api;
+package com.bulk.persistence.tools.test.dao;
 
 import com.bulk.persistence.tools.dao.JPAGenericDAO;
-import com.bulk.persistence.tools.test.dao.entities.sx.SXUser;
+import com.bulk.persistence.tools.test.dao.entities.Town;
 
 /**
- * Interface de la DAO de gestion des utilisateurs
+ * Interface de la DAO de gestion des Villes
  * @author Jean-Jacques ETUNÈ NGI
  */
-public interface SXUserDao extends JPAGenericDAO<SXUser> {
+public interface TownDAO extends JPAGenericDAO<Town> {
 
     /**
      * Nom du service DAO
      */
-    public static final String SERVICE_NAME = "UserDAO";
+    public static final String SERVICE_NAME = "TownDAO";
 }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	
+    <!-- Chargement du fichier de propriétés -->
+    <context:property-placeholder location="classpath:hibernate.properties" />
+    
+	<!-- Scan des DAOs -->
+	<context:component-scan base-package="com.bulk.persistence.tools.test.dao" />
+	
+	<!-- Détection des transaction via Annotations -->
+	<tx:annotation-driven mode="proxy"/>
+	
+	<!-- Source de données H2 -->
+	<bean name="datasource" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+		<property name="targetDataSource">
+			<bean class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+				<property name="driverClass" value="${hibernate.connection.driver_class}" />
+				<property name="url" value="${hibernate.connection.url}" />
+				<property name="username" value="${hibernate.connection.username}" />
+				<property name="password" value="${hibernate.connection.password}" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- Fournisseur Hibernate -->
+	<bean name="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		
+		<!-- Log SQL -->
+		<property name="showSql" value="${hibernate.show_sql}" />
+		
+		<!-- Dialect -->
+		<property name="databasePlatform" value="${hibernate.dialect}" />
+		
+		<!-- Création du schema -->
+		<property name="generateDdl" value="${hibernate.hbm2ddl.auto}" />
+		
+	</bean>
+	
+	<!-- EntityManager Factory -->
+	<bean id="entityManagerFactory" 
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		p:dataSource-ref="datasource"
+		p:persistenceXmlLocation="classpath:META-INF/persistence.xml"
+		p:jpaVendorAdapter-ref="jpaVendorAdapter"></bean>
+	
+	<!-- Transaction Manager -->
+	<bean id="transactionManager" 
+		class="org.springframework.orm.jpa.JpaTransactionManager" 
+		p:entityManagerFactory-ref="entityManagerFactory"/>
+	
+</beans>

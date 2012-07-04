@@ -18,24 +18,30 @@
  */
 package com.bulk.persistence.tools.test.dao.impl;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Predicate;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bulk.persistence.tools.dao.impl.JPAGenericDAORulesBasedImpl;
-import com.bulk.persistence.tools.test.dao.api.SXUserDao;
+import com.bulk.persistence.tools.test.dao.SXUserDAO;
 import com.bulk.persistence.tools.test.dao.entities.sx.SXUser;
 
 /**
  * Implémentation de la DAO de gestion des Utilisateurs
  * @author Jean-Jacques ETUNÈ NGI
  */
-@Repository(value = SXUserDao.SERVICE_NAME)
+@Repository(value = SXUserDAO.SERVICE_NAME)
 @Transactional(propagation = Propagation.REQUIRED)
-public class SXUserDAOImpl extends JPAGenericDAORulesBasedImpl<SXUser> implements SXUserDao {
+public class SXUserDAOImpl extends JPAGenericDAORulesBasedImpl<SXUser> implements SXUserDAO {
 
     /**
      * Gestionnaire d'entités
@@ -44,7 +50,7 @@ public class SXUserDAOImpl extends JPAGenericDAORulesBasedImpl<SXUser> implement
     private EntityManager entityManager;
     
 	/* (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#getEntityManager()
+	 * @see com.bulk.persistence.tools.test.dao.JPAGenericDAO#getEntityManager()
 	 */
 	@Override
 	public EntityManager getEntityManager() {
@@ -52,11 +58,75 @@ public class SXUserDAOImpl extends JPAGenericDAORulesBasedImpl<SXUser> implement
 	}
 
 	/* (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#getManagedEntityClass()
+	 * @see com.bulk.persistence.tools.test.dao.JPAGenericDAO#getManagedEntityClass()
 	 */
 	@Override
 	public Class<SXUser> getManagedEntityClass() {
 		return SXUser.class;
 	}
-
+	
+	@Override
+	public SXUser save(SXUser entity) {
+		// TODO Auto-generated method stub
+		return super.save(entity);
+	}
+	
+	@Override
+	public SXUser save(SXUser entity, boolean validateIntegrityConstraint,
+			boolean preValidateReferentialConstraint,
+			boolean postValidateReferentialConstraint) {
+		// TODO Auto-generated method stub
+		return super.save(entity, validateIntegrityConstraint,
+				preValidateReferentialConstraint, postValidateReferentialConstraint);
+	}
+	
+	@Override
+	public SXUser update(SXUser entity) {
+		// TODO Auto-generated method stub
+		return super.update(entity);
+	}
+	
+	@Override
+	public SXUser update(SXUser entity, boolean validateIntegrityConstraint,
+			boolean preValidateReferentialConstraint,
+			boolean postValidateReferentialConstraint) {
+		// TODO Auto-generated method stub
+		return super.update(entity, validateIntegrityConstraint,
+				preValidateReferentialConstraint, postValidateReferentialConstraint);
+	}
+	
+	@Override
+	public void delete(Object entityID) {
+		// TODO Auto-generated method stub
+		super.delete(entityID);
+	}
+	
+	@Override
+	public void delete(Object entityID,
+			boolean preValidateReferentialConstraint,
+			boolean postValidateReferentialConstraint) {
+		// TODO Auto-generated method stub
+		super.delete(entityID, preValidateReferentialConstraint,
+				postValidateReferentialConstraint);
+	}
+	
+	@Override
+	public void clean() {
+		// TODO Auto-generated method stub
+		super.clean();
+	}
+	
+	@Override
+	public List<SXUser> filter(List<Predicate> predicates, List<Order> orders,
+			Set<String> properties, int firstResult, int maxResult) {
+		// TODO Auto-generated method stub
+		return super.filter(predicates, orders, properties, firstResult, maxResult);
+	}
+	
+	@Override
+	public SXUser findByPrimaryKey(String entityIDName, Object entityID,
+			HashSet<String> properties) {
+		// TODO Auto-generated method stub
+		return super.findByPrimaryKey(entityIDName, entityID, properties);
+	}
 }

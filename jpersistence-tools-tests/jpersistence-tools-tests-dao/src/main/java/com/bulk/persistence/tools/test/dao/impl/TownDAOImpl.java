@@ -32,16 +32,16 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bulk.persistence.tools.dao.impl.JPAGenericDAORulesBasedImpl;
-import com.bulk.persistence.tools.test.dao.SXRoleDAO;
-import com.bulk.persistence.tools.test.dao.entities.sx.SXRole;
+import com.bulk.persistence.tools.test.dao.TownDAO;
+import com.bulk.persistence.tools.test.dao.entities.Town;
 
 /**
- * Implémentation de la DAO de gestion des Roles
+ * Implémentation de la DAO de gestion des Villes
  * @author Jean-Jacques ETUNÈ NGI
  */
-@Repository(value = SXRoleDAO.SERVICE_NAME)
+@Repository(value = TownDAO.SERVICE_NAME)
 @Transactional(propagation = Propagation.REQUIRED)
-public class SXRoleDAOImpl extends JPAGenericDAORulesBasedImpl<SXRole> implements SXRoleDAO {
+public class TownDAOImpl extends JPAGenericDAORulesBasedImpl<Town> implements TownDAO {
 
     /**
      * Gestionnaire d'entités
@@ -49,24 +49,31 @@ public class SXRoleDAOImpl extends JPAGenericDAORulesBasedImpl<SXRole> implement
     @PersistenceContext
     private EntityManager entityManager;
     
-	@Override
-	public EntityManager getEntityManager() {
-		 return this.entityManager;
-	}
+    /*
+     * (non-Javadoc)
+     * @see com.bulk.persistence.tools.test.dao.JPAGenericDAO#getEntityManager()
+     */
+    @Override
+    public EntityManager getEntityManager() {
+        return this.entityManager;
+    }
 
+	/* (non-Javadoc)
+	 * @see com.bulk.persistence.tools.test.dao.JPAGenericDAO#getManagedEntityClass()
+	 */
 	@Override
-	public Class<SXRole> getManagedEntityClass() {
-		return SXRole.class;
+	public Class<Town> getManagedEntityClass() {
+		return Town.class;
 	}
 	
 	@Override
-	public SXRole save(SXRole entity) {
+	public Town save(Town entity) {
 		// TODO Auto-generated method stub
 		return super.save(entity);
 	}
 	
 	@Override
-	public SXRole save(SXRole entity, boolean validateIntegrityConstraint,
+	public Town save(Town entity, boolean validateIntegrityConstraint,
 			boolean preValidateReferentialConstraint,
 			boolean postValidateReferentialConstraint) {
 		// TODO Auto-generated method stub
@@ -75,13 +82,13 @@ public class SXRoleDAOImpl extends JPAGenericDAORulesBasedImpl<SXRole> implement
 	}
 	
 	@Override
-	public SXRole update(SXRole entity) {
+	public Town update(Town entity) {
 		// TODO Auto-generated method stub
 		return super.update(entity);
 	}
 	
 	@Override
-	public SXRole update(SXRole entity, boolean validateIntegrityConstraint,
+	public Town update(Town entity, boolean validateIntegrityConstraint,
 			boolean preValidateReferentialConstraint,
 			boolean postValidateReferentialConstraint) {
 		// TODO Auto-generated method stub
@@ -111,14 +118,14 @@ public class SXRoleDAOImpl extends JPAGenericDAORulesBasedImpl<SXRole> implement
 	}
 	
 	@Override
-	public SXRole findByPrimaryKey(String entityIDName, Object entityID,
+	public Town findByPrimaryKey(String entityIDName, Object entityID,
 			HashSet<String> properties) {
 		// TODO Auto-generated method stub
 		return super.findByPrimaryKey(entityIDName, entityID, properties);
 	}
 	
 	@Override
-	public List<SXRole> filter(List<Predicate> predicates, List<Order> orders,
+	public List<Town> filter(List<Predicate> predicates, List<Order> orders,
 			Set<String> properties, int firstResult, int maxResult) {
 		// TODO Auto-generated method stub
 		return super.filter(predicates, orders, properties, firstResult, maxResult);

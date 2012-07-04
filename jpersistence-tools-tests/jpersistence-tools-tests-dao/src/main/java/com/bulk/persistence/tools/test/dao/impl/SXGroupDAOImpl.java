@@ -18,15 +18,21 @@
  */
 package com.bulk.persistence.tools.test.dao.impl;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Predicate;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bulk.persistence.tools.dao.impl.JPAGenericDAORulesBasedImpl;
-import com.bulk.persistence.tools.test.dao.api.SXGroupDAO;
+import com.bulk.persistence.tools.test.dao.SXGroupDAO;
 import com.bulk.persistence.tools.test.dao.entities.sx.SXGroup;
 
 /**
@@ -45,7 +51,7 @@ public class SXGroupDAOImpl extends JPAGenericDAORulesBasedImpl<SXGroup> impleme
     
     
 	/* (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#getEntityManager()
+	 * @see com.bulk.persistence.tools.test.dao.JPAGenericDAO#getEntityManager()
 	 */
 	@Override
 	public EntityManager getEntityManager() {
@@ -55,7 +61,7 @@ public class SXGroupDAOImpl extends JPAGenericDAORulesBasedImpl<SXGroup> impleme
 	}
 
 	/* (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#getManagedEntityClass()
+	 * @see com.bulk.persistence.tools.test.dao.JPAGenericDAO#getManagedEntityClass()
 	 */
 	@Override
 	public Class<SXGroup> getManagedEntityClass() {
@@ -63,5 +69,69 @@ public class SXGroupDAOImpl extends JPAGenericDAORulesBasedImpl<SXGroup> impleme
 		// On retourne la Classe gérée
 		return SXGroup.class;
 	}
-
+	
+	@Override
+	public SXGroup save(SXGroup entity) {
+		// TODO Auto-generated method stub
+		return super.save(entity);
+	}
+	
+	@Override
+	public SXGroup save(SXGroup entity, boolean validateIntegrityConstraint,
+			boolean preValidateReferentialConstraint,
+			boolean postValidateReferentialConstraint) {
+		// TODO Auto-generated method stub
+		return super.save(entity, validateIntegrityConstraint,
+				preValidateReferentialConstraint, postValidateReferentialConstraint);
+	}
+	
+	@Override
+	public SXGroup update(SXGroup entity) {
+		// TODO Auto-generated method stub
+		return super.update(entity);
+	}
+	
+	@Override
+	public SXGroup update(SXGroup entity, boolean validateIntegrityConstraint,
+			boolean preValidateReferentialConstraint,
+			boolean postValidateReferentialConstraint) {
+		// TODO Auto-generated method stub
+		return super.update(entity, validateIntegrityConstraint,
+				preValidateReferentialConstraint, postValidateReferentialConstraint);
+	}
+	
+	@Override
+	public void delete(Object entityID) {
+		// TODO Auto-generated method stub
+		super.delete(entityID);
+	}
+	
+	@Override
+	public void delete(Object entityID,
+			boolean preValidateReferentialConstraint,
+			boolean postValidateReferentialConstraint) {
+		// TODO Auto-generated method stub
+		super.delete(entityID, preValidateReferentialConstraint,
+				postValidateReferentialConstraint);
+	}
+	
+	@Override
+	public void clean() {
+		// TODO Auto-generated method stub
+		super.clean();
+	}
+	
+	@Override
+	public SXGroup findByPrimaryKey(String entityIDName, Object entityID,
+			HashSet<String> properties) {
+		// TODO Auto-generated method stub
+		return super.findByPrimaryKey(entityIDName, entityID, properties);
+	}
+	
+	@Override
+	public List<SXGroup> filter(List<Predicate> predicates, List<Order> orders,
+			Set<String> properties, int firstResult, int maxResult) {
+		// TODO Auto-generated method stub
+		return super.filter(predicates, orders, properties, firstResult, maxResult);
+	}
 }

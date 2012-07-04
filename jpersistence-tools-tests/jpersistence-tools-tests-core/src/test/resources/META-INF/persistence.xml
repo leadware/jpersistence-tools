@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd ">
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd ">
 	<persistence-unit name="jpersistence-tools" transaction-type="RESOURCE_LOCAL">
 		
 		<!-- Fournisseur de Persistence -->
@@ -17,14 +17,10 @@
 		<class>com.bulk.persistence.tools.test.dao.entities.sx.SXRole</class>
 		<class>com.bulk.persistence.tools.test.dao.entities.sx.SXUser</class>
 		
-		<!-- Validation Mode -->
-		<validation-mode>AUTO</validation-mode>
-		
+        <exclude-unlisted-classes/>
+         
 		<!-- Proprietes -->
 		<properties>
-			
-			<!-- Entity Detection -->
-			<property name="hibernate.archive.autodetection" value="class"/>
 			
 			<!-- SQL Log -->
 			<property name="hibernate.format_sql" value="${hibernate.format_sql}"/>
@@ -41,6 +37,7 @@
 			<property name="hibernate.jdbc.use_scrollable_resultset" value="${hibernate.jdbc.use_scrollable_resultset}"/>
 			<property name="hibernate.jdbc.use_getGeneratedKeys" value="${hibernate.jdbc.use_getGeneratedKeys}"/>
 			<property name="hibernate.connection.isolation" value="${hibernate.connection.isolation}"/>
+			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider" />
 			
 		</properties>
 		
