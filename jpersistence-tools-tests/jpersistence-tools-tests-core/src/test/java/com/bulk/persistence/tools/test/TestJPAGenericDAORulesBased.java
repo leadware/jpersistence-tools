@@ -45,7 +45,7 @@ import com.bulk.persistence.tools.test.dao.entities.Country;
  * 	<b>
  * 		<i>Class Under Test</i>
  * 		<ol>
- * 			<li>{@link com.bulk.persistence.tools.test.dao.yashiro.persistence.utils.dao.JPAGenericDAORulesBased}
+ * 			<li>{@link com.bulk.persistence.tools.dao.impl.JPAGenericDAORulesBasedImpl}
  * 		</ol>
  * 	</b>
  */
