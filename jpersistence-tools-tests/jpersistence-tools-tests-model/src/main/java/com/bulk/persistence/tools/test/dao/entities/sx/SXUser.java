@@ -36,6 +36,7 @@ import javax.persistence.Table;
 import com.bulk.persistence.tools.api.validator.annotations.SizeDAOValidator;
 import com.bulk.persistence.tools.api.validator.annotations.SizeDAOValidators;
 import com.bulk.persistence.tools.dao.api.constants.DAOMode;
+import com.bulk.persistence.tools.test.dao.entities.Town;
 import com.bulk.persistence.tools.test.dao.entities.sx.base.UserBase;
 import com.bulk.persistence.tools.test.dao.entities.sx.constants.Sex;
 import com.bulk.persistence.tools.test.dao.entities.sx.constants.UserState;
@@ -127,6 +128,26 @@ public class SXUser extends UserBase implements Serializable {
 		
 		// Appel Parent
 		super(lastName, firstName, sex, login, password, email, phone, state);
+	}
+
+	/**
+	 * Constructeur avec initialisation
+	 * @param lastName	Nom de l'Utilisateur
+	 * @param firstName	Prenom de l'Utilisateur
+	 * @param sex Sexe de l'Utilisateur
+	 * @param login		Nom de connexion de l'utilisateur
+	 * @param password	Mot de passe de l'utilisateur
+	 * @param email		Email de l'utilisateur
+	 * @param phone		Numero de telephone de l'utilisateur
+	 * @param state		Etat de l'utilisateur
+	 */
+	public SXUser(String lastName, String firstName, Sex sex, String login, String password, String email, String phone, UserState state, Town town) {
+		
+		// Appel Parent
+		super(lastName, firstName, sex, login, password, email, phone, state);
+		
+		// Ville
+		this.town = town;
 	}
 	
 	/**

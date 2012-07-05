@@ -100,7 +100,7 @@ public class UserBase implements Serializable, Comparable<UserBase> {
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "TOWN_ID", nullable = false)
-	@NotNull(message = "userbase.town.null")
+	//@NotNull(message = "userbase.town.null")
 	protected Town town;
 	
 	/**

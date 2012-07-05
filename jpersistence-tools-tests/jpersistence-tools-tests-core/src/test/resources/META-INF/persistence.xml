@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd ">
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd ">
 	<persistence-unit name="jpersistence-tools" transaction-type="RESOURCE_LOCAL">
 		
 		<!-- Fournisseur de Persistence -->
@@ -19,6 +19,9 @@
 		
         <exclude-unlisted-classes/>
          
+         <!-- Validation -->
+         <validation-mode>AUTO</validation-mode>
+         
 		<!-- Proprietes -->
 		<properties>
 			
@@ -30,6 +33,11 @@
 			<property name="hibernate.cache.use_second_level_cache" value="${hibernate.cache.use_second_level_cache}"/>
 			<property name="hibernate.cache.use_query_cache" value="${hibernate.cache.use_query_cache}"/>
 			<property name="hibernate.cache.region.factory_class" value="${hibernate.cache.region.factory_class}"/>
+			
+			<!-- Validation -->
+			<property name="javax.persistence.validation.group.pre-persist" value="javax.validation.groups.Default"/>
+			<property name="javax.persistence.validation.group.pre-update" value="javax.validation.groups.Default"/>
+			<property name="javax.persistence.validation.group.pre-remove" value=""/>
 			
 			<!-- Others -->
 			<property name="hibernate.max_fetch_depth" value="${hibernate.max_fetch_depth}"/>

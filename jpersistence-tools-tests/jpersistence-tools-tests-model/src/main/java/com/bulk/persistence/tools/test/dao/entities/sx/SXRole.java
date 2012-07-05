@@ -89,6 +89,16 @@ public class SXRole implements Serializable, Comparable<SXRole> {
 	}
 	
 	/**
+	 * Constructeur avec parametres
+	 * @param name	Nom du role
+	 * @param displayName	Nom du role a afficher
+	 */
+	public SXRole(String name, String displayName) {
+		this.name = name;
+		this.displayName = displayName;
+	}
+
+	/**
 	 * Methode d'obtention de l'Identifiant du role
 	 * @return	Identifiant du role
 	 */

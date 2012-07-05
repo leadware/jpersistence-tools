@@ -24,6 +24,7 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 
 /**
@@ -170,4 +171,119 @@ public interface JPAGenericDAO<T extends Object> {
 	 * @return	Classe de l'entité gérée par la DAO
 	 */
 	public Class<T> getManagedEntityClass();
+	
+	/**
+	 * Méthode de construction d'un chemin de propriété à partir de la racine
+	 * @param stringPath	Chemin sous forme de chaine
+	 * @return	Chemin recherché sous forme Path
+	 */
+	public <Y extends Comparable<Y>> Path<Y> buildPropertyPath(String stringPath);
+	
+	/**
+	 * Méthode de construction du predicat "equal"
+	 * @param <Y>	Parametre de type de la valeur a comparer
+	 * @param property	Chemim de la propriete a comparer
+	 * @param value	Valeur de comparaison
+	 * @return	Predicat construit
+	 */
+	public <Y extends Comparable<Y>> Predicate eq(String property, Y value);
+
+	/**
+	 * Méthode de construction du predicat "notEqual"
+	 * @param <Y>	Parametre de type de la valeur a comparer
+	 * @param property	Chemim de la propriete a comparer
+	 * @param value	Valeur de comparaison
+	 * @return	Predicat construit
+	 */
+	public <Y extends Comparable<Y>> Predicate notEq(String property, Y value);
+	
+	/**
+	 * Méthode de construction du predicat "greaterThan"
+	 * @param <Y>	Parametre de type de la valeur a comparer
+	 * @param property	Chemim de la propriete a comparer
+	 * @param value	Valeur de comparaison
+	 * @return	Predicat construit
+	 */
+	public <Y extends Comparable<Y>> Predicate gt(String property,  Y value);
+	
+	/**
+	 * Méthode de construction du predicat "greaterThanOrEqualTo"
+	 * @param <Y>	Parametre de type de la valeur a comparer
+	 * @param property	Chemim de la propriete a comparer
+	 * @param value	Valeur de comparaison
+	 * @return	Predicat construit
+	 */
+	public <Y extends Comparable<Y>> Predicate ge(String property,  Y value);
+
+	/**
+	 * Méthode de construction du predicat "lessThan"
+	 * @param <Y>	Parametre de type de la valeur a comparer
+	 * @param property	Chemim de la propriete a comparer
+	 * @param value	Valeur de comparaison
+	 * @return	Predicat construit
+	 */
+	public <Y extends Comparable<Y>> Predicate lt(String property,  Y value);
+
+	/**
+	 * Méthode de construction du predicat "lessThanOrEqualTo"
+	 * @param <Y>	Parametre de type de la valeur a comparer
+	 * @param property	Chemim de la propriete a comparer
+	 * @param value	Valeur de comparaison
+	 * @return	Predicat construit
+	 */
+	public <Y extends Comparable<Y>> Predicate le(String property,  Y value);
+
+	/**
+	 * Méthode de construction du predicat "like"
+	 * @param property	chemin de la proriété à comparer
+	 * @param value	Valeur de comparaison
+	 * @return	Predicat construit
+	 */
+	public Predicate like(String property,  String pattern);
+
+	/**
+	 * Méthode de construction du predicat "notLike"
+	 * @param property	Chemim de la propriete
+	 * @param value	Valeur de comparaison
+	 * @return	Predicat construit
+	 */
+	public Predicate notLike(String property,  String pattern);
+
+	/**
+	 * Méthode de construction du predicat "between"
+	 * @param <Y>	Parametre de type de la valeur a comparer
+	 * @param property	Chemim de la propriete a comparer
+	 * @param minValue	Borne inferieure
+	 * @param maxValue	Borne superieure
+	 * @return Predicat construit
+	 */
+	public <Y extends Comparable<Y>> Predicate between(String property,  Y minValue, Y maxValue);
+
+	/**
+	 * Méthode de construction du predicat "isNull"
+	 * @param property	Chemim de la propriete a comparer
+	 * @return Predicat construit
+	 */
+	public Predicate isNull(String property);
+
+	/**
+	 * Méthode de construction du predicat "isNotNull"
+	 * @param property	Chemim de la propriete a comparer
+	 * @return Predicat construit
+	 */
+	public Predicate isNotNull(String property);
+
+	/**
+	 * Méthode de construction du predicat "isTrue"
+	 * @param property	Chemim de la propriete a comparer
+	 * @return Predicat construit
+	 */
+	public Predicate isTrue(String property);
+
+	/**
+	 * Méthode de construction du predicat "isFalse"
+	 * @param property	Chemim de la propriete a comparer
+	 * @return Predicat construit
+	 */
+	public Predicate isFalse(String property);
 }

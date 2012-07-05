@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -119,11 +120,11 @@ public class SXGroup implements Serializable, Comparable<SXGroup> {
 	/**
 	 * Ensemble des roles de ce RolesSet
 	 */
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.REMOVE)
 	@JoinTable(
 		name = "SX_AUTHORIZATION",
-		joinColumns = {@JoinColumn(name = "GROUP_ID", unique = false)},
-		inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", unique = false)}
+		joinColumns = {@JoinColumn(name = "GROUP_ID")},
+		inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")}
 	)
 	private Set<SXRole> roles = new HashSet<SXRole>();
 

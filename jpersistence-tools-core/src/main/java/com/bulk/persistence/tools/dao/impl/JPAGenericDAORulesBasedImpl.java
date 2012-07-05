@@ -27,7 +27,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.OptimisticLockException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -37,7 +36,6 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.validation.ConstraintViolationException;
 
 import com.bulk.persistence.tools.api.exceptions.JPersistenceToolsException;
 import com.bulk.persistence.tools.api.exceptions.NullEntityException;
@@ -71,6 +69,16 @@ import com.bulk.persistence.tools.validator.jsr303ext.engine.JSR303ValidatorEngi
  */
 @SuppressWarnings("unchecked")
 public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements JPAGenericDAO<T> {
+	
+	/**
+	 * racine des criteres
+	 */
+	protected Root<T> root = null;
+	
+	/**
+	 * Alias de l'entité root
+	 */
+	protected final String ROOT_ALIAS = "ENTITY_CLASS__";
 	
 	/**
 	 * Etat de validation des constraintes d'integrites en mode SAVE
@@ -196,24 +204,24 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	@Override
 	public void delete(Object entityID, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint) {
 		
-		// Classe de l'entité
-		Class<T> entityClass = getManagedEntityClass();
-		
 		// Si l'ID de l'Objet est null
 		if(entityID == null) {
 			
 			// On leve une exception
 			throw new JPersistenceToolsException("jpagenericdaorulesbased.delete.id.null");
 		}
-		System.out.println("ENTITY ID: " + entityID);
+		
 		// Entité à supprimer
 		T entity = null;
+		
+		// EntityClass
+		Class<T> entityClass = getManagedEntityClass();
 		
 		try {
 			
 			// On reattache
 			entity = getEntityManager().find(entityClass, entityID);
-			System.out.println("ENTITY: " + entity);
+			
 		} catch (EntityNotFoundException e) {
 			
 			// On relance
@@ -244,27 +252,30 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	 */
 	@Override
 	public void clean() {
+
+		// EntityClass
+		Class<T> entityClass = getManagedEntityClass();
 		
-		// La requete
-		Query q = getEntityManager().createQuery("delete from " + getManagedEntityClass().getCanonicalName());
+		// Criteria Builder
+		CriteriaBuilder criteriaBuilder = getActiveCriteriaBuilder();
 		
-		// Execution
-		try {
-			
-			// Execution
-			q.executeUpdate();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			// Si c'est une exception de validation
-			if(e instanceof ConstraintViolationException) throw (ConstraintViolationException) e;
-			
-			// Si la classe est une instance de JPersistenceToolsException
-			if(e instanceof JPersistenceToolsException) throw (JPersistenceToolsException) e;
-			
-			// On relance
-			throw new JPersistenceToolsException("jpagenericdaorulesbased.clean.error", e);
-		}
+		// Création du constructeur de requete par critères
+		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+		
+		// Root element
+		Root<T> root = criteriaQuery.from(entityClass);
+
+		// Select Clause
+		criteriaQuery.select(root);
+
+		// Requete basée sur les critères
+		TypedQuery<T> query = getEntityManager().createQuery(criteriaQuery);
+		
+		// Liste des Objets
+		List<T> entities = query.getResultList();
+		
+		// Parcours
+		for(T entity : entities) getEntityManager().remove(entity);
 	}
 	
 	/*
@@ -372,9 +383,6 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	@Override
 	public T findByPrimaryKey(String entityIDName, Object entityID, HashSet<String> properties) {
 		
-		// Classe de l'entité
-		Class<T> entityClass = getManagedEntityClass();
-		
 		// Si le nom de la propriété ID de l'Objet est null
 		if(entityIDName == null || entityIDName.trim().length() == 0) {
 			
@@ -388,16 +396,22 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 			// On leve une exception
 			throw new JPersistenceToolsException("jpagenericdaorulesbased.findbyprimarykey.id.null");
 		}
+
+		// EntityClass
+		Class<T> entityClass = getManagedEntityClass();
 		
-		// Obtention du Constructeur de Criteres
-		CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
-				
+		// Criteria Builder
+		CriteriaBuilder criteriaBuilder = getActiveCriteriaBuilder();
+		
+		// Root
+		Root<T> root = getActiveRoot();
+		
 		// Création du constructeur de requete par critères
 		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
 		
 		// Root element
-		Root<T> root = criteriaQuery.from(entityClass);
-
+		criteriaQuery.from(entityClass);
+		
 		// Select Clause
 		criteriaQuery.select(root);
 		
@@ -440,17 +454,20 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	@Override
 	public List<T> filter(List<Predicate> predicates, List<Order> orders, Set<String> properties, int firstResult, int maxResult) {
 
-		// Classe de l'entité
+		// EntityClass
 		Class<T> entityClass = getManagedEntityClass();
 		
-		// Constructeur de Criteres
-		CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
+		// Criteria Builder
+		CriteriaBuilder criteriaBuilder = getActiveCriteriaBuilder();
 		
 		// Requete de criteres
 		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
 		
 		// Construction de la racine
 		Root<T> root = criteriaQuery.from(entityClass);
+		
+		// On positionne l'Alias
+		root.alias(ROOT_ALIAS);
 		
 		// Selection de la racine
 		criteriaQuery.select(root);
@@ -555,41 +572,6 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		
 		// On positionne le distict
 		query.distinct(true);
-	}
-	
-	/**
-	 * Méthode de construction d'un chemin de propriété à partir de la racine
-	 * @param <T>	Paramètre de type
-	 * @param root	Racine
-	 * @param stringPath	Chemin sous forme de chaine
-	 * @return	Chemin recherché sous forme Path
-	 */
-	protected Path<T> buildPropertyPath(Root<T> root, String stringPath) {
-		
-		// Si la racine est nulle
-		if(root == null) return null;
-		
-		// Si la chaine est vide
-		if(stringPath == null || stringPath.trim().length() == 0) return null;
-		
-		// Le Path à retournet
-		Path<T> path = root;
-		
-		// On splitte sur le séparateur de champs
-		String[] hierarchicalPaths = stringPath.trim().split("\\.");
-		
-		// Parcours
-		for (String unitPath : hierarchicalPaths) {
-			
-			// Si le path est vide ou est une suite d'espace
-			if(unitPath == null || unitPath.trim().length() == 0) continue;
-			
-			// Acces à la ppt
-			path = path.get(unitPath.trim());
-		}
-		
-		// On retourne le Path
-		return path;
 	}
 	
 	/**
@@ -738,5 +720,236 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		
 		// On retourne l'annotation
 		return defaultSaveOrUpdateAnnotation;
+	}
+
+	/**
+	 * Néthode d'obtention du Criteria Builderactif dans la DAO
+	 * @return	Criteria Builderactif dans la DAO
+	 */
+	public CriteriaBuilder getActiveCriteriaBuilder() {
+		return getEntityManager().getCriteriaBuilder();
+	}
+	
+	/**
+	 * Méthode d'obtention de la racine active de critère
+	 * @return racine active de critère
+	 */
+	protected Root<T> getActiveRoot() {
+		
+		// Si le root est null
+		if(root == null) {
+			
+			// On crée le ROOT
+			root = getActiveCriteriaBuilder().createQuery(getManagedEntityClass()).from(getManagedEntityClass());
+			
+			// On positionne l'Alias
+			root.alias(ROOT_ALIAS);
+		}
+		
+		// On retourne le Root
+		return this.root;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#buildPropertyPath(java.lang.String)
+	 */
+	@Override
+	public <Y extends Comparable<Y>> Path<Y> buildPropertyPath(String stringPath) {
+		
+		// On construit le chemin
+		return buildPropertyPath(getActiveRoot(), stringPath);
+	}
+	
+	/**
+	 * Méthode de construction d'un chemin de propriété à partir de la racine
+	 * @param <Y>	Paramètre de type du chemin final
+	 * @param root	Racine
+	 * @param stringPath	Chemin sous forme de chaine
+	 * @return	Chemin recherché sous forme Path
+	 */
+	protected <Y extends Comparable<Y>> Path<Y> buildPropertyPath(Root<T> root, String stringPath) {
+		
+		// Si la racine est nulle
+		if(root == null) return null;
+		
+		// Si la chaine est vide
+		if(stringPath == null || stringPath.trim().length() == 0) return null;
+		
+		// Le Path à retournet
+		Path<? extends Comparable<?>> path = null;
+		
+		// On splitte sur le séparateur de champs
+		String[] hierarchicalPaths = stringPath.trim().split("\\.");
+		
+		// Obtention du premier chemin
+		path = root.get(hierarchicalPaths[0]);
+
+		System.out.println("Direct PATH: " + path.toString());
+		
+		// Si la taille est > 1
+		if(hierarchicalPaths.length > 1) {
+
+			// Parcours
+			for (int i = 1; i < hierarchicalPaths.length; i++) {
+				
+				// Le chemin
+				String unitPath = hierarchicalPaths[i];
+				
+				// Si le path est vide ou est une suite d'espace
+				if(unitPath == null || unitPath.trim().length() == 0) continue;
+				
+				// Acces à la ppt
+				path = path.get(unitPath.trim());
+				
+				System.out.println("PATH: " + path.toString());
+			}
+		}
+		
+		// On retourne le Path
+		return (Path<Y>) path;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#eq(java.lang.String, java.lang.Comparable)
+	 */
+	@Override
+	public <Y extends Comparable<Y>> Predicate eq(String property, Y value) {
+		
+		// On construit le predicat
+		return getActiveCriteriaBuilder().equal(this.<Y>buildPropertyPath(getActiveRoot(), property), value);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#notEq(java.lang.String, java.lang.Comparable)
+	 */
+	@Override
+	public <Y extends Comparable<Y>> Predicate notEq(String property, Y value) {
+		
+		// On construit le predicat
+		return getActiveCriteriaBuilder().notEqual(this.<Y>buildPropertyPath(getActiveRoot(), property), value);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#gt(java.lang.String, java.lang.Comparable)
+	 */
+	@Override
+	public <Y extends Comparable<Y>> Predicate gt(String property,  Y value) {
+		
+		// On construit le predicat
+		return getActiveCriteriaBuilder().greaterThan(this.<Y>buildPropertyPath(getActiveRoot(), property), value);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#ge(java.lang.String, java.lang.Comparable)
+	 */
+	@Override
+	public <Y extends Comparable<Y>> Predicate ge(String property,  Y value) {
+		
+		// On construit le predicat
+		return getActiveCriteriaBuilder().greaterThanOrEqualTo(this.<Y>buildPropertyPath(getActiveRoot(), property), value);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#lt(java.lang.String, java.lang.Comparable)
+	 */
+	@Override
+	public <Y extends Comparable<Y>> Predicate lt(String property,  Y value) {
+		
+		// On construit le predicat
+		return getActiveCriteriaBuilder().lessThan(this.<Y>buildPropertyPath(getActiveRoot(), property), value);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#le(java.lang.String, java.lang.Comparable)
+	 */
+	@Override
+	public <Y extends Comparable<Y>> Predicate le(String property,  Y value) {
+		
+		// On construit le predicat
+		return getActiveCriteriaBuilder().lessThanOrEqualTo(this.<Y>buildPropertyPath(getActiveRoot(), property), value);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#like(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public Predicate like(String property,  String pattern) {
+		
+		// On construit le predicat
+		return getActiveCriteriaBuilder().like(this.<String>buildPropertyPath(getActiveRoot(), property), pattern);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#notLike(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public Predicate notLike(String property,  String pattern) {
+		
+		// On construit le predicat
+		return getActiveCriteriaBuilder().notLike(this.<String>buildPropertyPath(getActiveRoot(), property), pattern);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#between(java.lang.String, java.lang.Comparable, java.lang.Comparable)
+	 */
+	@Override
+	public <Y extends Comparable<Y>> Predicate between(String property, Y minValue, Y maxValue) {
+
+		// On construit le predicat
+		return getActiveCriteriaBuilder().between(this.<Y>buildPropertyPath(getActiveRoot(), property), minValue, maxValue);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#isNull(java.lang.String)
+	 */
+	@Override
+	public Predicate isNull(String property) {
+
+		// On construit le predicat
+		return getActiveCriteriaBuilder().isNull(this.<Boolean>buildPropertyPath(getActiveRoot(), property));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#isNotNull(java.lang.String)
+	 */
+	@Override
+	public Predicate isNotNull(String property) {
+
+		// On construit le predicat
+		return getActiveCriteriaBuilder().isNotNull(this.<Boolean>buildPropertyPath(getActiveRoot(), property));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#isTrue(java.lang.String)
+	 */
+	@Override
+	public Predicate isTrue(String property) {
+
+		// On construit le predicat
+		return getActiveCriteriaBuilder().isTrue(this.<Boolean>buildPropertyPath(getActiveRoot(), property));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#isFalse(java.lang.String)
+	 */
+	@Override
+	public Predicate isFalse(String property) {
+
+		// On construit le predicat
+		return getActiveCriteriaBuilder().isFalse(this.<Boolean>buildPropertyPath(getActiveRoot(), property));
 	}
 }
