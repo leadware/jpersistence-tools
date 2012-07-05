@@ -19,7 +19,6 @@
 package com.bulk.persistence.tools.dao.impl;
 
 import java.lang.annotation.Annotation;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -381,7 +380,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#findByPrimaryKey(java.lang.Class, java.lang.String, java.lang.Object, java.util.HashSet)
 	 */
 	@Override
-	public T findByPrimaryKey(String entityIDName, Object entityID, HashSet<String> properties) {
+	public T findByPrimaryKey(String entityIDName, Object entityID, Set<String> properties) {
 		
 		// Si le nom de la propriété ID de l'Objet est null
 		if(entityIDName == null || entityIDName.trim().length() == 0) {
@@ -403,14 +402,11 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		// Criteria Builder
 		CriteriaBuilder criteriaBuilder = getActiveCriteriaBuilder();
 		
-		// Root
-		Root<T> root = getActiveRoot();
-		
 		// Création du constructeur de requete par critères
 		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
-		
-		// Root element
-		criteriaQuery.from(entityClass);
+
+		// Construction de la racine
+		Root<T> root = criteriaQuery.from(entityClass);
 		
 		// Select Clause
 		criteriaQuery.select(root);

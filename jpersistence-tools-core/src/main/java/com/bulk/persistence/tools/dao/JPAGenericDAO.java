@@ -18,7 +18,6 @@
  */
 package com.bulk.persistence.tools.dao;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -158,7 +157,7 @@ public interface JPAGenericDAO<T extends Object> {
 	 * @param properties	Ensemble de proprietes a charger
 	 * @return	Instance de la classe avec les proprietes charges
 	 */
-	public T findByPrimaryKey(String entityIDName, Object entityID, HashSet<String>  properties);
+	public T findByPrimaryKey(String entityIDName, Object entityID, Set<String>  properties);
 		
 	/**
 	 * Methode d'obtention du gestionnaire d'entites

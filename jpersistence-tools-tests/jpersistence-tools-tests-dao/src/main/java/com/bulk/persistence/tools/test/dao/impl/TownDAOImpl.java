@@ -18,7 +18,6 @@
  */
 package com.bulk.persistence.tools.test.dao.impl;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -119,7 +118,7 @@ public class TownDAOImpl extends JPAGenericDAORulesBasedImpl<Town> implements To
 	
 	@Override
 	public Town findByPrimaryKey(String entityIDName, Object entityID,
-			HashSet<String> properties) {
+			Set<String> properties) {
 		// TODO Auto-generated method stub
 		return super.findByPrimaryKey(entityIDName, entityID, properties);
 	}

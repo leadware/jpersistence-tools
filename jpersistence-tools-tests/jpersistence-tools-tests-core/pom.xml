@@ -339,7 +339,14 @@
 			<scope>test</scope>
 			<optional>true</optional>
 		</dependency>
-	
+
+		<!-- MySQL Connector Dependency -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.connector.version}</version>
+		</dependency>
+  		
 		<!-- Commons Logging dependencies -->
 		<dependency>
 			<groupId>commons-logging</groupId>

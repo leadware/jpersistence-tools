@@ -18,12 +18,16 @@
  */
 package com.bulk.persistence.tools.test;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.fail;
+
 import java.util.List;
-import javax.persistence.criteria.CriteriaBuilder;
+
 import javax.persistence.criteria.Predicate;
 import javax.validation.ConstraintViolationException;
-import org.hibernate.ejb.criteria.CriteriaBuilderImpl;
+
+import org.hibernate.LazyInitializationException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +35,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import com.bulk.persistence.tools.api.exceptions.InvalidEntityInstanceStateException;
 import com.bulk.persistence.tools.collection.utils.ConverterUtil;
 import com.bulk.persistence.tools.test.dao.CountryDAO;
@@ -266,42 +271,126 @@ public class TestJPAGenericDAORulesBased {
     @Test
     public void testFilterMethods() {
 
-    	// Predicat de recherche
-    	Predicate predicate = null;
+    	// Predicats de recherche
+    	Predicate p1 = null;
+    	Predicate p2 = null;
     	
     	// Recherche
-    	List<Country> filtered = null;
+    	List<Country> filteredCountry = null;
+    	List<Region> filteredRegions = null;
     	
         //////////////////////////////////////////////////////////////////////////////
         // 	  Filtre par la DAO Générique des Pays dont le nom commence par CAM 	//
         //////////////////////////////////////////////////////////////////////////////
     	
     	// Predicat de recherche
-    	predicate = countryDao.like("designation", "CAM%");
+    	p1 = countryDao.like("designation", "CAM%");
     	
     	// Recherche
-    	filtered = countryDao.filter(ConverterUtil.convertArrayToList(predicate), null, null, 0, -1);
+    	filteredCountry = countryDao.filter(ConverterUtil.convertArrayToList(p1), null, null, 0, -1);
 
     	// Vérification
-    	assertNotNull(filtered);
-    	assertEquals(1, filtered.size());
+    	assertNotNull(filteredCountry);
+    	assertEquals(1, filteredCountry.size());
 
         //////////////////////////////////////////////////////////////////////////////
         // 	  Filtre par la DAO Générique des Pays dont le nom commence par C	 	//
         //////////////////////////////////////////////////////////////////////////////
     	
     	// Predicat de recherche
-    	predicate = countryDao.like("designation", "C%");
+    	p1 = countryDao.like("designation", "C%");
     	
     	// Recherche
-    	filtered = countryDao.filter(ConverterUtil.convertArrayToList(predicate), null, null, 0, -1);
+    	filteredCountry = countryDao.filter(ConverterUtil.convertArrayToList(p1), null, null, 0, -1);
 
     	// Vérification
-    	assertNotNull(filtered);
-    	assertEquals(2, filtered.size());
+    	assertNotNull(filteredCountry);
+    	assertEquals(2, filteredCountry.size());
+
+        //////////////////////////////////////////////////////////////////////////////
+        // 	  Filtre par la DAO Générique des Pays dont le code commence par C	 	//
+    	//							et le nom par CA								//
+        //////////////////////////////////////////////////////////////////////////////
     	
+    	// Predicat de recherche
+    	p1 = countryDao.like("code", "C%");
+    	p2 = countryDao.like("designation", "CA%");
     	
+    	// Recherche
+    	filteredCountry = countryDao.filter(ConverterUtil.convertArrayToList(p1, p2), null, null, 0, -1);
+
+    	// Vérification
+    	assertNotNull(filteredCountry);
+    	assertEquals(1, filteredCountry.size());
     	
+        //////////////////////////////////////////////////////////////////////////////
+        // 	  		Filtre par la DAO Générique des Regions du Pays c1	 			//
+        //////////////////////////////////////////////////////////////////////////////
+    	
+    	// Predicat de recherche
+    	p1 = regionDao.eq("country.code", c1.getCode());
+    	
+    	// Recherche
+    	filteredRegions = regionDao.filter(ConverterUtil.convertArrayToList(p1), null, null, 0, -1);
+
+    	// Vérification
+    	assertNotNull(filteredRegions);
+    	assertEquals(3, filteredRegions.size());
+    	
+        //////////////////////////////////////////////////////////////////////////////
+        // 	  		Filtre par la DAO Générique des Regions du Pays c2	 			//
+    	//						dont le nom commence par PARIS						//
+        //////////////////////////////////////////////////////////////////////////////
+    	
+    	// Predicat de recherche
+    	p1 = regionDao.eq("country.code", c2.getCode());
+    	p2 = regionDao.like("designation", "PARIS%");
+    	
+    	// Recherche
+    	filteredRegions = regionDao.filter(ConverterUtil.convertArrayToList(p1, p2), null, null, 0, -1);
+
+    	// Vérification
+    	assertNotNull(filteredRegions);
+    	assertEquals(2, filteredRegions.size());
+    	
+        //////////////////////////////////////////////////////////////////////////////
+        // 	  	Chargement d'un Utilisateur par sa clé primaire sans ses groupes	//
+        //////////////////////////////////////////////////////////////////////////////
+    	
+    	// Recherche
+    	u1 = userDAO.findByPrimaryKey("id", u1.getId(), null);
+    	
+    	try {
+			
+    		// Tentative d'accès à ses groupes
+    		u1.getGroups().size();
+			
+    		// Echec
+    		fail("Erreur: On devrait avoir une LazyInitializationException");
+    		
+		} catch (LazyInitializationException e) {
+			
+			// Un log
+			System.err.println("ERREUR SURVENUE : " + e.getMessage());
+		}
+
+        //////////////////////////////////////////////////////////////////////////////
+        // 	  	Chargement d'un Utilisateur par sa clé primaire avec ses groupes	//
+        //////////////////////////////////////////////////////////////////////////////
+    	
+    	// Recherche
+    	u1 = userDAO.findByPrimaryKey("id", u1.getId(), ConverterUtil.convertArrayToSet("groups"));
+    	
+    	try {
+			
+    		// Tentative d'accès à ses groupes
+    		System.out.println("GROUP COUNT : " + u1.getGroups().size());
+			
+		} catch (LazyInitializationException e) {
+
+    		// Echec
+    		fail("Erreur: On devrait pas avoir une LazyInitializationException");
+		}
     }
     
     /**
@@ -358,7 +447,7 @@ public class TestJPAGenericDAORulesBased {
     	sxr1 = roleDAO.save(new SXRole("saveCountry", "Enregistrement des Pays"));
     	sxr2 = roleDAO.save(new SXRole("updateCountry", "Modification des Pays"));
     	sxr3 = roleDAO.save(new SXRole("deleteCountry", "Suppression des Pays"));
-    	sxr4 = roleDAO.save(new SXRole("createUser", "Création des Utilisateurs"));
+    	sxr4 = roleDAO.save(new SXRole("saveUser", "Création des Utilisateurs"));
     	sxr5 = roleDAO.save(new SXRole("deleteUser", "Suppression des Utilisateurs"));
     	
     	// les Group
