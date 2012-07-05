@@ -167,9 +167,6 @@
 		<!-- SL4J Version Property -->
 		<slf4j.version>1.6.1</slf4j.version>
 		
-		<!-- mysql connector version property -->
-		<mysql.connector.version>5.1.18</mysql.connector.version>
-		
 		<!-- Maven builders Dependencies Version -->
 		
 		<!-- JRE Source version Property -->
