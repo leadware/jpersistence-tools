@@ -207,7 +207,7 @@ public class TestJPAGenericDAORulesBased {
 		// 							d'intégrité violée 								//
         //  		La contrainte en question est une contrainte JSR 303 		 	//
     	//  	positionnée sur le champ hérité "code" de l'entité Country  		//
-    	//	@Size(min = CODE_MIN_LENGTH, max = CODE_MAX_LENGTH, message = "...")	//
+    	//	@Size(min = CODE_MIN_LENGTH, max = CODE_MAX_LENGTH, message = "..")	//
     	//  protected String code;													//
         //////////////////////////////////////////////////////////////////////////////
 
