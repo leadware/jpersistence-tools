@@ -19,9 +19,12 @@
 package com.bulk.persistence.tools.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
@@ -170,6 +173,21 @@ public interface JPAGenericDAO<T extends Object> {
 	 * @return	Classe de l'entité gérée par la DAO
 	 */
 	public Class<T> getManagedEntityClass();
+	
+	/**
+	 * Néthode d'obtention du Criteria Builderactif dans la DAO
+	 * @return	Criteria Builderactif dans la DAO
+	 */
+	public CriteriaBuilder getActiveCriteriaBuilder();
+	
+	/**
+	 * Méthode d'execution d'une requete de critere
+	 * @param <Q>	Parametre de type de la racine de l'entite
+	 * @param criteriaQuery	Requete de critere
+	 * @param parameters	Map des parametres
+	 * @return	Resultat de la requete
+	 */
+	public <Q> List<Q> executeCriteria(CriteriaQuery<Q> criteriaQuery, Map<String, Object> parameters);
 	
 	/**
 	 * Méthode de construction d'un chemin de propriété à partir de la racine

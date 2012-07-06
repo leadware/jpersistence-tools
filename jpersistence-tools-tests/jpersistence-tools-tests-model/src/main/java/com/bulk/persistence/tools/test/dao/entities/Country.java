@@ -28,9 +28,8 @@ import com.bulk.persistence.tools.test.dao.entities.base.TPHParameterBase;
 
 /**
  * Classe representant un Pays
- * @author Jean-Jacques
+ * @author  Jean-Jacques ETUNÈ NGI
  * @see {@link TPHParameterBase}
- * @version 1.0
  */
 @SizeDAOValidators({
 	@SizeDAOValidator(mode = DAOMode.SAVE,   expr = "from Country c where (c.code = ${code})", max = 0, message = "Country.save.code.exist"),

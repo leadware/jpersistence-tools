@@ -26,10 +26,9 @@ import javax.persistence.Table;
 /**
  * Classe representant la racine des classes de parametrage mappee
  * par la strategie: Table-Per-SubClass
- * @author Jean-Jacques
+ * @author  Jean-Jacques ETUNÈ NGI
  * Super Classe
  * @see	{@link AbstractParameterBase}
- * @version 1.0
  */
 @Entity(name = "TPSParameterBase")
 @Table(name = "GENEZIS_TPS_PARAMETER")

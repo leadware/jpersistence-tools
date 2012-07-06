@@ -55,7 +55,7 @@ import com.bulk.persistence.tools.test.dao.entities.sx.constants.UserState;
 
 /**
  * Classe de test de l'implémentation de la DAO Générique basées sur l'évaluation des règles
- * @author Jean-Jacques
+ * @author Jean-Jacques ETUNÈ NGI
  * @see
  * 	<b>
  * 		<i>Class Under Test</i>
@@ -110,17 +110,17 @@ public class TestJPAGenericDAORulesBased {
 	/**
 	 * Countries
 	 */
-	private Country c1, c2, c3, c4, c5;
+	private Country c1, c2;
     
 	/**
 	 * Regions
 	 */
-	private Region r1, r2, r3, r4, r5;
+	private Region r1, r2, r3;
 	
 	/**
 	 * Towns
 	 */
-	private Town t1, t2, t3, t4, t5;
+	private Town t1, t2, t3;
 
 	/**
 	 * Permissions
@@ -135,7 +135,7 @@ public class TestJPAGenericDAORulesBased {
 	/**
 	 * Users
 	 */
-	private SXUser u1, u2, u3, u4;
+	private SXUser u1;
 	
     /**
      * Méthode d'initialisation des méthodes de tests
@@ -425,23 +425,23 @@ public class TestJPAGenericDAORulesBased {
     	// Les Country
     	c1 = countryDao.save(new Country("CMR", "CAMEROUN"));
     	c2 = countryDao.save(new Country("FR", "FRANCE"));
-    	c3 = countryDao.save(new Country("ANGL", "ANGLETERRE"));
-    	c4 = countryDao.save(new Country("CHN", "CHINE"));
-    	c5 = countryDao.save(new Country("JPN", "JAPON"));
+    	countryDao.save(new Country("ANGL", "ANGLETERRE"));
+    	countryDao.save(new Country("CHN", "CHINE"));
+    	countryDao.save(new Country("JPN", "JAPON"));
     	
     	// Les Region
     	r1 = regionDao.save(new Region("CNTR", "CENTRE", c1));
     	r2 = regionDao.save(new Region("OUE", "OUEST", c1));
     	r3 = regionDao.save(new Region("LTTR", "LITTORAL", c1));
-    	r4 = regionDao.save(new Region("PRII", "PARIS II", c2));
-    	r5 = regionDao.save(new Region("PRI", "PARIS I", c2));
+    	regionDao.save(new Region("PRII", "PARIS II", c2));
+    	regionDao.save(new Region("PRI", "PARIS I", c2));
     	
     	// Les Town
     	t1 = townDao.save(new Town("YDE", "YAOUNDE", r1));
     	t2 = townDao.save(new Town("DLA", "DOUALA", r3));
     	t3 = townDao.save(new Town("LMB", "LIMBE", r3));
-    	t4 = townDao.save(new Town("MBLY", "MBALMAYO", r1));
-    	t5 = townDao.save(new Town("BFSS", "BAFOUSSAM", r2));
+    	townDao.save(new Town("MBLY", "MBALMAYO", r1));
+    	townDao.save(new Town("BFSS", "BAFOUSSAM", r2));
     	
     	// Les Role
     	sxr1 = roleDAO.save(new SXRole("saveCountry", "Enregistrement des Pays"));
@@ -460,12 +460,12 @@ public class TestJPAGenericDAORulesBased {
     	
     	// Les User
     	u1 = userDAO.save(new SXUser("Jean-Jacques", "ETUNÈ NGI", Sex.MAN, "jetune", 
-    			"sakazaki", "jetune@yahoo.fr", "99105161", UserState.VALID, t1));
-    	u2 = userDAO.save(new SXUser("Jean Vincent", "NGA NTI", Sex.MAN, "vince_nti", 
-    			"vince", "vince_nti@yahoo.fr", "94757270", UserState.VALID, t1));
-    	u3 = userDAO.save(new SXUser("Guy Landry", "TCHATCHOUANG NONO", Sex.MAN, "guytchatch", 
-    			"landry", "guytchatch@yahoo.fr", "98889022", UserState.VALID, t2));
-    	u4 = userDAO.save(new SXUser("Celestine", "KANMO", Sex.WOMAN, "kcelestine", 
-    			"celestine", "kcelestine@yahoo.fr", "77735678", UserState.VALID, t3));
+    			"sakazaki", "jetune@yahoo.fr", "99105161", UserState.VALID, t1, ConverterUtil.convertArrayToSet(g1)));
+    	userDAO.save(new SXUser("Jean Vincent", "NGA NTI", Sex.MAN, "vince_nti", 
+    			"vince", "vince_nti@yahoo.fr", "94757270", UserState.VALID, t1, ConverterUtil.convertArrayToSet(g2)));
+    	userDAO.save(new SXUser("Guy Landry", "TCHATCHOUANG NONO", Sex.MAN, "guytchatch", 
+    			"landry", "guytchatch@yahoo.fr", "98889022", UserState.VALID, t2, ConverterUtil.convertArrayToSet(g3)));
+    	userDAO.save(new SXUser("Celestine", "KANMO", Sex.WOMAN, "kcelestine", 
+    			"celestine", "kcelestine@yahoo.fr", "77735678", UserState.VALID, t3, ConverterUtil.convertArrayToSet(g3)));
     }
 }

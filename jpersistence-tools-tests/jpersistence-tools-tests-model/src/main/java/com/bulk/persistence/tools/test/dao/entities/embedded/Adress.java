@@ -29,9 +29,7 @@ import com.bulk.persistence.tools.api.validator.jsr303ext.annotations.PhoneNumbe
 
 /**
  * Classe representant une adresse
- * @author NKOU NKOU Joseph Junior
- * @author Jean-Jacques
- * @version 1.0
+ * @author  Jean-Jacques ETUNÈ NGI
  */
 @Embeddable
 public class Adress implements Serializable {

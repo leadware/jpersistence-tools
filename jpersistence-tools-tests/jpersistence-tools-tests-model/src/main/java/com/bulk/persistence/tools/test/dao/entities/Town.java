@@ -32,9 +32,8 @@ import com.bulk.persistence.tools.test.dao.entities.base.TPSParameterBase;
 
 /**
  * Classe representant une ville attachee a un Pays
- * @author Jean-Jacques
+ * @author  Jean-Jacques ETUNÈ NGI
  * @see {@link TPSParameterBase}
- * @version 1.0
  */
 @SizeDAOValidators({
 	@SizeDAOValidator(mode = DAOMode.SAVE,   expr = "from Town t where (t.code = ${code})", max = 0, message = "Town.save.code.exist"),

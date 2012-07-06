@@ -33,8 +33,7 @@ import com.bulk.persistence.tools.api.validator.jsr303ext.annotations.Length;
 
 /**
  * Classe de base des parametrages
- * @author Jean-Jacques
- * @version 1.0
+ * @author  Jean-Jacques ETUNÈ NGI
  */
 @MappedSuperclass
 public class AbstractParameterBase implements Serializable, Comparable<AbstractParameterBase> {

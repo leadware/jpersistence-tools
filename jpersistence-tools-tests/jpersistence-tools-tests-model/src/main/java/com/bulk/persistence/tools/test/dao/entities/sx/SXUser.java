@@ -43,7 +43,7 @@ import com.bulk.persistence.tools.test.dao.entities.sx.constants.UserState;
 
 /**
  * Classe representant un utilisateur de la plateforme
- * @author Jean-Jacques ETUNEÈ NGI
+ * @author Jean-Jacques ETUNÈ NGI
  */
 @SizeDAOValidators({
 	@SizeDAOValidator(mode = DAOMode.SAVE,   expr = "from SXUser u where (u.login = ${login})", max = 0, message = "user.save.login.exist"),
@@ -141,13 +141,17 @@ public class SXUser extends UserBase implements Serializable {
 	 * @param phone		Numero de telephone de l'utilisateur
 	 * @param state		Etat de l'utilisateur
 	 */
-	public SXUser(String lastName, String firstName, Sex sex, String login, String password, String email, String phone, UserState state, Town town) {
+	public SXUser(String lastName, String firstName, 
+				Sex sex, String login, String password, 
+				String email, String phone, UserState state, 
+				Town town, Set<SXGroup> groups) {
 		
 		// Appel Parent
 		super(lastName, firstName, sex, login, password, email, phone, state);
 		
 		// Ville
 		this.town = town;
+		this.groups = groups;
 	}
 	
 	/**

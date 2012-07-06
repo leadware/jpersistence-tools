@@ -20,12 +20,15 @@ package com.bulk.persistence.tools.dao.impl;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.OptimisticLockException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -498,6 +501,44 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		return results;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#executeCriteria(javax.persistence.criteria.CriteriaQuery, java.util.Map)
+	 */
+	@Override
+	public <Q> List<Q> executeCriteria(CriteriaQuery<Q> criteriaQuery, Map<String, Object> parameters) {
+		
+		// Si la Requete est nulle
+		if(criteriaQuery == null) throw new JPersistenceToolsException("jpagenericdaorulesbased.executeCriteria.query.null");
+		
+		// Requete Typee
+		TypedQuery<Q> query = getEntityManager().createQuery(criteriaQuery);
+		
+		// Ajout des Parametres
+		addQueryParameters(query, parameters);
+		
+		// Execution
+		return query.getResultList();
+	}
+	
+	/**
+	 * Méthode d'ajout de parametres à la requete
+	 * @param query	Requete
+	 * @param parameters	Map des parametres
+	 */
+	protected void addQueryParameters(Query query, Map<String, Object> parameters) {
+		
+		// Si la MAP est nulle
+		if(parameters == null || parameters.size() == 0) return;
+		
+		// Parcours
+		for(Entry<String, Object> entry : parameters.entrySet()) {
+			
+			// Ajout
+			query.setParameter(entry.getKey(), entry.getValue());
+		}
+	}
+	
 	/**
 	 * Méthode de chargement des ordres
 	 * @param <T>	Paramètre de type
@@ -718,9 +759,9 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		return defaultSaveOrUpdateAnnotation;
 	}
 
-	/**
-	 * Néthode d'obtention du Criteria Builderactif dans la DAO
-	 * @return	Criteria Builderactif dans la DAO
+	/*
+	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#getActiveCriteriaBuilder()
 	 */
 	public CriteriaBuilder getActiveCriteriaBuilder() {
 		return getEntityManager().getCriteriaBuilder();
