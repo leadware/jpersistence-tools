@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import javax.el.ValueExpression;
 
-import com.bulk.persistence.tools.api.validator.annotations.DAOConstraint;
+import com.bulk.persistence.tools.api.validator.annotations.marker.DAOConstraint;
 import com.bulk.persistence.tools.validator.IDAOValidator;
 
 import de.odysseus.el.ExpressionFactoryImpl;

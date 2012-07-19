@@ -38,6 +38,6 @@ public class NoMapKeyPropertyException extends JPersistenceToolsException {
 	public NoMapKeyPropertyException() {
 		
 		// Initialisation du Parent
-		super("NoMapKeyPropertyException.message.code");
+		super("NoMapKeyPropertyException.message");
 	}
 }

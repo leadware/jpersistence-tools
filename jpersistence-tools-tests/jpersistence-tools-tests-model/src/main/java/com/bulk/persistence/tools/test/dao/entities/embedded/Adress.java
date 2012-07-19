@@ -25,7 +25,6 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import com.bulk.persistence.tools.api.validator.jsr303ext.annotations.Email;
-import com.bulk.persistence.tools.api.validator.jsr303ext.annotations.PhoneNumber;
 
 /**
  * Classe representant une adresse
@@ -48,21 +47,18 @@ public class Adress implements Serializable {
 	 * Num�ro du t�l�phone fixe
 	 */
 	@Column(name = "FIXED_PHONE_NUMBER")
-	@PhoneNumber(message = "Adress.fixedPhone.invalidtoken")
 	private String fixedPhone;
 	
 	/**
 	 * T�l�phone du t�l�phone portable
 	 */
 	@Column(name = "MOBILE_PHONE_NUMBER")
-	@PhoneNumber(message = "Adress.mobilePhone.invalidtoken")
 	private String mobilePhone;
 	
 	/**
 	 * Num�ro du fax
 	 */
 	@Column(name = "FAX_NUMBER")
-	@PhoneNumber(message = "Adress.fax.invalidtoken")
 	private String fax; 
 	
 	/**

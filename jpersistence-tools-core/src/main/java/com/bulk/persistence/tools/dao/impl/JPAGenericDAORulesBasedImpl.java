@@ -42,9 +42,7 @@ import javax.persistence.criteria.Root;
 import com.bulk.persistence.tools.api.exceptions.JPersistenceToolsException;
 import com.bulk.persistence.tools.api.exceptions.NullEntityException;
 import com.bulk.persistence.tools.api.exceptions.ValidatorInstanciationException;
-import com.bulk.persistence.tools.api.validator.annotations.DAOConstraint;
-import com.bulk.persistence.tools.api.validator.annotations.IdentityDAOValidator;
-import com.bulk.persistence.tools.api.validator.annotations.IntegrityConstraintDAOValidator;
+import com.bulk.persistence.tools.api.validator.annotations.marker.DAOConstraint;
 import com.bulk.persistence.tools.dao.JPAGenericDAO;
 import com.bulk.persistence.tools.dao.api.constants.DAOMode;
 import com.bulk.persistence.tools.dao.api.constants.DAOValidatorEvaluationTime;
@@ -619,13 +617,8 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	 */
 	protected void validateEntityIntegrityConstraint(Object entity, DAOMode mode, DAOValidatorEvaluationTime validationTime) {
 
-		// Si on est en PRE-CONDITION et en mode Engegistrement ou Modification
-		if(validationTime.equals(DAOValidatorEvaluationTime.PRE_CONDITION)  && !mode.equals(DAOMode.DELETE)) {
-			
-			// Validation des contraintes d'integrites
-			JSR303ValidatorEngine.getDefaultInstance().validate(entity);
-		}
-		
+		// Validation des contraintes d'integrites
+		JSR303ValidatorEngine.getDefaultInstance().validate(entity);
 	}
 	
 	/**
@@ -640,11 +633,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		List<Annotation> daoAnnotations = DAOValidatorHelper.loadDAOValidatorAnnotations(entity);
 		
 		// Si la liste est vide
-		if(daoAnnotations == null || daoAnnotations.size() == 0) {
-			
-			// On ajoute le validateur par defaut
-			daoAnnotations.add(buildDefaultValidatorAnnotation(mode, validationTime));
-		}
+		if(daoAnnotations == null || daoAnnotations.size() == 0) return;
 		
 		// On parcours cette liste
 		for (Annotation daoAnnotation : daoAnnotations) {
@@ -674,91 +663,6 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		}
 	}
 	
-	/**
-	 * Methode de construction de la classe de validation par defaut pour le mode DAO donne ainsi que son annotation
-	 * @param mode	Mode DAO
-	 * @return	Classe du validateur par defaut et son annotation
-	 */
-	private Annotation buildDefaultValidatorAnnotation(DAOMode mode, DAOValidatorEvaluationTime validationTime) {
-		
-		// On affecte le mode
-		final DAOMode fMode = mode;
-		
-		// On affecte le moment
-		final DAOValidatorEvaluationTime fEvaluationTime = validationTime;
-		
-		// Si le mode est null
-		if(mode == null || mode.equals(DAOMode.DELETE)) {
-			
-			// Instanciation de l'annotation
-			Annotation defaultDeleteAnnotation = new IdentityDAOValidator() {
-				
-				@Override
-				public Class<? extends Annotation> annotationType() {
-					
-					// On retourne la classe de l'annotation Identite
-					return IdentityDAOValidator.class;
-				}
-			};
-			
-			// On retourne l'annotation
-			return defaultDeleteAnnotation;
-		}
-		
-		// Si on est en POST_CONDITION
-		if(validationTime == null || validationTime.equals(DAOValidatorEvaluationTime.POST_CONDITION)) {
-			
-			// Instanciation de l'annotation
-			Annotation defaultPOSTCONDITIONAnnotation = new IdentityDAOValidator() {
-				
-				@Override
-				public Class<? extends Annotation> annotationType() {
-					
-					// On retourne la classe de l'annotation Identite
-					return IdentityDAOValidator.class;
-				}
-			};
-			
-			// On retourne l'annotation
-			return defaultPOSTCONDITIONAnnotation;
-		}
-		
-		// Instanciation de l'annotation
-		Annotation defaultSaveOrUpdateAnnotation = new IntegrityConstraintDAOValidator() {
-			
-			@Override
-			public Class<? extends Annotation> annotationType() {
-				
-				// On retourne la classe de l'annotation de gestion des contraintes
-				return IntegrityConstraintDAOValidator.class;
-			}
-
-			@Override
-			public DAOMode[] mode() {
-				
-				// On retourne le mode par defaut
-				return new DAOMode[]{fMode};
-			}
-
-			@Override
-			public DAOValidatorEvaluationTime[] evaluationTime() {
-				
-				// On retourne le mode d'evaluation
-				return new DAOValidatorEvaluationTime[]{fEvaluationTime};
-			}
-
-			@Override
-			public Class<? extends JSR303ValidatorEngine> validatorEngineClass() {
-				
-				// Validator Engine Class
-				return JSR303ValidatorEngine.class;
-			}
-		};
-		
-		// On retourne l'annotation
-		return defaultSaveOrUpdateAnnotation;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#getActiveCriteriaBuilder()
@@ -821,8 +725,6 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		
 		// Obtention du premier chemin
 		path = root.get(hierarchicalPaths[0]);
-
-		System.out.println("Direct PATH: " + path.toString());
 		
 		// Si la taille est > 1
 		if(hierarchicalPaths.length > 1) {
@@ -838,8 +740,6 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 				
 				// Acces à la ppt
 				path = path.get(unitPath.trim());
-				
-				System.out.println("PATH: " + path.toString());
 			}
 		}
 		

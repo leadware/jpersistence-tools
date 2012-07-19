@@ -18,32 +18,53 @@
  */
 package com.bulk.persistence.tools.api.validator.annotations;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import com.bulk.persistence.tools.api.validator.annotations.marker.DAOConstraint;
 import com.bulk.persistence.tools.dao.api.constants.DAOMode;
 import com.bulk.persistence.tools.dao.api.constants.DAOValidatorEvaluationTime;
+import com.bulk.persistence.tools.dao.api.constants.ValidatorExpressionType;
+import com.bulk.persistence.tools.validator.EntityExistValidatorRule;
 
 /**
- * Validateur d'expression sur le contexte
+ * Validateur permettant de verifier qu'une de classe existe dans le Contexte de Persistance
  * @author Jean-Jacques ETUNÈ NGI
  */
-public @interface ContextExpressionValidator {
+@Target(value = ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@DAOConstraint(validatedBy = EntityExistValidatorRule.class)
+public @interface EntityExistValidator {
 	
 	/**
-	 * Expression a valider
-	 * @return	Expression avalider
+	 * Methode permettant d'obtenir le type d'expression
+	 * @return	Type d'expression
 	 */
-	public String expression();
+	public ValidatorExpressionType type() default ValidatorExpressionType.JPQL;
 	
 	/**
-	 * Valeur attendue
-	 * @return Valeur attendue
+	 * Methode permettant d'obtenir la classe cible du test
+	 * @return	Classe cible du test
 	 */
-	public String value();
+	public Class<?> targetClass();
+	
+	/**
+	 * Methode d'obtention du champ ID a tester
+	 * @return	Champ persistant a tester
+	 */
+	public String idField() default "id";
 	
 	/**
 	 * Message lors de la violation de la contrainte
 	 * @return	Message
 	 */
-	public String message() default "ContextExpressionValidator.error";
+	public String message() default "com.bulk.persistence.tools.api.validator.annotations.entityexistvalidator.fail";
 
 	/**
 	 * Methode d'obtention de la liste des parametres de l'annotation
@@ -56,7 +77,7 @@ public @interface ContextExpressionValidator {
 	 * @return	Modes DAO de l'instance de l'annotation
 	 */
 	public DAOMode[] mode() default {DAOMode.SAVE, DAOMode.UPDATE};
-	
+
 	/**
 	 * Methode permettant d'obtenir le l'instant d'evaluation de l'annotation
 	 * @return	Instants d'evaluation de l'annotation

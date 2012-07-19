@@ -28,17 +28,17 @@ import com.bulk.persistence.tools.api.validator.jsr303ext.annotations.Interval;
  * se trouve dans un intervalle donne
  * @author Jean-Jacques ETUNÈ NGI
  */
-public class IntervalRule implements ConstraintValidator<Interval, Object> {
+public class IntervalRule implements ConstraintValidator<Interval, Number> {
 	
 	/**
 	 * Valeur minimum de l'intervalle
 	 */
-	private double min = 0;
+	private Number min = 0;
 	
 	/**
 	 * Valeur maximale de l'intervalle
 	 */
-	private double max = 100;
+	private Number max = 100;
 	
 	/*
 	 * (non-Javadoc)
@@ -62,23 +62,12 @@ public class IntervalRule implements ConstraintValidator<Interval, Object> {
 	 * @see javax.validation.ConstraintValidator#isValid(java.lang.Object, javax.validation.ConstraintValidatorContext)
 	 */
 	@Override
-	public boolean isValid(Object value, ConstraintValidatorContext constraintContext) {
+	public boolean isValid(Number value, ConstraintValidatorContext constraintContext) {
 		
 		// Si l'objet est null
 		if(value == null) return false;
-		
-		try {
-			
-			// Tentative de cast en Float
-			Float floatValue = Float.valueOf(value.toString().trim());
-			
-			// On retourne la comparaison
-			return (min < floatValue.floatValue()) && (floatValue.floatValue() < max);
-			
-		} catch (Throwable e) {
-			
-			// On retourne false
-			return false;
-		}
+
+		// On retourne la comparaison
+		return (min.doubleValue() < value.doubleValue()) && (max.doubleValue() > value.doubleValue());
 	}
 }

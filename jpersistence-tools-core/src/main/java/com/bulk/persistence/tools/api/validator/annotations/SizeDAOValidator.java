@@ -25,6 +25,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.bulk.persistence.tools.api.validator.annotations.marker.DAOConstraint;
 import com.bulk.persistence.tools.dao.api.constants.DAOMode;
 import com.bulk.persistence.tools.dao.api.constants.DAOValidatorEvaluationTime;
 import com.bulk.persistence.tools.dao.api.constants.ValidatorExpressionType;
@@ -69,7 +70,7 @@ public @interface SizeDAOValidator {
 	 * Message lors de la violation de la contrainte
 	 * @return	Message
 	 */
-	public String message() default "SizeDAOValidator.error";
+	public String message() default "com.bulk.persistence.tools.api.validator.annotations.sizedaovalidator.fail";
 	
 	/**
 	 * Methode d'obtention de la liste des parametres de l'annotation

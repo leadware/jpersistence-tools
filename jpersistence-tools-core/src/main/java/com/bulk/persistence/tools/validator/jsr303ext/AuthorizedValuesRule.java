@@ -21,14 +21,14 @@ package com.bulk.persistence.tools.validator.jsr303ext;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import com.bulk.persistence.tools.api.validator.jsr303ext.annotations.AuthorizedStringValuesList;
+import com.bulk.persistence.tools.api.validator.jsr303ext.annotations.AuthorizedValues;
 
 /**
  * Classe implementant la regle de validation contrôlant que la valeur d'une propriété
  * correspond à une valeur d'une liste donnée
  * @author Jean-Jacques ETUNÈ NGI
  */
-public class AuthorizedStringValuesListRule implements ConstraintValidator<AuthorizedStringValuesList, String> {
+public class AuthorizedValuesRule implements ConstraintValidator<AuthorizedValues, Object> {
 
 	/**
 	 * Liste des Valeurs permises
@@ -45,7 +45,7 @@ public class AuthorizedStringValuesListRule implements ConstraintValidator<Autho
 	 * @see javax.validation.ConstraintValidator#initialize(java.lang.annotation.Annotation)
 	 */
 	@Override
-	public void initialize(AuthorizedStringValuesList annotation) {
+	public void initialize(AuthorizedValues annotation) {
 		
 		// Si l'annotation est nulle : on sort
 		if(annotation == null) return;
@@ -68,7 +68,7 @@ public class AuthorizedStringValuesListRule implements ConstraintValidator<Autho
 	 * @see javax.validation.ConstraintValidator#isValid(java.lang.Object, javax.validation.ConstraintValidatorContext)
 	 */
 	@Override
-	public boolean isValid(String value, ConstraintValidatorContext constraintContext) {
+	public boolean isValid(Object value, ConstraintValidatorContext constraintContext) {
 		
 		// Si la liste des valeurs permisse est vide : true
 		if(values == null || values.length == 0) return true;
@@ -76,32 +76,47 @@ public class AuthorizedStringValuesListRule implements ConstraintValidator<Autho
 		// Si l'objet est null : false
 		if(value == null) return false;
 		
-		// Si l'objet n'est pas une chaine : false
-		if(!(value instanceof String)) return false;
-		
-		// On caste
-		String stringValue = (String) value;
-		
-		// Si la chaîne est vide : false
-		if(stringValue == null || stringValue.length() == 0) return false;
-		
-		// On recherche la valeur
-		for (String authValue : values) {
+		// Si l'objet est une chaine
+		if(value instanceof String) {
+
+			// On caste
+			String stringValue = ((String) value).trim();
 			
-			// Si la Casse est prise en compte
+			// Si la chaîne est vide : false
+			if(stringValue.length() == 0) return false;
+			
+			// Si on compare avec casse
 			if(caseSensitive) {
-				
-				// Si la valeur Correspond : true
-				if(authValue.equals(stringValue)) return true;
+
+				// On recherche la valeur
+				for (String authValue : values) {
+					
+					// Si la valeur est hors des valeurs prescrites
+					if(!stringValue.equals(authValue.trim())) return false;
+				}
 				
 			} else {
 
-				// Si la valeur Correspond : true
-				if(authValue.equalsIgnoreCase(stringValue)) return true;
+				// On recherche la valeur
+				for (String authValue : values) {
+					
+					// Si la valeur est hors des valeurs prescrites
+					if(!stringValue.equalsIgnoreCase(authValue.trim())) return false;
+				}
 			}
+			
+		} else {
+
+			// On recherche la valeur
+			for (Object authValue : values) {
+				
+				// Si la valeur est hors des valeurs prescrites
+				if(!value.equals(authValue)) return false;
+			}
+			
 		}
 		
 		// On retourne false
-		return false;
+		return true;
 	}
 }

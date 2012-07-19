@@ -19,19 +19,20 @@
 package com.bulk.persistence.tools.validator;
 
 import java.lang.annotation.Annotation;
+
 import javax.persistence.EntityManager;
 
-import com.bulk.persistence.tools.api.validator.annotations.CheckEntityExistValidator;
-import com.bulk.persistence.tools.api.validator.annotations.InstanceWithFieldValidator;
+import com.bulk.persistence.tools.api.validator.annotations.EntityExistValidator;
+import com.bulk.persistence.tools.api.validator.annotations.SizeDAOValidator;
 import com.bulk.persistence.tools.dao.api.constants.DAOMode;
 import com.bulk.persistence.tools.dao.api.constants.DAOValidatorEvaluationTime;
 import com.bulk.persistence.tools.dao.api.constants.ValidatorExpressionType;
 
 /**
- * Classe d'implementation de la regle de controle @CheckEntityExistValidator
+ * Classe d'implementation de la regle de controle @EntityExistValidator
  * @author Jean-Jacques ETUNÈ NGI
  */
-public class CheckEntityExistValidatorRule implements IDAOValidator<CheckEntityExistValidator> {
+public class EntityExistValidatorRule implements IDAOValidator<EntityExistValidator>  {
 
 	/**
 	 * Le gestionnaire d'entites
@@ -41,7 +42,7 @@ public class CheckEntityExistValidatorRule implements IDAOValidator<CheckEntityE
 	/**
 	 * L'annotation en cours
 	 */
-	protected CheckEntityExistValidator annotation;
+	protected EntityExistValidator annotation;
 	
 	/**
 	 * Temps d'evaluation systeme
@@ -56,14 +57,14 @@ public class CheckEntityExistValidatorRule implements IDAOValidator<CheckEntityE
 	/**
 	 * Validateur de taille
 	 */
-	protected InstanceWithFieldValidatorRule instanceValidator = new InstanceWithFieldValidatorRule();
-	
+	protected SizeDAOValidatorRule sizeValidator = new SizeDAOValidatorRule();
+
 	/*
 	 * (non-Javadoc)
 	 * @see com.bulk.persistence.tools.validator.IDAOValidator#initialize(java.lang.annotation.Annotation, javax.persistence.EntityManager, com.bulksoft.persistence.utils.dao.constant.DAOMode, com.bulksoft.persistence.utils.dao.constant.DAOValidatorEvaluationTime)
 	 */
 	@Override
-	public void initialize(CheckEntityExistValidator annotation, EntityManager entityManager, DAOMode mode, DAOValidatorEvaluationTime evaluationTime) {
+	public void initialize(EntityExistValidator annotation, EntityManager entityManager, DAOMode mode, DAOValidatorEvaluationTime evaluationTime) {
 		
 		// Sauvegarde des parametres
 		this.annotation = annotation;
@@ -78,42 +79,73 @@ public class CheckEntityExistValidatorRule implements IDAOValidator<CheckEntityE
 	 */
 	@Override
 	public void processValidation(Object entity) {
-		
-		// Instanciation d'une annotation de validation de taille
-		InstanceWithFieldValidator instanceAnnotation = new InstanceWithFieldValidator() {
 
-			@Override
-			public String contextField() {
-				
-				// On positionne le champ contextuel
-				return annotation.contextIDField();
-			}
+		// Si la classe cible n'est pas specifiee
+		if(annotation.targetClass() == null) {
+			
+			// On sort
+			return;
+		}
+		
+		// Si le champ id n'est pas specifie
+		if(annotation.idField() == null || annotation.idField().trim().length() == 0) {
+			
+			// On sort
+			return;
+		}
+		
+		// Champ ID
+		String ifField = annotation.idField().trim();
+		
+		// Buffer de la Requete de test
+		StringBuffer requestBuffer = new StringBuffer();
+		
+		// Construction de la requete
+		requestBuffer.append("from ");
+		requestBuffer.append(annotation.targetClass().getName());
+		requestBuffer.append(" c where ");
+		requestBuffer.append("c.".concat(ifField));
+		requestBuffer.append(" = ");
+		requestBuffer.append("${" + ifField + "}");
+		
+		// La requete
+		final String request = requestBuffer.toString();
+
+		// Instanciation d'une annotation de validation de taille
+		Annotation sizeAnnotation = new SizeDAOValidator() {
 
 			@Override
 			public DAOValidatorEvaluationTime[] evaluationTime() {
 				
-				// On positionne le temps d'evaluation
+				// On positionne la min
 				return annotation.evaluationTime();
 			}
 
 			@Override
-			public int max() {
+			public String expr() {
 				
-				// On positionne la valeur MAX
-				return Integer.MAX_VALUE;
+				// On positionne l'expression
+				return request;
+			}
+
+			@Override
+			public long max() {
+				
+				// On positionne la max
+				return 1;
 			}
 
 			@Override
 			public String message() {
 				
-				// On positionne le message
+				// On positionne la min
 				return annotation.message();
 			}
 
 			@Override
-			public int min() {
+			public long min() {
 				
-				// On positionne la valeur min
+				// On positionne la min
 				return 1;
 			}
 
@@ -125,50 +157,35 @@ public class CheckEntityExistValidatorRule implements IDAOValidator<CheckEntityE
 			}
 
 			@Override
-			public String persistentField() {
-				
-				// On positionne le champ persistant
-				return annotation.idField();
-			}
-
-			@Override
-			public Class<?> targetClass() {
-				
-				// On positionne la classe cible
-				return annotation.targetClass();
-			}
-
-			@Override
 			public ValidatorExpressionType type() {
 				
-				// On positionne le type d'expression
+				// On positionne le type
 				return annotation.type();
 			}
 
 			@Override
 			public Class<? extends Annotation> annotationType() {
 				
-				// On retourne le type de l'annotation
-				return InstanceWithFieldValidator.class;
+				// On positionne la classe
+				return SizeDAOValidator.class;
 			}
 
 			@Override
 			public String[] parameters() {
 				
-				// On retourne la liste d'expression de parametres
+				// On retourne la liste des expressions de parametres
 				return annotation.parameters();
 			}
 		};
-		
+
 		// Initialisation du validateur de regle
-		instanceValidator.initialize(instanceAnnotation, this.entityManager, this.systemDAOMode, this.systemEvaluationTime);
+		sizeValidator.initialize(sizeAnnotation, this.entityManager, this.systemDAOMode, this.systemEvaluationTime);
 		
 		// On valide
-		instanceValidator.processValidation(entity);
+		sizeValidator.processValidation(entity);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/* (non-Javadoc)
 	 * @see com.bulk.persistence.tools.validator.IDAOValidator#getMessageParameters(java.lang.Object)
 	 */
 	@Override
@@ -177,4 +194,5 @@ public class CheckEntityExistValidatorRule implements IDAOValidator<CheckEntityE
 		// On retourne null
 		return null;
 	}
+	
 }

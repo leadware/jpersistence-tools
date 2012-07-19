@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import com.bulk.persistence.tools.validator.jsr303ext.AuthorizedStringValuesListRule;
+import com.bulk.persistence.tools.validator.jsr303ext.AuthorizedValuesRule;
 
 /**
  * Annotation de la règle de validation permettant de controler que la valeur d'une propriété
@@ -36,15 +36,15 @@ import com.bulk.persistence.tools.validator.jsr303ext.AuthorizedStringValuesList
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = AuthorizedStringValuesListRule.class)
+@Constraint(validatedBy = AuthorizedValuesRule.class)
 @Documented
-public @interface AuthorizedStringValuesList {
+public @interface AuthorizedValues {
 	
 	/**
 	 * Méthode d'obtention du message  en cas de violation de la règle
 	 * @return	Message en cas de violation de la règle
 	 */
-	String message() default "javax.validation.ext.authorizedstringvalueslist.fail";
+	String message() default "javax.validation.ext.authorizedvalues.fail";
 	
 	/**
 	 * Méthode d'obtention des Groupes de validation du validateur

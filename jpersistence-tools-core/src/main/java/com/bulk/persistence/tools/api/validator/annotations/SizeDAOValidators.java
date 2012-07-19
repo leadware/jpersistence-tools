@@ -25,6 +25,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.bulk.persistence.tools.api.validator.annotations.marker.DAOConstraint;
 import com.bulk.persistence.tools.validator.SizeDAOValidatorsRule;
 
 /**

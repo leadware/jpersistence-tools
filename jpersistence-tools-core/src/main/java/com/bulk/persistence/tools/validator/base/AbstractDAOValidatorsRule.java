@@ -28,7 +28,6 @@ import com.bulk.persistence.tools.validator.IDAOValidator;
 /**
  * Classe abstraite definissant les bases de l'implementation d'une regle contenant d'autres regles de validation
  * @author Jean-Jacques
- * @version 2.0
  */
 public abstract class AbstractDAOValidatorsRule implements IDAOValidator<Annotation> {
 

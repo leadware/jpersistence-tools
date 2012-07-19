@@ -16,8 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.bulk.persistence.tools.api.validator.annotations;
+package com.bulk.persistence.tools.api.validator.annotations.marker;
 
+import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -25,22 +26,29 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.bulk.persistence.tools.validator.InstanceWithFieldValidatorsRule;
+import com.bulk.persistence.tools.dao.api.constants.DAOValidatorEvaluationTime;
+import com.bulk.persistence.tools.validator.IDAOValidator;
 
 /**
- * Validateur permettant de verifier qu'une liste de champs est unique sur le Contexte de Persistence
+ * Annotation permettant de specifier classe implementant la logique 
+ * de validation d'une Fonction-Annotation
  * @author Jean-Jacques ETUNÈ NGI
  */
-@Target(value = ElementType.TYPE)
+@Target(value = {ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Documented
 @Inherited
-@DAOConstraint(validatedBy = InstanceWithFieldValidatorsRule.class)
-public @interface InstanceWithFieldValidators {
+@Documented
+public @interface DAOConstraint {
 	
 	/**
-	 * Methode d'obtention de la liste des Annotation a valider
-	 * @return	Liste des Annotation a valider
+	 * Methode permettant d'obtenir le moment d'evaluation de la regle
+	 * @return Moment d'evaluation de la regle
 	 */
-	public InstanceWithFieldValidator[] value();
+	public DAOValidatorEvaluationTime evaluationTime() default DAOValidatorEvaluationTime.PRE_CONDITION;
+	
+	/**
+	 * Methode d'obtention de la classe d'implementation de la logique de validation
+	 * @return	Classe d'implementation de la logique de validation
+	 */
+	public Class<? extends IDAOValidator<? extends Annotation>> validatedBy();
 }

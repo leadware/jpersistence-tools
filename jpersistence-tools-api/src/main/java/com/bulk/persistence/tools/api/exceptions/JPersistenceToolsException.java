@@ -30,7 +30,7 @@ public class JPersistenceToolsException extends RuntimeException {
 	/**
 	 * Message d'erreur par defaut
 	 */
-	public static String DEFAULT_MESSAGE = "JPersistenceToolsException.mesasge.default";
+	public static String DEFAULT_MESSAGE = "JPersistenceToolsException.messasge";
 	
 	/**
 	 * ID Genere par Eclipse

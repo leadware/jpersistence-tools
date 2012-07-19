@@ -134,9 +134,6 @@ public class DAOValidatorMethodExpressionExecutor {
 			
 		} catch (Exception e) {
 			
-			// On affiche
-			e.printStackTrace();
-			
 			// On retourne null
 			return null;
 		}
