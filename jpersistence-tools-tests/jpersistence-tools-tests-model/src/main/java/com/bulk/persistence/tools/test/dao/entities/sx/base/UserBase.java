@@ -30,9 +30,9 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 import com.bulk.persistence.tools.api.validator.jsr303ext.annotations.NotEmpty;
+import com.bulk.persistence.tools.api.validator.jsr303ext.annotations.PhoneNumber;
 import com.bulk.persistence.tools.test.dao.entities.Town;
 import com.bulk.persistence.tools.test.dao.entities.sx.constants.Sex;
 import com.bulk.persistence.tools.test.dao.entities.sx.constants.UserState;
@@ -92,7 +92,7 @@ public class UserBase implements Serializable, Comparable<UserBase> {
 	 * Numero de telephone de l'utilisateur
 	 */
 	@Column(name = "PHONE", nullable = true)
-	@Pattern(regexp = "\\+{0,1}\\d{5,20}", message = "userbase.phone.invalidphone")
+	@PhoneNumber(message = "userbase.phone.invalidphone")
 	protected String phone;
 	
 	/**
@@ -100,7 +100,7 @@ public class UserBase implements Serializable, Comparable<UserBase> {
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "TOWN_ID", nullable = false)
-	//@NotNull(message = "userbase.town.null")
+	@NotNull(message = "userbase.town.null")
 	protected Town town;
 	
 	/**
