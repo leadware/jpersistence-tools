@@ -36,12 +36,6 @@ import javax.persistence.criteria.Predicate;
 public interface JPAGenericDAO<T extends Object> {
 	
 	/**
-	 * Nom du Service DAO
-	 */
-	public static final String SERVICE_NAME = "JPAGenericDAO";
-	
-	
-	/**
 	 * Méthode de mise à jour de l'Etat de validation des constraintes d'integrites en mode SAVE
 	 * @param validateIntegrityConstraint Etat de validation des constraintes d'integrites en mode SAVE
 	 */
