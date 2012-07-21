@@ -80,17 +80,17 @@ public class SXUserDAOImpl extends JPAGenericDAORulesBasedImpl<SXUser> implement
 	}
 	
 	@Override
-	public SXUser update(SXUser entity) {
+	public SXUser update(Object id, SXUser entity) {
 		// TODO Auto-generated method stub
-		return super.update(entity);
+		return super.update(id, entity);
 	}
 	
 	@Override
-	public SXUser update(SXUser entity, boolean validateIntegrityConstraint,
+	public SXUser update(Object id, SXUser entity, boolean validateIntegrityConstraint,
 			boolean preValidateReferentialConstraint,
 			boolean postValidateReferentialConstraint) {
 		// TODO Auto-generated method stub
-		return super.update(entity, validateIntegrityConstraint,
+		return super.update(id, entity, validateIntegrityConstraint,
 				preValidateReferentialConstraint, postValidateReferentialConstraint);
 	}
 	

@@ -81,17 +81,17 @@ public class TownDAOImpl extends JPAGenericDAORulesBasedImpl<Town> implements To
 	}
 	
 	@Override
-	public Town update(Town entity) {
+	public Town update(Object id, Town entity) {
 		// TODO Auto-generated method stub
-		return super.update(entity);
+		return super.update(id, entity);
 	}
 	
 	@Override
-	public Town update(Town entity, boolean validateIntegrityConstraint,
+	public Town update(Object id, Town entity, boolean validateIntegrityConstraint,
 			boolean preValidateReferentialConstraint,
 			boolean postValidateReferentialConstraint) {
 		// TODO Auto-generated method stub
-		return super.update(entity, validateIntegrityConstraint,
+		return super.update(id, entity, validateIntegrityConstraint,
 				preValidateReferentialConstraint, postValidateReferentialConstraint);
 	}
 	

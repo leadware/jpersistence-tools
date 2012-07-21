@@ -81,17 +81,17 @@ public class RegionDAOImpl extends JPAGenericDAORulesBasedImpl<Region> implement
 	}
 	
 	@Override
-	public Region update(Region entity) {
+	public Region update(Object id, Region entity) {
 		// TODO Auto-generated method stub
-		return super.update(entity);
+		return super.update(id, entity);
 	}
 	
 	@Override
-	public Region update(Region entity, boolean validateIntegrityConstraint,
+	public Region update(Object id, Region entity, boolean validateIntegrityConstraint,
 			boolean preValidateReferentialConstraint,
 			boolean postValidateReferentialConstraint) {
 		// TODO Auto-generated method stub
-		return super.update(entity, validateIntegrityConstraint,
+		return super.update(id, entity, validateIntegrityConstraint,
 				preValidateReferentialConstraint, postValidateReferentialConstraint);
 	}
 	

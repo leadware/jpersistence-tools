@@ -328,10 +328,10 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#update(java.lang.Object)
 	 */
 	@Override
-	public T update(T entity) {
+	public T update(Object id, T entity) {
 		
 		// On retourne le resultat
-		return update(entity, validateIntegrityConstraintOnUpdate, preValidateReferentialConstraintOnUpdate, postValidateReferentialConstraintOnUpdate);
+		return update(id, entity, validateIntegrityConstraintOnUpdate, preValidateReferentialConstraintOnUpdate, postValidateReferentialConstraintOnUpdate);
 	}
 
 	/*
@@ -339,7 +339,10 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#update(java.lang.Object, boolean, boolean, boolean)
 	 */
 	@Override
-	public T update(T entity, boolean validateIntegrityConstraint, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint) {
+	public T update(Object id, T entity, boolean validateIntegrityConstraint, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint) {
+		
+		// Si l'ID est null
+		if(id == null) throw new JPersistenceToolsException("jpagenericdaorulesbased.update.entityid.null");
 		
 		// Si l'entite est nulle
 		if(entity == null) throw new NullEntityException();
@@ -352,6 +355,28 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		
 		// Le resultat
 		T result = null;
+		
+		// Entité en Base de données
+		T oldEntity = null;
+		
+		try {
+			
+			// Recherche de l'entité
+			oldEntity = (T) getEntityManager().find(entity.getClass(), id);
+			
+		} catch (EntityNotFoundException e) {
+			
+			// On relance
+			throw new JPersistenceToolsException("jpagenericdaorulesbased.update.entity.notfound");
+			
+		} catch (Exception e) {
+			
+			// On relance
+			throw new JPersistenceToolsException("jpagenericdaorulesbased.update.entity.error.loading.old.entity", e);
+		}
+		
+		// Si l'entité n'est pas retrouvée
+		if(oldEntity == null) throw new JPersistenceToolsException("jpagenericdaorulesbased.update.entity.notfound");
 		
 		try {
 			

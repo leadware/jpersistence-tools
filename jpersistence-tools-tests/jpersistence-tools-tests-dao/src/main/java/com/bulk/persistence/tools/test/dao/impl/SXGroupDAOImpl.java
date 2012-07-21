@@ -85,17 +85,17 @@ public class SXGroupDAOImpl extends JPAGenericDAORulesBasedImpl<SXGroup> impleme
 	}
 	
 	@Override
-	public SXGroup update(SXGroup entity) {
+	public SXGroup update(Object id, SXGroup entity) {
 		// TODO Auto-generated method stub
-		return super.update(entity);
+		return super.update(id, entity);
 	}
 	
 	@Override
-	public SXGroup update(SXGroup entity, boolean validateIntegrityConstraint,
+	public SXGroup update(Object id, SXGroup entity, boolean validateIntegrityConstraint,
 			boolean preValidateReferentialConstraint,
 			boolean postValidateReferentialConstraint) {
 		// TODO Auto-generated method stub
-		return super.update(entity, validateIntegrityConstraint,
+		return super.update(id, entity, validateIntegrityConstraint,
 				preValidateReferentialConstraint, postValidateReferentialConstraint);
 	}
 	

@@ -111,7 +111,7 @@ public interface JPAGenericDAO<T extends Object> {
 	 * @param entity	Entite a mettre a jour
 	 * @return	Entite mise a jour
 	 */
-	public T update(T entity);
+	public T update(Object id, T entity);
 
 	/**
 	 * Methode generique de mise a jour d'une entite JPA annotee
@@ -121,7 +121,7 @@ public interface JPAGenericDAO<T extends Object> {
 	 * @param postValidateReferentialConstraint Etat de post-validation des contraintes référentielles
 	 * @return	Entite mise a jour
 	 */
-	public T update(T entity, boolean validateIntegrityConstraint, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint);
+	public T update(Object id, T entity, boolean validateIntegrityConstraint, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint);
 	
 	/**
 	 * Methode generique de suppression d'une entite JPA annotee

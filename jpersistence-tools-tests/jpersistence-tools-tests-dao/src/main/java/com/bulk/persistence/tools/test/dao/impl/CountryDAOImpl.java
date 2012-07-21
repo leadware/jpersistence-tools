@@ -84,17 +84,17 @@ public class CountryDAOImpl extends JPAGenericDAORulesBasedImpl<Country> impleme
 	}
 	
 	@Override
-	public Country update(Country entity) {
+	public Country update(Object id, Country entity) {
 		// TODO Auto-generated method stub
-		return super.update(entity);
+		return super.update(id, entity);
 	}
 	
 	@Override
-	public Country update(Country entity, boolean validateIntegrityConstraint,
+	public Country update(Object id, Country entity, boolean validateIntegrityConstraint,
 			boolean preValidateReferentialConstraint,
 			boolean postValidateReferentialConstraint) {
 		// TODO Auto-generated method stub
-		return super.update(entity, validateIntegrityConstraint,
+		return super.update(id, entity, validateIntegrityConstraint,
 				preValidateReferentialConstraint, postValidateReferentialConstraint);
 	}
 	

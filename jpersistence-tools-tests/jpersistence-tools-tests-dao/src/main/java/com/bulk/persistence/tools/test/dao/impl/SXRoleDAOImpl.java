@@ -74,17 +74,17 @@ public class SXRoleDAOImpl extends JPAGenericDAORulesBasedImpl<SXRole> implement
 	}
 	
 	@Override
-	public SXRole update(SXRole entity) {
+	public SXRole update(Object id, SXRole entity) {
 		// TODO Auto-generated method stub
-		return super.update(entity);
+		return super.update(id, entity);
 	}
 	
 	@Override
-	public SXRole update(SXRole entity, boolean validateIntegrityConstraint,
+	public SXRole update(Object id, SXRole entity, boolean validateIntegrityConstraint,
 			boolean preValidateReferentialConstraint,
 			boolean postValidateReferentialConstraint) {
 		// TODO Auto-generated method stub
-		return super.update(entity, validateIntegrityConstraint,
+		return super.update(id, entity, validateIntegrityConstraint,
 				preValidateReferentialConstraint, postValidateReferentialConstraint);
 	}
 	
