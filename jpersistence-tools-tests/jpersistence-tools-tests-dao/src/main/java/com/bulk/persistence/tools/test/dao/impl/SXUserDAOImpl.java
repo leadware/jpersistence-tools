@@ -19,17 +19,18 @@
 package com.bulk.persistence.tools.test.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bulk.persistence.tools.api.dao.constants.OrderType;
 import com.bulk.persistence.tools.dao.impl.JPAGenericDAORulesBasedImpl;
 import com.bulk.persistence.tools.test.dao.SXUserDAO;
 import com.bulk.persistence.tools.test.dao.entities.sx.SXUser;
@@ -116,7 +117,7 @@ public class SXUserDAOImpl extends JPAGenericDAORulesBasedImpl<SXUser> implement
 	}
 	
 	@Override
-	public List<SXUser> filter(List<Predicate> predicates, List<Order> orders,
+	public List<SXUser> filter(List<Predicate> predicates, Map<String, OrderType> orders,
 			Set<String> properties, int firstResult, int maxResult) {
 		// TODO Auto-generated method stub
 		return super.filter(predicates, orders, properties, firstResult, maxResult);

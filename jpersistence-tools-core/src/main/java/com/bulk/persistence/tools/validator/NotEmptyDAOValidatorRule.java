@@ -21,11 +21,11 @@ package com.bulk.persistence.tools.validator;
 import java.util.List;
 import javax.persistence.Query;
 
+import com.bulk.persistence.tools.api.dao.constants.DAOMode;
+import com.bulk.persistence.tools.api.dao.constants.DAOValidatorEvaluationTime;
+import com.bulk.persistence.tools.api.dao.constants.ValidatorExpressionType;
 import com.bulk.persistence.tools.api.exceptions.DAOValidationException;
 import com.bulk.persistence.tools.api.validator.annotations.NotEmptyDAOValidator;
-import com.bulk.persistence.tools.dao.api.constants.DAOMode;
-import com.bulk.persistence.tools.dao.api.constants.DAOValidatorEvaluationTime;
-import com.bulk.persistence.tools.dao.api.constants.ValidatorExpressionType;
 import com.bulk.persistence.tools.validator.base.AbstractExpressionBasedDAOValidatorRule;
 
 /**

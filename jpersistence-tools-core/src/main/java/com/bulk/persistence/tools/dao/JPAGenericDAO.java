@@ -25,9 +25,10 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
+
+import com.bulk.persistence.tools.api.dao.constants.OrderType;
 
 /**
  * Interface de la DAO Generique compatible JPA
@@ -139,13 +140,13 @@ public interface JPAGenericDAO<T extends Object> {
 	/**
 	 * Methode de filtre des entites d'une classe donnee en fonction des criteres de filtres donnees
 	 * @param predicates	Liste des prédicats
-	 * @param orders	Liste des Ordre de tri
+	 * @param orders	Map des Ordre de tri
 	 * @param properties	Ensemble de propriétés à charger
 	 * @param firstResult	Index du premier resultat retourne
 	 * @param maxResult	Nombre maximum d'elements retournes
 	 * @return	Liste des objet trouves
 	 */
-	public List<T> filter(List<Predicate> predicates, List<Order> orders, Set<String> properties, int firstResult, int maxResult);
+	public List<T> filter(List<Predicate> predicates, Map<String, OrderType> orders, Set<String> properties, int firstResult, int maxResult);
 	
 	/**
 	 * Methode de chargement immediat des proprietes d'une instance de classe

@@ -25,12 +25,12 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import com.bulk.persistence.tools.dao.api.constants.DAOMode;
-import com.bulk.persistence.tools.dao.api.constants.DAOValidatorEvaluationTime;
-import com.bulk.persistence.tools.dao.api.constants.ValidatorExpressionType;
+import com.bulk.persistence.tools.api.dao.constants.DAOMode;
+import com.bulk.persistence.tools.api.dao.constants.DAOValidatorEvaluationTime;
+import com.bulk.persistence.tools.api.dao.constants.ValidatorExpressionType;
+import com.bulk.persistence.tools.api.validator.base.IDAOValidator;
 import com.bulk.persistence.tools.dao.utils.DAOValidatorHelper;
 import com.bulk.persistence.tools.dao.utils.ExpressionModel;
-import com.bulk.persistence.tools.validator.IDAOValidator;
 
 /**
  * Classe abstraite definissant les bases de l'implementation d'une regle

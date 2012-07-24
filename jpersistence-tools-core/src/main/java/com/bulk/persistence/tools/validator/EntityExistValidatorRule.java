@@ -22,11 +22,12 @@ import java.lang.annotation.Annotation;
 
 import javax.persistence.EntityManager;
 
+import com.bulk.persistence.tools.api.dao.constants.DAOMode;
+import com.bulk.persistence.tools.api.dao.constants.DAOValidatorEvaluationTime;
+import com.bulk.persistence.tools.api.dao.constants.ValidatorExpressionType;
 import com.bulk.persistence.tools.api.validator.annotations.EntityExistValidator;
 import com.bulk.persistence.tools.api.validator.annotations.SizeDAOValidator;
-import com.bulk.persistence.tools.dao.api.constants.DAOMode;
-import com.bulk.persistence.tools.dao.api.constants.DAOValidatorEvaluationTime;
-import com.bulk.persistence.tools.dao.api.constants.ValidatorExpressionType;
+import com.bulk.persistence.tools.api.validator.base.IDAOValidator;
 
 /**
  * Classe d'implementation de la regle de controle @EntityExistValidator

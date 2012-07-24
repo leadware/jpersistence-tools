@@ -15,7 +15,7 @@
 	<context:component-scan base-package="com.bulk.persistence.tools.test.dao" />
 	
 	<!-- Détection des transaction via Annotations -->
-	<tx:annotation-driven mode="proxy"/>
+	<tx:annotation-driven />
 	
 	<!-- Source de données H2 -->
 	<bean name="datasource" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">

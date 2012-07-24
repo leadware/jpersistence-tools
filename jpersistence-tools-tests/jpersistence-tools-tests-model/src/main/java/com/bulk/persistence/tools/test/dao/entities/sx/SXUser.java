@@ -33,9 +33,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.bulk.persistence.tools.api.dao.constants.DAOMode;
 import com.bulk.persistence.tools.api.validator.annotations.SizeDAOValidator;
 import com.bulk.persistence.tools.api.validator.annotations.SizeDAOValidators;
-import com.bulk.persistence.tools.dao.api.constants.DAOMode;
 import com.bulk.persistence.tools.test.dao.entities.Town;
 import com.bulk.persistence.tools.test.dao.entities.sx.base.UserBase;
 import com.bulk.persistence.tools.test.dao.entities.sx.constants.Sex;

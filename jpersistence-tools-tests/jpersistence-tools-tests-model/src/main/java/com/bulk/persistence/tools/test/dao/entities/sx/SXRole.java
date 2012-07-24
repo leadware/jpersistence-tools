@@ -28,10 +28,10 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.bulk.persistence.tools.api.dao.constants.DAOMode;
 import com.bulk.persistence.tools.api.validator.annotations.SizeDAOValidator;
 import com.bulk.persistence.tools.api.validator.annotations.SizeDAOValidators;
 import com.bulk.persistence.tools.api.validator.jsr303ext.annotations.Length;
-import com.bulk.persistence.tools.dao.api.constants.DAOMode;
 
 /**
  * Classe representant un Role du Systeme a proteger

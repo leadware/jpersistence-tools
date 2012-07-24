@@ -25,9 +25,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.bulk.persistence.tools.api.dao.constants.DAOMode;
 import com.bulk.persistence.tools.api.validator.annotations.SizeDAOValidator;
 import com.bulk.persistence.tools.api.validator.annotations.SizeDAOValidators;
-import com.bulk.persistence.tools.dao.api.constants.DAOMode;
 import com.bulk.persistence.tools.test.dao.entities.base.TPSParameterBase;
 
 /**

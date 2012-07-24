@@ -20,13 +20,25 @@ package com.bulk.persistence.tools.dao.utils;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import javax.el.ValueExpression;
 
+import com.bulk.persistence.tools.api.validator.annotations.EntityExistValidator;
+import com.bulk.persistence.tools.api.validator.annotations.NotEmptyDAOValidator;
+import com.bulk.persistence.tools.api.validator.annotations.NotEmptyDAOValidators;
+import com.bulk.persistence.tools.api.validator.annotations.SizeDAOValidator;
+import com.bulk.persistence.tools.api.validator.annotations.SizeDAOValidators;
 import com.bulk.persistence.tools.api.validator.annotations.marker.DAOConstraint;
-import com.bulk.persistence.tools.validator.IDAOValidator;
+import com.bulk.persistence.tools.api.validator.base.IDAOValidator;
+import com.bulk.persistence.tools.validator.EntityExistValidatorRule;
+import com.bulk.persistence.tools.validator.NotEmptyDAOValidatorRule;
+import com.bulk.persistence.tools.validator.NotEmptyDAOValidatorsRule;
+import com.bulk.persistence.tools.validator.SizeDAOValidatorRule;
+import com.bulk.persistence.tools.validator.SizeDAOValidatorsRule;
 
 import de.odysseus.el.ExpressionFactoryImpl;
 
@@ -35,6 +47,32 @@ import de.odysseus.el.ExpressionFactoryImpl;
  * @author Jean-Jacques ETUNÈ NGI
  */
 public class DAOValidatorHelper {
+	
+	/**
+	 * MAP des Validateur
+	 */
+	private static Map<String, Class<? extends IDAOValidator<? extends Annotation>>> mValidatorMapping = new HashMap<String, Class<? extends IDAOValidator<? extends Annotation>>>();
+	
+	/**
+	 * Initialisation statique du champ
+	 */
+	static {
+		
+		// SizeDAOValidator
+		mValidatorMapping.put(SizeDAOValidator.class.getName(), SizeDAOValidatorRule.class);
+		
+		// SizeDAOValidators
+		mValidatorMapping.put(SizeDAOValidators.class.getName(), SizeDAOValidatorsRule.class);
+		
+		// NotEmptyDAOValidator
+		mValidatorMapping.put(NotEmptyDAOValidator.class.getName(), NotEmptyDAOValidatorRule.class);
+
+		// NotEmptyDAOValidators
+		mValidatorMapping.put(NotEmptyDAOValidators.class.getName(), NotEmptyDAOValidatorsRule.class);
+		
+		// EntityExistValidator
+		mValidatorMapping.put(EntityExistValidator.class.getName(), EntityExistValidatorRule.class);
+	}
 	
 	/**
 	 * Delimiteur gauche Simple
@@ -200,6 +238,12 @@ public class DAOValidatorHelper {
 			// On retourne null
 			return null;
 		}
+		
+		// Recherche dans la MAP
+		Class<? extends IDAOValidator<? extends Annotation>> mappedLogicClass = mValidatorMapping.get(annotation.annotationType().getName());
+		
+		// Si la Classe est non nulle
+		if(mappedLogicClass != null) return mappedLogicClass;
 		
 		// Obtention de l'annotation DAO
 		DAOConstraint logicAnnotation = annotation.annotationType().getAnnotation(DAOConstraint.class);

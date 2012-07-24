@@ -21,9 +21,9 @@ package com.bulk.persistence.tools.validator.base;
 import java.lang.annotation.Annotation;
 import javax.persistence.EntityManager;
 
-import com.bulk.persistence.tools.dao.api.constants.DAOMode;
-import com.bulk.persistence.tools.dao.api.constants.DAOValidatorEvaluationTime;
-import com.bulk.persistence.tools.validator.IDAOValidator;
+import com.bulk.persistence.tools.api.dao.constants.DAOMode;
+import com.bulk.persistence.tools.api.dao.constants.DAOValidatorEvaluationTime;
+import com.bulk.persistence.tools.api.validator.base.IDAOValidator;
 
 /**
  * Classe abstraite definissant les bases de l'implementation d'une regle contenant d'autres regles de validation

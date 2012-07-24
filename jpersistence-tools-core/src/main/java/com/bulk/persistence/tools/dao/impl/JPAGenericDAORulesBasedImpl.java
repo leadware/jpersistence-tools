@@ -19,6 +19,7 @@
 package com.bulk.persistence.tools.dao.impl;
 
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -39,16 +40,17 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.bulk.persistence.tools.api.dao.constants.DAOMode;
+import com.bulk.persistence.tools.api.dao.constants.DAOValidatorEvaluationTime;
+import com.bulk.persistence.tools.api.dao.constants.OrderType;
 import com.bulk.persistence.tools.api.exceptions.JPersistenceToolsException;
 import com.bulk.persistence.tools.api.exceptions.NullEntityException;
 import com.bulk.persistence.tools.api.exceptions.ValidatorInstanciationException;
 import com.bulk.persistence.tools.api.validator.annotations.marker.DAOConstraint;
+import com.bulk.persistence.tools.api.validator.base.IDAOValidator;
+import com.bulk.persistence.tools.api.validator.jsr303ext.engine.JSR303ValidatorEngine;
 import com.bulk.persistence.tools.dao.JPAGenericDAO;
-import com.bulk.persistence.tools.dao.api.constants.DAOMode;
-import com.bulk.persistence.tools.dao.api.constants.DAOValidatorEvaluationTime;
 import com.bulk.persistence.tools.dao.utils.DAOValidatorHelper;
-import com.bulk.persistence.tools.validator.IDAOValidator;
-import com.bulk.persistence.tools.validator.jsr303ext.engine.JSR303ValidatorEngine;
 
 /**
  * Classe abstraite representant une base DAO generique compatible JPA et basee sur
@@ -471,10 +473,10 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	
 	/*
 	 * (non-Javadoc)
-	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#filter(java.lang.Class, java.util.List, java.util.List, java.util.Set, int, int)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#filter(java.util.List, java.util.Map, java.util.Set, int, int)
 	 */
 	@Override
-	public List<T> filter(List<Predicate> predicates, List<Order> orders, Set<String> properties, int firstResult, int maxResult) {
+	public List<T> filter(List<Predicate> predicates, Map<String, OrderType> orders, Set<String> properties, int firstResult, int maxResult) {
 
 		// EntityClass
 		Class<T> entityClass = getManagedEntityClass();
@@ -498,7 +500,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		addPredicates(criteriaBuilder, criteriaQuery, predicates);
 		
 		// Ajout des Odres
-		addOrders(criteriaQuery, orders);
+		addOrders(root, criteriaQuery, orders);
 		
 		// Ajout des Modes de chargements
 		addProperties(root, criteriaQuery, properties);
@@ -568,13 +570,36 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	 * @param criteriaQuery	Requete de critères
 	 * @param orders	Liste des ordres
 	 */
-	protected void addOrders(CriteriaQuery<T> criteriaQuery, List<Order> orders) {
+	protected void addOrders(Root<T> root, CriteriaQuery<T> criteriaQuery, Map<String, OrderType> orders) {
 		
 		// Si la liste est vide
 		if(orders == null || orders.size() == 0) return;
 		
-		// Ajout de la liste
-		criteriaQuery.orderBy(orders);
+		// Liste d'ordres
+		List<Order> lOrders = new ArrayList<Order>();
+		
+		// Parcours
+		for (String property : orders.keySet()) {
+			
+			// Si la propriete est vide
+			if(property == null || property.trim().length() == 0) continue;
+			
+			// Evaluation de la ppt
+			Path<?> path = buildPropertyPathForAnyType(root, property.trim());
+			
+			// Obtention du Type
+			OrderType type = orders.get(property);
+			
+			// Si le type est null
+			if(type == null) continue;
+			
+			// Si on est en ASC
+			if(type.equals(OrderType.ASC)) lOrders.add(getActiveCriteriaBuilder().asc(path));
+			else lOrders.add(getActiveCriteriaBuilder().desc(path));
+		}
+		
+		// Ajout
+		criteriaQuery.orderBy(lOrders);
 	}
 	
 	/**
@@ -725,6 +750,51 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		
 		// On construit le chemin
 		return buildPropertyPath(getActiveRoot(), stringPath);
+	}
+
+	/**
+	 * Méthode de construction d'un chemin de propriété à partir de la racine
+	 * @param <Y>	Paramètre de type du chemin final
+	 * @param root	Racine
+	 * @param stringPath	Chemin sous forme de chaine
+	 * @return	Chemin recherché sous forme Path
+	 */
+	protected Path<?> buildPropertyPathForAnyType(Root<T> root, String stringPath) {
+		
+		// Si la racine est nulle
+		if(root == null) return null;
+		
+		// Si la chaine est vide
+		if(stringPath == null || stringPath.trim().length() == 0) return null;
+		
+		// Le Path à retournet
+		Path<?> path = null;
+		
+		// On splitte sur le séparateur de champs
+		String[] hierarchicalPaths = stringPath.trim().split("\\.");
+		
+		// Obtention du premier chemin
+		path = root.get(hierarchicalPaths[0]);
+		
+		// Si la taille est > 1
+		if(hierarchicalPaths.length > 1) {
+
+			// Parcours
+			for (int i = 1; i < hierarchicalPaths.length; i++) {
+				
+				// Le chemin
+				String unitPath = hierarchicalPaths[i];
+				
+				// Si le path est vide ou est une suite d'espace
+				if(unitPath == null || unitPath.trim().length() == 0) continue;
+				
+				// Acces à la ppt
+				path = path.get(unitPath.trim());
+			}
+		}
+		
+		// On retourne le Path
+		return path;
 	}
 	
 	/**
