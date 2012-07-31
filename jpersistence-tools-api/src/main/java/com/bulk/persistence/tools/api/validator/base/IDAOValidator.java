@@ -41,7 +41,7 @@ public interface IDAOValidator<A extends Annotation> {
 	 * Methode d'obtention des parametres du message a afficher
 	 * @return	Tableau des parametres du message a afficher
 	 */
-	public Object[] getMessageParameters(Object entity);
+	public String[] getMessageParameters(Object entity);
 	
 	/**
 	 * Methode d'execution de la validation sur une entite donnee

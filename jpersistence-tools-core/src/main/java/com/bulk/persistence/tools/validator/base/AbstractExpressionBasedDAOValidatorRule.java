@@ -159,7 +159,7 @@ public abstract class AbstractExpressionBasedDAOValidatorRule implements IDAOVal
 	}
 	
 	@Override
-	public Object[] getMessageParameters(Object entity) {
+	public String[] getMessageParameters(Object entity) {
 		
 		// Obtention des expression de parametres
 		String[] parametersExpressions = getMessageParametersExpressions();
@@ -168,7 +168,7 @@ public abstract class AbstractExpressionBasedDAOValidatorRule implements IDAOVal
 		if(parametersExpressions == null || parametersExpressions.length == 0) return null;
 		
 		// Liste des Parametres
-		ArrayList<Object> lParameters = new ArrayList<Object>();
+		ArrayList<String> lParameters = new ArrayList<String>();
 		
 		// Modele d'expression
 		ExpressionModel expressionModel = null;
@@ -196,7 +196,7 @@ public abstract class AbstractExpressionBasedDAOValidatorRule implements IDAOVal
 					try {
 
 						// Ajout
-						lParameters.add(DAOValidatorHelper.evaluateValueExpression(exprParameters.get(key), entity));
+						lParameters.add(DAOValidatorHelper.evaluateValueExpression(exprParameters.get(key), entity).toString());
 						
 					} catch (Exception e) {
 						
@@ -213,8 +213,14 @@ public abstract class AbstractExpressionBasedDAOValidatorRule implements IDAOVal
 			
 		}
 		
+		// Creation d'un Array de meme taille
+		String[] parameters = new String[lParameters.size()];
+		
+		// Parcours
+		for(int i = 0; i < lParameters.size(); i++) parameters[i] = lParameters.get(i);
+		
 		// On retourne la liste des parametres
-		return lParameters.toArray();
+		return parameters;
 	}
 	
 	/**

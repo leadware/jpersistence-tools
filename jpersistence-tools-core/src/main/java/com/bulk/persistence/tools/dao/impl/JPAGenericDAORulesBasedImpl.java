@@ -44,8 +44,6 @@ import com.bulk.persistence.tools.api.dao.constants.DAOMode;
 import com.bulk.persistence.tools.api.dao.constants.DAOValidatorEvaluationTime;
 import com.bulk.persistence.tools.api.dao.constants.OrderType;
 import com.bulk.persistence.tools.api.exceptions.JPersistenceToolsException;
-import com.bulk.persistence.tools.api.exceptions.NullEntityException;
-import com.bulk.persistence.tools.api.exceptions.ValidatorInstanciationException;
 import com.bulk.persistence.tools.api.validator.annotations.marker.DAOConstraint;
 import com.bulk.persistence.tools.api.validator.base.IDAOValidator;
 import com.bulk.persistence.tools.api.validator.jsr303ext.engine.JSR303ValidatorEngine;
@@ -299,7 +297,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	public T save(T entity, boolean validateIntegrityConstraint, boolean preValidateReferentialConstraint, boolean postValidateReferentialConstraint) {
 		
 		// Si l'entite est nulle
-		if(entity == null) throw new NullEntityException();
+		if(entity == null) throw new JPersistenceToolsException("NullEntityException.message");
 		
 		// Si on doit valider les contraintes d'integrites
 		if(validateIntegrityConstraint) validateEntityIntegrityConstraint(entity, DAOMode.SAVE, DAOValidatorEvaluationTime.PRE_CONDITION);
@@ -347,7 +345,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		if(id == null) throw new JPersistenceToolsException("jpagenericdaorulesbased.update.entityid.null");
 		
 		// Si l'entite est nulle
-		if(entity == null) throw new NullEntityException();
+		if(entity == null) throw new JPersistenceToolsException("NullEntityException.message");
 
 		// Si on doit valider les contraintes d'integrites
 		if(validateIntegrityConstraint) validateEntityIntegrityConstraint(entity, DAOMode.UPDATE, DAOValidatorEvaluationTime.PRE_CONDITION);
@@ -705,7 +703,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 			} catch (Throwable e) {
 				
 				// On relance l'exception
-				throw new ValidatorInstanciationException(e);
+				throw new JPersistenceToolsException("ValidatorInstanciationException.message", e);
 			}
 			
 			// Validation des contraintes d'integrites

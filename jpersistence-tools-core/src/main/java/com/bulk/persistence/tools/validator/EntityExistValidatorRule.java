@@ -190,7 +190,7 @@ public class EntityExistValidatorRule implements IDAOValidator<EntityExistValida
 	 * @see com.bulk.persistence.tools.validator.IDAOValidator#getMessageParameters(java.lang.Object)
 	 */
 	@Override
-	public Object[] getMessageParameters(Object entity) {
+	public String[] getMessageParameters(Object entity) {
 		
 		// On retourne null
 		return null;

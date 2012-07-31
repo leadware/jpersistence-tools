@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.bulk.persistence.tools.api.collection.utils.exception.NoMapKeyPropertyException;
 import com.bulk.persistence.tools.api.exceptions.JPersistenceToolsException;
 import com.bulk.persistence.tools.dao.utils.DAOValidatorHelper;
 
@@ -58,7 +57,8 @@ public class ConverterUtil {
 		if(collection.size() == 0) return map;
 		
 		// Si la propriete cle est vide
-		if(keyPropertyName == null || keyPropertyName.trim().length() == 0) throw new NoMapKeyPropertyException();
+		if(keyPropertyName == null || keyPropertyName.trim().length() == 0) 
+			throw new JPersistenceToolsException("NoMapKeyPropertyException.message");
 		
 		// Parcours de la collection
 		for (T object : collection) {

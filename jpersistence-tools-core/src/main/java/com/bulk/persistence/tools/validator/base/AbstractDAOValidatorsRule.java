@@ -76,7 +76,7 @@ public abstract class AbstractDAOValidatorsRule implements IDAOValidator<Annotat
 	}
 	
 	@Override
-	public Object[] getMessageParameters(Object entity) {
+	public String[] getMessageParameters(Object entity) {
 		
 		// On retourne null
 		return null;

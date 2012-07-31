@@ -32,7 +32,7 @@ public class DAOValidationException extends JPersistenceToolsException {
 	/**
 	 * Liste des parametres du message
 	 */
-	private Object[] parameters = null;
+	private String[] parameters = null;
 	
 	/**
 	 * Constructeur par defaut
@@ -46,7 +46,7 @@ public class DAOValidationException extends JPersistenceToolsException {
 	/**
 	 * Constructeur par defaut
 	 */
-	public DAOValidationException(String message, Object[] parameters) {
+	public DAOValidationException(String message, String[] parameters) {
 		
 		// Initialisation Parente
 		super(message);
@@ -67,7 +67,7 @@ public class DAOValidationException extends JPersistenceToolsException {
 	 * Methode de mise a jour de la Liste des parametres du message
 	 * @param parameters Liste des parametres du message
 	 */
-	public void setParameters(Object[] parameters) {
+	public void setParameters(String[] parameters) {
 		this.parameters = parameters;
 	}
 }
