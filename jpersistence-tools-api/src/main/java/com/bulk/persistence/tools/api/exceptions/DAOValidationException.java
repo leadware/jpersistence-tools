@@ -59,7 +59,7 @@ public class DAOValidationException extends JPersistenceToolsException {
 	 * Methode d'obtention de la Liste des parametres du message
 	 * @return Liste des parametres du message
 	 */
-	public Object[] getParameters() {
+	public String[] getParameters() {
 		return parameters;
 	}
 
