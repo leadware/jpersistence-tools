@@ -156,7 +156,16 @@ public interface JPAGenericDAO<T extends Object> {
 	 * @return	Instance de la classe avec les proprietes charges
 	 */
 	public T findByPrimaryKey(String entityIDName, Object entityID, Set<String>  properties);
-		
+	
+	/**
+	 * Methode de recherche d'une entite par une propriete unique
+	 * @param propertyName	Nom de la propriete Unique
+	 * @param propertyValue	Valeur de la propriete Unique
+	 * @param properties	Ensemble des proprietes a charger en EAGER
+	 * @return	Objet recherche
+	 */
+	public T findByUniqueProperty(String propertyName, Object propertyValue, Set<String>  properties);
+	
 	/**
 	 * Methode d'obtention du gestionnaire d'entites
 	 * @return	Gestionnaire d'entites

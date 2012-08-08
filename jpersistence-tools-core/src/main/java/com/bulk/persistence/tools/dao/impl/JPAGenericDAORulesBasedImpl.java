@@ -438,7 +438,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		criteriaQuery.select(root);
 		
 		// Paramètre
-		ParameterExpression<Object> idParameter = criteriaBuilder.parameter(Object.class, "entityID");
+		ParameterExpression<Object> idParameter = criteriaBuilder.parameter(Object.class, entityIDName);
 		
 		// Condition sur l'ID
 		criteriaQuery.where(criteriaBuilder.equal(root.get(entityIDName.trim()), idParameter));
@@ -450,7 +450,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		TypedQuery<T> query = getEntityManager().createQuery(criteriaQuery);
 		
 		// Positionnement du Paramètre
-		query.setParameter("entityID", entityID);
+		query.setParameter(entityIDName, entityID);
 		
 		try {
 
@@ -466,6 +466,74 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 			
 			// On leve une exception
 			throw new JPersistenceToolsException("jpagenericdaorulesbased.findbyprimarykey.entityidname.invalid");
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#findByUniqueProperty(java.lang.String, java.lang.Object, java.util.Set)
+	 */
+	@Override
+	public T findByUniqueProperty(String propertyName, Object propertyValue,
+			Set<String> properties) {
+
+		// Si le nom de la propriété est null
+		if(propertyName == null || propertyName.trim().length() == 0) {
+			
+			// On leve une exception
+			throw new JPersistenceToolsException("jpagenericdaorulesbased.findbyuniqueproperty.propertyname.null");
+		}
+		
+		// Si la valeur de la propriete est nulle
+		if(propertyValue == null) {
+			
+			// On leve une exception
+			throw new JPersistenceToolsException("jpagenericdaorulesbased.findbyuniqueproperty.propertyvalue.null");
+		}
+
+		// EntityClass
+		Class<T> entityClass = getManagedEntityClass();
+		
+		// Criteria Builder
+		CriteriaBuilder criteriaBuilder = getActiveCriteriaBuilder();
+		
+		// Création du constructeur de requete par critères
+		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+
+		// Construction de la racine
+		Root<T> root = criteriaQuery.from(entityClass);
+		
+		// Select Clause
+		criteriaQuery.select(root);
+
+		// Paramètre
+		ParameterExpression<Object> propertyParameter = criteriaBuilder.parameter(Object.class, propertyName);
+		
+		// Clause where
+		criteriaQuery.where(criteriaBuilder.equal(root.get(propertyName.trim()), propertyParameter));
+		
+		// Ajout des propriétés à charger en EAGER
+		addProperties(root, criteriaQuery, properties);
+
+		// Requete basée sur les critères
+		TypedQuery<T> query = getEntityManager().createQuery(criteriaQuery);
+		
+		// Positionnement du Paramètre
+		query.setParameter(propertyName, propertyValue);
+
+		try {
+
+			// On retourne le résultat
+			return query.getSingleResult();
+			
+		} catch (NoResultException e) {
+			
+			// On retourne null
+			return null;
+			
+		} catch (NonUniqueResultException e) {
+			
+			// On leve une exception
+			throw new JPersistenceToolsException("jpagenericdaorulesbased.findbyuniqueproperty.entitypropertyname.notunique");
 		}
 	}
 	
