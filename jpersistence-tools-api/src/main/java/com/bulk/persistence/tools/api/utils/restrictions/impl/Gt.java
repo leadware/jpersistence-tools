@@ -31,6 +31,11 @@ import javax.persistence.criteria.Root;
 public class Gt<Y extends Comparable<Y>> extends AbstractPredicate {
 
 	/**
+	 * ID Genere Par Eclipse
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Nom de la propriete
 	 */
 	protected String property;

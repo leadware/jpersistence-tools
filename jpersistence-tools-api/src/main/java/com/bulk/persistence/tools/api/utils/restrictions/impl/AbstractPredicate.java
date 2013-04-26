@@ -31,6 +31,11 @@ import com.bulk.persistence.tools.api.utils.restrictions.Predicate;
 public abstract class AbstractPredicate implements Predicate {
 	
 	/**
+	 * ID Genere par Eclipse
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Méthode de construction d'un chemin de propriété à partir de la racine
 	 * @param <Y>	Paramètre de type du chemin final
 	 * @param root	Racine de la requete

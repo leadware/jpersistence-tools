@@ -29,7 +29,12 @@ import javax.persistence.criteria.Root;
  * @since 26 avr. 2013 : 08:30:19
  */
 public class NotEq<Y extends Comparable<Y>> extends AbstractPredicate {
-	
+
+	/**
+	 * ID Genere Par Eclipse
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Nom de la propriete
 	 */

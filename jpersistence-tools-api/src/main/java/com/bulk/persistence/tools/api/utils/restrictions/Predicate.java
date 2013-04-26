@@ -18,6 +18,8 @@
  */
 package com.bulk.persistence.tools.api.utils.restrictions;
 
+import java.io.Serializable;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Root;
 
@@ -26,7 +28,7 @@ import javax.persistence.criteria.Root;
  * @author <a href="mailto:jetune@yahoo.fr">Jean-Jacques ETUNE NGI</a>
  * @since 26 avr. 2013 : 08:17:04
  */
-public interface Predicate {
+public interface Predicate extends Serializable {
 	
 	/**
 	 * Methode de construction d'un Predicat JPA 2
