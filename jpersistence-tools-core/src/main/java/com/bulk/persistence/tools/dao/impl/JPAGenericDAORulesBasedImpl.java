@@ -71,6 +71,21 @@ import com.bulk.persistence.tools.dao.utils.DAOValidatorHelper;
 public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements JPAGenericDAO<T> {
 	
 	/**
+	 * Classe de l'entite managee
+	 */
+	protected Class<T> entityClass = getManagedEntityClass();
+	
+	/**
+	 * Requete par critere
+	 */
+	protected CriteriaQuery<T> criteriaQuery = null;
+	
+	/**
+	 * Constructeur de critere
+	 */
+	protected CriteriaBuilder criteriaBuilder;
+	
+	/**
 	 * racine des criteres
 	 */
 	protected Root<T> root = null;
@@ -214,9 +229,6 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		// Entité à supprimer
 		T entity = null;
 		
-		// EntityClass
-		Class<T> entityClass = getManagedEntityClass();
-		
 		try {
 			
 			// On reattache
@@ -252,12 +264,9 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	 */
 	@Override
 	public void clean() {
-
-		// EntityClass
-		Class<T> entityClass = getManagedEntityClass();
 		
 		// Criteria Builder
-		CriteriaBuilder criteriaBuilder = getActiveCriteriaBuilder();
+		CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
 		
 		// Création du constructeur de requete par critères
 		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
@@ -362,7 +371,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		try {
 			
 			// Recherche de l'entité
-			oldEntity = (T) getEntityManager().find(entity.getClass(), id);
+			oldEntity = (T) getEntityManager().find(entityClass, id);
 			
 		} catch (EntityNotFoundException e) {
 			
@@ -422,11 +431,8 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 			throw new JPersistenceToolsException("jpagenericdaorulesbased.findbyprimarykey.id.null");
 		}
 
-		// EntityClass
-		Class<T> entityClass = getManagedEntityClass();
-		
 		// Criteria Builder
-		CriteriaBuilder criteriaBuilder = getActiveCriteriaBuilder();
+		CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
 		
 		// Création du constructeur de requete par critères
 		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
@@ -490,11 +496,8 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 			throw new JPersistenceToolsException("jpagenericdaorulesbased.findbyuniqueproperty.propertyvalue.null");
 		}
 
-		// EntityClass
-		Class<T> entityClass = getManagedEntityClass();
-		
 		// Criteria Builder
-		CriteriaBuilder criteriaBuilder = getActiveCriteriaBuilder();
+		CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
 		
 		// Création du constructeur de requete par critères
 		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
@@ -542,19 +545,16 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#filter(java.util.List, java.util.Map, java.util.Set, int, int)
 	 */
 	@Override
-	public List<T> filter(List<Predicate> predicates, Map<String, OrderType> orders, Set<String> properties, int firstResult, int maxResult) {
-
-		// EntityClass
-		Class<T> entityClass = getManagedEntityClass();
+	public synchronized List<T> filter(List<Predicate> predicates, Map<String, OrderType> orders, Set<String> properties, int firstResult, int maxResult) {
 		
 		// Criteria Builder
-		CriteriaBuilder criteriaBuilder = getActiveCriteriaBuilder();
+		criteriaBuilder = getEntityManager().getCriteriaBuilder();
 		
 		// Requete de criteres
-		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+		criteriaQuery = criteriaBuilder.createQuery(entityClass);
 		
 		// Construction de la racine
-		Root<T> root = criteriaQuery.from(entityClass);
+		root = criteriaQuery.from(entityClass);
 		
 		// On positionne l'Alias
 		root.alias(ROOT_ALIAS);

@@ -270,7 +270,7 @@ public class TestJPAGenericDAORulesBased {
      */
     @Test
     public void testFilterMethods() {
-
+    	
     	// Predicats de recherche
     	Predicate p1 = null;
     	Predicate p2 = null;

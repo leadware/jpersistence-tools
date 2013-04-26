@@ -30,7 +30,7 @@ import com.bulk.persistence.tools.api.dao.constants.OrderType;
  * @author Jean-Jacques ETUNÈ NGI
  */
 public class OrderContainer implements Serializable {
-
+	
 	/**
 	 * ID Genere par Eclipse
 	 */
