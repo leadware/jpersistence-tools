@@ -24,13 +24,13 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.Predicate;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bulk.persistence.tools.api.dao.constants.OrderType;
+import com.bulk.persistence.tools.api.utils.restrictions.Predicate;
 import com.bulk.persistence.tools.dao.impl.JPAGenericDAORulesBasedImpl;
 import com.bulk.persistence.tools.test.dao.SXGroupDAO;
 import com.bulk.persistence.tools.test.dao.entities.sx.SXGroup;

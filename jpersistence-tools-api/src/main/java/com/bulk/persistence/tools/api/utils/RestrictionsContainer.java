@@ -22,7 +22,20 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.persistence.criteria.Predicate;
+
+import com.bulk.persistence.tools.api.utils.restrictions.Predicate;
+import com.bulk.persistence.tools.api.utils.restrictions.impl.Eq;
+import com.bulk.persistence.tools.api.utils.restrictions.impl.Ge;
+import com.bulk.persistence.tools.api.utils.restrictions.impl.Gt;
+import com.bulk.persistence.tools.api.utils.restrictions.impl.IsFalse;
+import com.bulk.persistence.tools.api.utils.restrictions.impl.IsNotNull;
+import com.bulk.persistence.tools.api.utils.restrictions.impl.IsNull;
+import com.bulk.persistence.tools.api.utils.restrictions.impl.IsTrue;
+import com.bulk.persistence.tools.api.utils.restrictions.impl.Le;
+import com.bulk.persistence.tools.api.utils.restrictions.impl.Like;
+import com.bulk.persistence.tools.api.utils.restrictions.impl.Lt;
+import com.bulk.persistence.tools.api.utils.restrictions.impl.NotEq;
+import com.bulk.persistence.tools.api.utils.restrictions.impl.NotLike;
 
 /**
  * Classe representant un conteneur de restrictions
@@ -63,7 +76,187 @@ public class RestrictionsContainer implements Serializable {
 		// On retourne le container
 		return this;
 	}
+	
+	/**
+	 * Methode d'ajout de la restriction Eq
+	 * @param property	Nom de la Propriete
+	 * @param value	Valeur de la propriete
+	 * @return	Conteneur
+	 */
+	public <Y extends Comparable<Y>> RestrictionsContainer addEq(String property, Y value) {
+		
+		// Ajout de la restriction
+		restrictions.add(new Eq<Y>(property, value));
+		
+		// On retourne le conteneur
+		return this;
+	}
 
+	/**
+	 * Methode d'ajout de la restriction NotEq
+	 * @param property	Nom de la Propriete
+	 * @param value	Valeur de la propriete
+	 * @return	Conteneur
+	 */
+	public <Y extends Comparable<Y>> RestrictionsContainer addNotEq(String property, Y value) {
+		
+		// Ajout de la restriction
+		restrictions.add(new NotEq<Y>(property, value));
+		
+		// On retourne le conteneur
+		return this;
+	}
+
+	/**
+	 * Methode d'ajout de la restriction GE
+	 * @param property	Nom de la Propriete
+	 * @param value	Valeur de la propriete
+	 * @return	Conteneur
+	 */
+	public <Y extends Comparable<Y>> RestrictionsContainer addGe(String property, Y value) {
+		
+		// Ajout de la restriction
+		restrictions.add(new Ge<Y>(property, value));
+		
+		// On retourne le conteneur
+		return this;
+	}
+
+	/**
+	 * Methode d'ajout de la restriction GT
+	 * @param property	Nom de la Propriete
+	 * @param value	Valeur de la propriete
+	 * @return	Conteneur
+	 */
+	public <Y extends Comparable<Y>> RestrictionsContainer addGt(String property, Y value) {
+		
+		// Ajout de la restriction
+		restrictions.add(new Gt<Y>(property, value));
+		
+		// On retourne le conteneur
+		return this;
+	}
+
+	/**
+	 * Methode d'ajout de la restriction Lt
+	 * @param property	Nom de la Propriete
+	 * @param value	Valeur de la propriete
+	 * @return	Conteneur
+	 */
+	public <Y extends Comparable<Y>> RestrictionsContainer addLt(String property, Y value) {
+		
+		// Ajout de la restriction
+		restrictions.add(new Lt<Y>(property, value));
+		
+		// On retourne le conteneur
+		return this;
+	}
+
+	/**
+	 * Methode d'ajout de la restriction Like
+	 * @param property	Nom de la Propriete
+	 * @param value	Valeur de la propriete
+	 * @return	Conteneur
+	 */
+	public RestrictionsContainer addLike(String property, String value) {
+		
+		// Ajout de la restriction
+		restrictions.add(new Like(property, value));
+		
+		// On retourne le conteneur
+		return this;
+	}
+
+	/**
+	 * Methode d'ajout de la restriction NotLike
+	 * @param property	Nom de la Propriete
+	 * @param value	Valeur de la propriete
+	 * @return	Conteneur
+	 */
+	public RestrictionsContainer addNotLike(String property, String value) {
+		
+		// Ajout de la restriction
+		restrictions.add(new NotLike(property, value));
+		
+		// On retourne le conteneur
+		return this;
+	}
+	
+	/**
+	 * Methode d'ajout de la restriction Le
+	 * @param property	Nom de la Propriete
+	 * @param value	Valeur de la propriete
+	 * @return	Conteneur
+	 */
+	public <Y extends Comparable<Y>> RestrictionsContainer addLe(String property, Y value) {
+		
+		// Ajout de la restriction
+		restrictions.add(new Le<Y>(property, value));
+		
+		// On retourne le conteneur
+		return this;
+	}
+
+	/**
+	 * Methode d'ajout de la restriction IsFalse
+	 * @param property	Nom de la Propriete
+	 * @param value	Valeur de la propriete
+	 * @return	Conteneur
+	 */
+	public RestrictionsContainer addIsFalse(String property) {
+		
+		// Ajout de la restriction
+		restrictions.add(new IsFalse(property));
+		
+		// On retourne le conteneur
+		return this;
+	}
+
+	/**
+	 * Methode d'ajout de la restriction IsTrue
+	 * @param property	Nom de la Propriete
+	 * @param value	Valeur de la propriete
+	 * @return	Conteneur
+	 */
+	public RestrictionsContainer addIsTrue(String property) {
+		
+		// Ajout de la restriction
+		restrictions.add(new IsTrue(property));
+		
+		// On retourne le conteneur
+		return this;
+	}
+
+	/**
+	 * Methode d'ajout de la restriction IsNotNull
+	 * @param property	Nom de la Propriete
+	 * @param value	Valeur de la propriete
+	 * @return	Conteneur
+	 */
+	public RestrictionsContainer addIsNotNull(String property) {
+		
+		// Ajout de la restriction
+		restrictions.add(new IsNotNull(property));
+		
+		// On retourne le conteneur
+		return this;
+	}
+
+	/**
+	 * Methode d'ajout de la restriction IsNull
+	 * @param property	Nom de la Propriete
+	 * @param value	Valeur de la propriete
+	 * @return	Conteneur
+	 */
+	public RestrictionsContainer addIsNull(String property) {
+		
+		// Ajout de la restriction
+		restrictions.add(new IsNull(property));
+		
+		// On retourne le conteneur
+		return this;
+	}
+	
 	/**
 	 * Methode d'obtention de la Liste des restrictions
 	 * @return Liste des restrictions

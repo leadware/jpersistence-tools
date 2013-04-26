@@ -24,7 +24,6 @@ import static junit.framework.Assert.fail;
 
 import java.util.List;
 
-import javax.persistence.criteria.Predicate;
 import javax.validation.ConstraintViolationException;
 
 import org.hibernate.LazyInitializationException;
@@ -38,6 +37,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bulk.persistence.tools.api.collection.utils.ConverterUtil;
 import com.bulk.persistence.tools.api.exceptions.InvalidEntityInstanceStateException;
+import com.bulk.persistence.tools.api.utils.RestrictionsContainer;
 import com.bulk.persistence.tools.test.dao.CountryDAO;
 import com.bulk.persistence.tools.test.dao.RegionDAO;
 import com.bulk.persistence.tools.test.dao.SXGroupDAO;
@@ -271,10 +271,6 @@ public class TestJPAGenericDAORulesBased {
     @Test
     public void testFilterMethods() {
     	
-    	// Predicats de recherche
-    	Predicate p1 = null;
-    	Predicate p2 = null;
-    	
     	// Recherche
     	List<Country> filteredCountry = null;
     	List<Region> filteredRegions = null;
@@ -284,10 +280,10 @@ public class TestJPAGenericDAORulesBased {
         //////////////////////////////////////////////////////////////////////////////
     	
     	// Predicat de recherche
-    	p1 = countryDao.like("designation", "CAM%");
+    	RestrictionsContainer restrictionsContainer = RestrictionsContainer.newInstance().addLike("designation", "CAM%");
     	
     	// Recherche
-    	filteredCountry = countryDao.filter(ConverterUtil.convertArrayToList(p1), null, null, 0, -1);
+    	filteredCountry = countryDao.filter(restrictionsContainer.getRestrictions(), null, null, 0, -1);
 
     	// Vérification
     	assertNotNull(filteredCountry);
@@ -298,10 +294,10 @@ public class TestJPAGenericDAORulesBased {
         //////////////////////////////////////////////////////////////////////////////
     	
     	// Predicat de recherche
-    	p1 = countryDao.like("designation", "C%");
+    	restrictionsContainer = RestrictionsContainer.newInstance().addLike("designation", "C%");
     	
     	// Recherche
-    	filteredCountry = countryDao.filter(ConverterUtil.convertArrayToList(p1), null, null, 0, -1);
+    	filteredCountry = countryDao.filter(restrictionsContainer.getRestrictions(), null, null, 0, -1);
 
     	// Vérification
     	assertNotNull(filteredCountry);
@@ -313,11 +309,12 @@ public class TestJPAGenericDAORulesBased {
         //////////////////////////////////////////////////////////////////////////////
     	
     	// Predicat de recherche
-    	p1 = countryDao.like("code", "C%");
-    	p2 = countryDao.like("designation", "CA%");
+
+    	// Predicat de recherche
+    	restrictionsContainer = RestrictionsContainer.newInstance().addLike("code", "C%").addLike("designation", "CA%");
     	
     	// Recherche
-    	filteredCountry = countryDao.filter(ConverterUtil.convertArrayToList(p1, p2), null, null, 0, -1);
+    	filteredCountry = countryDao.filter(restrictionsContainer.getRestrictions(), null, null, 0, -1);
 
     	// Vérification
     	assertNotNull(filteredCountry);
@@ -328,10 +325,12 @@ public class TestJPAGenericDAORulesBased {
         //////////////////////////////////////////////////////////////////////////////
     	
     	// Predicat de recherche
-    	p1 = regionDao.eq("country.code", c1.getCode());
+
+    	// Predicat de recherche
+    	restrictionsContainer = RestrictionsContainer.newInstance().addEq("country.code", c1.getCode());
     	
     	// Recherche
-    	filteredRegions = regionDao.filter(ConverterUtil.convertArrayToList(p1), null, null, 0, -1);
+    	filteredRegions = regionDao.filter(restrictionsContainer.getRestrictions(), null, null, 0, -1);
 
     	// Vérification
     	assertNotNull(filteredRegions);
@@ -343,11 +342,12 @@ public class TestJPAGenericDAORulesBased {
         //////////////////////////////////////////////////////////////////////////////
     	
     	// Predicat de recherche
-    	p1 = regionDao.eq("country.code", c2.getCode());
-    	p2 = regionDao.like("designation", "PARIS%");
+
+    	// Predicat de recherche
+    	restrictionsContainer = RestrictionsContainer.newInstance().addEq("country.code", c2.getCode()).addLike("designation", "PARIS%");
     	
     	// Recherche
-    	filteredRegions = regionDao.filter(ConverterUtil.convertArrayToList(p1, p2), null, null, 0, -1);
+    	filteredRegions = regionDao.filter(restrictionsContainer.getRestrictions(), null, null, 0, -1);
 
     	// Vérification
     	assertNotNull(filteredRegions);

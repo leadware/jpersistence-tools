@@ -23,12 +23,10 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
 
 import com.bulk.persistence.tools.api.dao.constants.OrderType;
+import com.bulk.persistence.tools.api.utils.restrictions.Predicate;
 
 /**
  * Interface de la DAO Generique compatible JPA
@@ -179,12 +177,6 @@ public interface JPAGenericDAO<T extends Object> {
 	public Class<T> getManagedEntityClass();
 	
 	/**
-	 * Néthode d'obtention du Criteria Builderactif dans la DAO
-	 * @return	Criteria Builderactif dans la DAO
-	 */
-	public CriteriaBuilder getActiveCriteriaBuilder();
-	
-	/**
 	 * Méthode d'execution d'une requete de critere
 	 * @param <Q>	Parametre de type de la racine de l'entite
 	 * @param criteriaQuery	Requete de critere
@@ -192,119 +184,4 @@ public interface JPAGenericDAO<T extends Object> {
 	 * @return	Resultat de la requete
 	 */
 	public <Q> List<Q> executeCriteria(CriteriaQuery<Q> criteriaQuery, Map<String, Object> parameters);
-	
-	/**
-	 * Méthode de construction d'un chemin de propriété à partir de la racine
-	 * @param stringPath	Chemin sous forme de chaine
-	 * @return	Chemin recherché sous forme Path
-	 */
-	public <Y extends Comparable<Y>> Path<Y> buildPropertyPath(String stringPath);
-	
-	/**
-	 * Méthode de construction du predicat "equal"
-	 * @param <Y>	Parametre de type de la valeur a comparer
-	 * @param property	Chemim de la propriete a comparer
-	 * @param value	Valeur de comparaison
-	 * @return	Predicat construit
-	 */
-	public <Y extends Comparable<Y>> Predicate eq(String property, Y value);
-
-	/**
-	 * Méthode de construction du predicat "notEqual"
-	 * @param <Y>	Parametre de type de la valeur a comparer
-	 * @param property	Chemim de la propriete a comparer
-	 * @param value	Valeur de comparaison
-	 * @return	Predicat construit
-	 */
-	public <Y extends Comparable<Y>> Predicate notEq(String property, Y value);
-	
-	/**
-	 * Méthode de construction du predicat "greaterThan"
-	 * @param <Y>	Parametre de type de la valeur a comparer
-	 * @param property	Chemim de la propriete a comparer
-	 * @param value	Valeur de comparaison
-	 * @return	Predicat construit
-	 */
-	public <Y extends Comparable<Y>> Predicate gt(String property,  Y value);
-	
-	/**
-	 * Méthode de construction du predicat "greaterThanOrEqualTo"
-	 * @param <Y>	Parametre de type de la valeur a comparer
-	 * @param property	Chemim de la propriete a comparer
-	 * @param value	Valeur de comparaison
-	 * @return	Predicat construit
-	 */
-	public <Y extends Comparable<Y>> Predicate ge(String property,  Y value);
-
-	/**
-	 * Méthode de construction du predicat "lessThan"
-	 * @param <Y>	Parametre de type de la valeur a comparer
-	 * @param property	Chemim de la propriete a comparer
-	 * @param value	Valeur de comparaison
-	 * @return	Predicat construit
-	 */
-	public <Y extends Comparable<Y>> Predicate lt(String property,  Y value);
-
-	/**
-	 * Méthode de construction du predicat "lessThanOrEqualTo"
-	 * @param <Y>	Parametre de type de la valeur a comparer
-	 * @param property	Chemim de la propriete a comparer
-	 * @param value	Valeur de comparaison
-	 * @return	Predicat construit
-	 */
-	public <Y extends Comparable<Y>> Predicate le(String property,  Y value);
-
-	/**
-	 * Méthode de construction du predicat "like"
-	 * @param property	chemin de la proriété à comparer
-	 * @param value	Valeur de comparaison
-	 * @return	Predicat construit
-	 */
-	public Predicate like(String property,  String pattern);
-
-	/**
-	 * Méthode de construction du predicat "notLike"
-	 * @param property	Chemim de la propriete
-	 * @param value	Valeur de comparaison
-	 * @return	Predicat construit
-	 */
-	public Predicate notLike(String property,  String pattern);
-
-	/**
-	 * Méthode de construction du predicat "between"
-	 * @param <Y>	Parametre de type de la valeur a comparer
-	 * @param property	Chemim de la propriete a comparer
-	 * @param minValue	Borne inferieure
-	 * @param maxValue	Borne superieure
-	 * @return Predicat construit
-	 */
-	public <Y extends Comparable<Y>> Predicate between(String property,  Y minValue, Y maxValue);
-
-	/**
-	 * Méthode de construction du predicat "isNull"
-	 * @param property	Chemim de la propriete a comparer
-	 * @return Predicat construit
-	 */
-	public Predicate isNull(String property);
-
-	/**
-	 * Méthode de construction du predicat "isNotNull"
-	 * @param property	Chemim de la propriete a comparer
-	 * @return Predicat construit
-	 */
-	public Predicate isNotNull(String property);
-
-	/**
-	 * Méthode de construction du predicat "isTrue"
-	 * @param property	Chemim de la propriete a comparer
-	 * @return Predicat construit
-	 */
-	public Predicate isTrue(String property);
-
-	/**
-	 * Méthode de construction du predicat "isFalse"
-	 * @param property	Chemim de la propriete a comparer
-	 * @return Predicat construit
-	 */
-	public Predicate isFalse(String property);
 }
