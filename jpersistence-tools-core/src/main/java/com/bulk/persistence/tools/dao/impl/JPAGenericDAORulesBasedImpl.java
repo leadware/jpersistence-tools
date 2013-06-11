@@ -527,10 +527,41 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	
 	/*
 	 * (non-Javadoc)
+	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#count(java.util.List)
+	 */
+	public long count(List<Predicate> predicates) {
+
+		// Criteria Builder
+		CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
+		
+		// Requete de criteres
+		CriteriaQuery<Long>criteriaQuery = criteriaBuilder.createQuery(Long.class);
+		
+		// Construction de la racine
+		Root<T> root = criteriaQuery.from(entityClass);
+
+		// On positionne l'Alias
+		root.alias(ROOT_ALIAS);
+		
+		// Selection de la racine
+		criteriaQuery.select(criteriaBuilder.count(root));
+
+		// Ajout des Prédicats
+		addPredicates(criteriaBuilder, root, criteriaQuery, predicates);
+
+		// Construction de la requete basée sur les critères
+		TypedQuery<Long> query = getEntityManager().createQuery(criteriaQuery);
+		
+		// On retourne le resultat
+		return query.getSingleResult();
+	}
+	
+	/*
+	 * (non-Javadoc)
 	 * @see com.bulk.persistence.tools.dao.JPAGenericDAO#filter(java.util.List, java.util.Map, java.util.Set, int, int)
 	 */
 	@Override
-	public synchronized List<T> filter(List<com.bulk.persistence.tools.api.utils.restrictions.Predicate> predicates, Map<String, OrderType> orders, Set<String> properties, int firstResult, int maxResult) {
+	public synchronized List<T> filter(List<Predicate> predicates, Map<String, OrderType> orders, Set<String> properties, int firstResult, int maxResult) {
 		
 		// Criteria Builder
 		CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
@@ -558,7 +589,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		
 		// Construction de la requete basée sur les critères
 		TypedQuery<T> query = getEntityManager().createQuery(criteriaQuery);
-
+		
 		// Traitement de l'index du premier resultat
 		
 		// Si l'index du premier element est < 0
@@ -660,7 +691,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	 * @param criteriaQuery	Requete de critères
 	 * @param predicates	Liste des predicats
 	 */
-	protected void addPredicates(CriteriaBuilder criteriaBuilder, Root<T> root, CriteriaQuery<T> criteriaQuery, List<Predicate> predicates) {
+	protected void addPredicates(CriteriaBuilder criteriaBuilder, Root<T> root, CriteriaQuery<?> criteriaQuery, List<Predicate> predicates) {
 		
 		// Si la liste de predicats est vide
 		if(predicates == null || predicates.size() == 0) return;

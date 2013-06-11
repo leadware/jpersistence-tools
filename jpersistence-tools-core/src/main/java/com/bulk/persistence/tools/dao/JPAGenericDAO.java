@@ -136,6 +136,13 @@ public interface JPAGenericDAO<T extends Object> {
 	public void clean();
 	
 	/**
+	 * Methode de decompte des entites verifiant la liste de predicats
+	 * @param predicates	Liste de predicats de selection
+	 * @return	Nombre d'entites
+	 */
+	public long count(List<Predicate> predicates);
+	
+	/**
 	 * Methode de filtre des entites d'une classe donnee en fonction des criteres de filtres donnees
 	 * @param predicates	Liste des prédicats
 	 * @param orders	Map des Ordre de tri

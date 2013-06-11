@@ -172,7 +172,10 @@ public class TestJPAGenericDAORulesBased {
         //////////////////////////////////////////////////////////////////////////////
     	
     	// Nombre initial de Country
-    	int count = countryDao.filter(null, null, null, 0, -1).size();
+    	long count = countryDao.count(null);
+
+    	// Affichage du count
+    	System.out.println("INITIAL COUNT: " + count);
     	
     	// Une Country
     	Country country = new Country();
@@ -198,7 +201,7 @@ public class TestJPAGenericDAORulesBased {
 		}
         
 		// On vérifie qu'il ya eu aucun enregistrement
-		assertEquals(count, countryDao.filter(null, null, null, 0, -1).size());
+		assertEquals(count, countryDao.count(null));
     }
     
     /**
@@ -217,7 +220,10 @@ public class TestJPAGenericDAORulesBased {
         //////////////////////////////////////////////////////////////////////////////
 
     	// Nombre initial de Country
-    	int count = countryDao.filter(null, null, null, 0, -1).size();
+    	long count = countryDao.count(null);
+    	
+    	// Affichage du count
+    	System.out.println("INITIAL COUNT: " + count);
     	
 		// Désactivation de la validation des contraintes d'intégrités
 		countryDao.setValidateIntegrityConstraintOnSave(false);
@@ -262,7 +268,7 @@ public class TestJPAGenericDAORulesBased {
 		}
         
 		// On vérifie qu'il ya eu aucun enregistrement
-		assertEquals(count, countryDao.filter(null, null, null, 0, -1).size());
+		assertEquals(count, countryDao.count(null));
     }
     
     /**
