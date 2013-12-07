@@ -302,7 +302,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		try {
 			
 			// Enregistrement
-			entity = getEntityManager().merge(entity);
+			getEntityManager().persist(entity);
 			
 		} catch (Exception e) {
 			
