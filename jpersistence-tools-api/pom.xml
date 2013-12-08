@@ -20,7 +20,7 @@
   	
 	<!-- Project parent -->
 	<parent>
-		<groupId>com.bulk-inc</groupId>
+		<groupId>net.leadware</groupId>
 		<artifactId>jpersistence-tools</artifactId>
 		<version>2.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
@@ -78,6 +78,17 @@
 			    </includes>
 			</resource>
 		</resources>
+		
+		<!-- Build Plugins -->
+		<plugins>
+			
+			<!-- Maven Javadoc plugin -->
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+			
+		</plugins>
 		
 	</build>
 	

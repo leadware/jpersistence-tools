@@ -12,7 +12,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<!-- Project group ID -->
-	<groupId>com.bulk-inc</groupId>
+	<groupId>net.leadware</groupId>
 	
 	<!-- Project Artifact ID -->
 	<artifactId>jpersistence-tools</artifactId>
@@ -30,7 +30,7 @@
 	<packaging>pom</packaging>
 	
 	<!-- Project source URL -->
-	<url>https://github.com/jetune/jpersistence-tools/</url>
+	<url>https://github.com/leadware/jpersistence-tools/</url>
 	
 	<!-- Project licence -->
 	<licenses>
@@ -43,29 +43,29 @@
 	
 	<!-- Project scm -->
 	<scm>
-		<connection>scm:git:git@github.com:jetune/jpersistence-tools.git</connection>
-		<developerConnection>scm:git:git@github.com:jetune/jpersistence-tools.git</developerConnection>
-		<url>git@github.com:jetune/jpersistence-tools.git</url>
+		<connection>scm:git:git@github.com:leadware/jpersistence-tools.git</connection>
+		<developerConnection>scm:git:git@github.com:leadware/jpersistence-tools.git</developerConnection>
+		<url>git@github.com:leadware/jpersistence-tools.git</url>
 	</scm>
 	
 	<!-- Project issue managment -->
 	<issueManagement>
 		<system>Jira</system>
-		<url>http://jira.jpersistence-tools.bulk-inc.com</url>
+		<url>http://jira.jpersistence-tools.leadware.net</url>
 	</issueManagement>
 	
 	<!-- Project Continuous integration system -->
 	<ciManagement>
 		<system>Bamboo</system>
-		<url>http://bamboo.jpersistence-tools.bulk-inc.com</url>
+		<url>http://bamboo.jpersistence-tools.leadware.net</url>
 	</ciManagement>
 	
 	<!-- Project developpers -->
 	<developers>
 		<developer>
 			<name>Jean-Jacques ETUNE NGI</name>
-			<email>shinjetune@gmail.com</email>
-			<organization>BULK Software Inc.</organization>
+			<email>jetune@leadware.net</email>
+			<organization>Leadware</organization>
 			<timezone>GMT+1</timezone>
 			<roles>
 				<role>owner</role>
@@ -73,21 +73,12 @@
 				<role>Developper</role>
 			</roles>
 		</developer>
-		<developer>
-			<name>Jean-Vincent NGA NTI</name>
-			<email>globvince@gmail.com</email>
-			<organization>BULK Software Inc.</organization>
-			<timezone>GMT+1</timezone>
-			<roles>
-				<role>Developper</role>
-			</roles>
-		</developer>
 	</developers>
 	
 	<!-- Project organisation -->
 	<organization>
-		<name>BULK Software Inc.</name>
-		<url>http://www.bulk-inc.com</url>
+		<name>Leadware</name>
+		<url>http://www.leadware.net</url>
 	</organization>
 	
 	<!-- Project properties -->
@@ -190,10 +181,71 @@
 		<!-- m2e lifecycle mapping version property -->
 		<m2e-lifecycle-mapping.version>1.0.0</m2e-lifecycle-mapping.version>
 		
+		<!-- Maven compiler plugin version property -->
+		<maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+		
 	</properties>
 	
 	<!-- Project build configuration -->
 	<build>
+		
+		<pluginManagement>
+			
+			<plugins>
+				
+				<!-- Maven Javadoc plugin -->
+				<plugin>
+				    <groupId>org.apache.maven.plugins</groupId>
+				    <artifactId>maven-javadoc-plugin</artifactId>
+				    <version>${maven.javadoc.plugin.version}</version>
+				    <configuration>
+				        <show>private</show>
+				        <nohelp>false</nohelp>
+				    </configuration>
+				    <executions>
+				    	<execution>
+				    		<phase>generate-resources</phase>
+				    		<goals>
+				    			<goal>jar</goal>
+				    		</goals>
+				    	</execution>
+				    </executions>
+				</plugin>
+				
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-javadoc-plugin
+										</artifactId>
+										<versionRange>
+											[2.8,)
+										</versionRange>
+										<goals>
+											<goal>jar</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+			
+		</pluginManagement>
 		
 		<!-- Project plugins -->
 		<plugins>
@@ -202,6 +254,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
 					<source>${jre.source.version}</source>
 					<target>${jre.target.version}</target>
@@ -228,11 +281,6 @@
 			<plugin>
 			    <groupId>org.apache.maven.plugins</groupId>
 			    <artifactId>maven-javadoc-plugin</artifactId>
-			    <version>${maven.javadoc.plugin.version}</version>
-			    <configuration>
-			        <show>private</show>
-			        <nohelp>false</nohelp>
-			    </configuration>
 			</plugin>
 			
 			<!-- Apache RAT plugin -->
@@ -281,6 +329,20 @@
 		</plugins>
 		
 	</build>
+	
+	<!-- Gestion des distributions -->
+	<distributionManagement>
+		<repository>
+			<id>sonatype-nexus-rel</id>
+			<name>nexus releases artifacts</name>
+			<url>https://oss.sonatype.org/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+     		<id>sonatype-nexus-snap</id>
+     		<name>nexus snapshots artifacts</name>
+     		<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+  		</snapshotRepository>
+	</distributionManagement>
 	
 	<!-- Modules -->
 	<modules>

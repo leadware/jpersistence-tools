@@ -21,7 +21,7 @@
   	
 	<!-- Project parent -->
 	<parent>
-		<groupId>com.bulk-inc</groupId>
+		<groupId>net.leadware</groupId>
 		<artifactId>jpersistence-tools-tests</artifactId>
 		<version>2.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
@@ -47,7 +47,7 @@
 		
 		<!-- jpersistence-tools api -->
 		<dependency>
-			<groupId>com.bulk-inc</groupId>
+			<groupId>net.leadware</groupId>
 			<artifactId>jpersistence-tools-api</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>
@@ -56,7 +56,7 @@
 		
 		<!-- jpersistence-tools core -->
 		<dependency>
-			<groupId>com.bulk-inc</groupId>
+			<groupId>net.leadware</groupId>
 			<artifactId>jpersistence-tools-core</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>
@@ -72,7 +72,7 @@
 		
 		<!-- jpersistence-tools test model -->
 		<dependency>
-			<groupId>com.bulk-inc</groupId>
+			<groupId>net.leadware</groupId>
 			<artifactId>jpersistence-tools-tests-model</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>
@@ -81,7 +81,7 @@
 		
 		<!-- jpersistence-tools test dao -->
 		<dependency>
-			<groupId>com.bulk-inc</groupId>
+			<groupId>net.leadware</groupId>
 			<artifactId>jpersistence-tools-tests-dao</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>
@@ -234,15 +234,6 @@
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-orm</artifactId>
-		    <version>${spring.version}</version>
-		    <scope>test</scope>
-			<optional>true</optional>
-		</dependency>
-		
-		<!-- Spring JDBC -->
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-jdbc</artifactId>
 		    <version>${spring.version}</version>
 		    <scope>test</scope>
 			<optional>true</optional>
@@ -420,6 +411,17 @@
 			    </includes>
 		    </testResource>
 		</testResources>
+		
+		<!-- Build Plugins -->
+		<plugins>
+			
+			<!-- Maven Javadoc plugin -->
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+			
+		</plugins>
 		
 	</build>
 	

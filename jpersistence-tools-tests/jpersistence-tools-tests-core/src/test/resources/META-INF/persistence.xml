@@ -6,16 +6,16 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		
 		<!-- Entities Class -->
-		<class>com.bulk.persistence.tools.test.dao.entities.base.AbstractParameterBase</class>
-		<class>com.bulk.persistence.tools.test.dao.entities.base.TPHParameterBase</class>
-		<class>com.bulk.persistence.tools.test.dao.entities.base.TPSParameterBase</class>
-		<class>com.bulk.persistence.tools.test.dao.entities.Country</class>
-		<class>com.bulk.persistence.tools.test.dao.entities.Region</class>
-		<class>com.bulk.persistence.tools.test.dao.entities.Town</class>
-		<class>com.bulk.persistence.tools.test.dao.entities.sx.base.UserBase</class>
-		<class>com.bulk.persistence.tools.test.dao.entities.sx.SXGroup</class>
-		<class>com.bulk.persistence.tools.test.dao.entities.sx.SXRole</class>
-		<class>com.bulk.persistence.tools.test.dao.entities.sx.SXUser</class>
+		<class>net.leadware.persistence.tools.test.dao.entities.base.AbstractParameterBase</class>
+		<class>net.leadware.persistence.tools.test.dao.entities.base.TPHParameterBase</class>
+		<class>net.leadware.persistence.tools.test.dao.entities.base.TPSParameterBase</class>
+		<class>net.leadware.persistence.tools.test.dao.entities.Country</class>
+		<class>net.leadware.persistence.tools.test.dao.entities.Region</class>
+		<class>net.leadware.persistence.tools.test.dao.entities.Town</class>
+		<class>net.leadware.persistence.tools.test.dao.entities.sx.base.UserBase</class>
+		<class>net.leadware.persistence.tools.test.dao.entities.sx.SXGroup</class>
+		<class>net.leadware.persistence.tools.test.dao.entities.sx.SXRole</class>
+		<class>net.leadware.persistence.tools.test.dao.entities.sx.SXUser</class>
 		
         <exclude-unlisted-classes/>
          

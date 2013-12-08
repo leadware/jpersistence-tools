@@ -12,7 +12,7 @@
     <context:property-placeholder location="classpath:hibernate.properties" />
     
 	<!-- Scan des DAOs -->
-	<context:component-scan base-package="com.bulk.persistence.tools.test.dao" />
+	<context:component-scan base-package="net.leadware.persistence.tools.test.dao" />
 	
 	<!-- Détection des transaction via Annotations -->
 	<tx:annotation-driven />
