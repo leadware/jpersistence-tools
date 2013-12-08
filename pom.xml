@@ -330,20 +330,6 @@
 		
 	</build>
 	
-	<!-- Gestion des distributions -->
-	<distributionManagement>
-		<repository>
-			<id>sonatype-nexus-rel</id>
-			<name>nexus releases artifacts</name>
-			<url>https://oss.sonatype.org/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-     		<id>sonatype-nexus-snap</id>
-     		<name>nexus snapshots artifacts</name>
-     		<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-  		</snapshotRepository>
-	</distributionManagement>
-	
 	<!-- Modules -->
 	<modules>
 		<module>jpersistence-tools-api</module>
