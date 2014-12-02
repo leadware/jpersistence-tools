@@ -139,4 +139,11 @@ public class NotEmptyDAOValidatorRule extends AbstractExpressionBasedDAOValidato
 		// On retourne le type de validation
 		return notEmpty.mode();
 	}
+
+	@Override
+	protected String[] getMessageParametersExpressions() {
+		
+		// On retourne null
+		return null;
+	}
 }

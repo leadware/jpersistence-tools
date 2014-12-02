@@ -228,9 +228,5 @@ public abstract class AbstractExpressionBasedDAOValidatorRule implements IDAOVal
 	 * Methode permettant d'obtenir la liste des expressions de messages
 	 * @return	liste des expressions de messages
 	 */
-	protected String[] getMessageParametersExpressions() {
-		
-		// On retourne le vide
-		return null;
-	}
+	protected abstract String[] getMessageParametersExpressions();
 }
