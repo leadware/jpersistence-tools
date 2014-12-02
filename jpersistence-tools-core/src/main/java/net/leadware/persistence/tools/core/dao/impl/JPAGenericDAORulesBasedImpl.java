@@ -33,6 +33,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Path;
@@ -572,7 +573,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		Root<T> root = criteriaQuery.from(entityClass);
 		
 		// On positionne l'Alias
-		root.alias("ROOT");
+		root.alias(ROOT_ALIAS);
 		
 		// Selection de la racine
 		criteriaQuery.select(root);
@@ -692,6 +693,9 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	 */
 	protected void addPredicates(CriteriaBuilder criteriaBuilder, Root<T> root, CriteriaQuery<?> criteriaQuery, List<Predicate> predicates) {
 		
+		// Si la liste de predicats est vide
+		if(predicates == null || predicates.size() == 0) return;
+		
 		// Liste de predicats JPA 2
 		List<javax.persistence.criteria.Predicate> jpaPredicates = new ArrayList<javax.persistence.criteria.Predicate>();
 		
@@ -699,10 +703,14 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		for (Predicate predicate : predicates) {
 			
 			// Ajout du critere JPA
-			jpaPredicates.add(predicate.generateJPAPredicate(null, root));
+			jpaPredicates.add(predicate.generateJPAPredicate(criteriaBuilder, root));
 		}
 		
-		criteriaQuery.where(criteriaBuilder.and(jpaPredicates.toArray(new javax.persistence.criteria.Predicate[0])));
+		// Si la liste des prdicats JPA est de taille 1
+		if(jpaPredicates.size() == 1) criteriaQuery.where(jpaPredicates.get(0));
+		
+		// Sinon
+		else criteriaQuery.where(criteriaBuilder.and(jpaPredicates.toArray(new javax.persistence.criteria.Predicate[0])));
 	}
 	
 	/**
@@ -711,7 +719,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	 * @param root	Entités objet du from
 	 * @param properties	Conteneur de propriétés
 	 */
-	private void addProperties(Root<T> root, Set<String> properties) {
+	protected void addProperties(Root<T> root, Set<String> properties) {
 		
 		// Si le conteneur est vide
 		if(properties == null || properties.size() == 0) return;
@@ -721,6 +729,9 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 			
 			// Si la ppt est nulle ou vide
 			if(property == null || property.trim().length() == 0) continue;
+			
+			// Ajout de l'ordre de tri
+			root.fetch(property, JoinType.LEFT);
 		}
 	}
 
@@ -813,7 +824,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		Path<?> path = null;
 		
 		// On splitte sur le séparateur de champs
-		String[] hierarchicalPaths = stringPath.trim().split("\\:");
+		String[] hierarchicalPaths = stringPath.trim().split("\\.");
 		
 		// Obtention du premier chemin
 		path = root.get(hierarchicalPaths[0]);
