@@ -33,6 +33,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.FetchParent;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.ParameterExpression;
@@ -730,8 +731,21 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 			// Si la ppt est nulle ou vide
 			if(property == null || property.trim().length() == 0) continue;
 			
-			// Ajout de l'ordre de tri
-			root.fetch(property, JoinType.LEFT);
+			// On split
+			String[] hierarchicalPaths = property.split("\\.");
+			
+			// Le fetch de depart
+			FetchParent<?, ?> fetch = root;
+			
+			// Parcours de la liste
+			for (String path : hierarchicalPaths) {
+				
+				// Si la propriete est vide
+				if(path == null || path.trim().isEmpty()) continue;
+				
+				// chargement de cette hierarchie
+				fetch = fetch.fetch(path.trim(), JoinType.LEFT);
+			}
 		}
 	}
 

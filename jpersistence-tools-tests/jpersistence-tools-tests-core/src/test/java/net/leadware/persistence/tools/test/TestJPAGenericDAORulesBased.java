@@ -28,6 +28,7 @@ import javax.validation.ConstraintViolationException;
 
 import net.leadware.persistence.tools.api.collection.utils.ConverterUtil;
 import net.leadware.persistence.tools.api.exceptions.InvalidEntityInstanceStateException;
+import net.leadware.persistence.tools.api.utils.PropertyContainer;
 import net.leadware.persistence.tools.api.utils.RestrictionsContainer;
 import net.leadware.persistence.tools.test.dao.CountryDAO;
 import net.leadware.persistence.tools.test.dao.RegionDAO;
@@ -281,6 +282,7 @@ public class TestJPAGenericDAORulesBased {
     	// Recherche
     	List<Country> filteredCountry = null;
     	List<Region> filteredRegions = null;
+    	List<Town> filteredTowns = null;
     	
         //////////////////////////////////////////////////////////////////////////////
         // 	  Filtre par la DAO Générique des Pays dont le nom commence par CAM 	//
@@ -359,6 +361,29 @@ public class TestJPAGenericDAORulesBased {
     	// Vérification
     	assertNotNull(filteredRegions);
     	assertEquals(2, filteredRegions.size());
+    	
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        // 	  	Chargement de la liste des villes dont le nom commence par Y avec chargement de leur pays	//
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+    	
+    	// Conteneur de proprietes
+    	PropertyContainer propertyContainer = PropertyContainer.newInstance().add("region.country");
+    	
+    	// Conteneur de restrictions
+    	restrictionsContainer = RestrictionsContainer.newInstance().addEq("region.code", "CNTR");
+    	
+    	// Filtre
+    	filteredTowns = townDao.filter(restrictionsContainer.getRestrictions(), null, propertyContainer.getProperties(), 0, -1);
+
+    	// Vérification
+    	assertNotNull(filteredTowns);
+    	assertEquals(2, filteredTowns.size());
+    	
+    	System.out.println("====================================================");
+    	System.out.println("====================================================");
+    	System.out.println("===========> TOWNS SIZE : " + filteredTowns.size());
+    	System.out.println("====================================================");
+    	System.out.println("====================================================");
     	
         //////////////////////////////////////////////////////////////////////////////
         // 	  	Chargement d'un Utilisateur par sa clé primaire sans ses groupes	//
