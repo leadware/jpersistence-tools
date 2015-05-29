@@ -44,11 +44,11 @@
 	<!-- Project dependencies -->
 	<dependencies>
 		
-		<!-- JPA-2.0 dependencies -->
+		<!-- JPA-2.1 dependencies -->
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.0-api</artifactId>
-			<version>${hibernate-jpa-2.0.version}</version>
+			<artifactId>hibernate-jpa-2.1-api</artifactId>
+			<version>${hibernate-jpa-2.1.version}</version>
 		</dependency>
 		
 		<!-- Validation API (JSR 303) dependencies -->
