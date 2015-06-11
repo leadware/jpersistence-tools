@@ -84,7 +84,7 @@ public class RestrictionsContainer implements Serializable {
 	 * @param value	Valeur de la propriete
 	 * @return	Conteneur
 	 */
-	public <Y extends Comparable<Y>> RestrictionsContainer addEq(String property, Y value) {
+	public <Y extends Comparable<? super Y>> RestrictionsContainer addEq(String property, Y value) {
 		
 		// Ajout de la restriction
 		restrictions.add(new Eq<Y>(property, value));
@@ -99,7 +99,7 @@ public class RestrictionsContainer implements Serializable {
 	 * @param value	Valeur de la propriete
 	 * @return	Conteneur
 	 */
-	public <Y extends Comparable<Y>> RestrictionsContainer addNotEq(String property, Y value) {
+	public <Y extends Comparable<? super Y>> RestrictionsContainer addNotEq(String property, Y value) {
 		
 		// Ajout de la restriction
 		restrictions.add(new NotEq<Y>(property, value));
@@ -114,7 +114,7 @@ public class RestrictionsContainer implements Serializable {
 	 * @param value	Valeur de la propriete
 	 * @return	Conteneur
 	 */
-	public <Y extends Comparable<Y>> RestrictionsContainer addGe(String property, Y value) {
+	public <Y extends Comparable<? super Y>> RestrictionsContainer addGe(String property, Y value) {
 		
 		// Ajout de la restriction
 		restrictions.add(new Ge<Y>(property, value));
@@ -129,7 +129,7 @@ public class RestrictionsContainer implements Serializable {
 	 * @param value	Valeur de la propriete
 	 * @return	Conteneur
 	 */
-	public <Y extends Comparable<Y>> RestrictionsContainer addGt(String property, Y value) {
+	public <Y extends Comparable<? super Y>> RestrictionsContainer addGt(String property, Y value) {
 		
 		// Ajout de la restriction
 		restrictions.add(new Gt<Y>(property, value));
@@ -144,7 +144,7 @@ public class RestrictionsContainer implements Serializable {
 	 * @param value	Valeur de la propriete
 	 * @return	Conteneur
 	 */
-	public <Y extends Comparable<Y>> RestrictionsContainer addLt(String property, Y value) {
+	public <Y extends Comparable<? super Y>> RestrictionsContainer addLt(String property, Y value) {
 		
 		// Ajout de la restriction
 		restrictions.add(new Lt<Y>(property, value));
@@ -189,7 +189,7 @@ public class RestrictionsContainer implements Serializable {
 	 * @param value	Valeur de la propriete
 	 * @return	Conteneur
 	 */
-	public <Y extends Comparable<Y>> RestrictionsContainer addLe(String property, Y value) {
+	public <Y extends Comparable<? super Y>> RestrictionsContainer addLe(String property, Y value) {
 		
 		// Ajout de la restriction
 		restrictions.add(new Le<Y>(property, value));

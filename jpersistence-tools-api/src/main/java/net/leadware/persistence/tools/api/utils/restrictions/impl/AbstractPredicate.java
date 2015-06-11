@@ -25,9 +25,9 @@ import net.leadware.persistence.tools.api.utils.restrictions.Predicate;
 
 
 /**
- * Classe représentant un predicat abstrait
- * @author <a href="mailto:jetune@yahoo.fr">Jean-Jacques ETUNE NGI</a>
- * @since 26 avr. 2013 : 08:33:44
+ * Classe représentant un predicat abstrait 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Enterprise Architect)</a>
+ * @since 1 juin 2015 23:17:02
  */
 public abstract class AbstractPredicate implements Predicate {
 	
@@ -35,7 +35,7 @@ public abstract class AbstractPredicate implements Predicate {
 	 * ID Genere par Eclipse
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
 	 * Méthode de construction d'un chemin de propriété à partir de la racine
 	 * @param <Y>	Paramètre de type du chemin final
@@ -44,7 +44,7 @@ public abstract class AbstractPredicate implements Predicate {
 	 * @return	Chemin recherché sous forme Path
 	 */
 	@SuppressWarnings("unchecked")
-	protected <Y extends Comparable<Y>> Path<Y> buildPropertyPath(Root<?> root, String stringPath) {
+	protected <Y> Path<Y> buildPropertyPath(Root<?> root, String stringPath) {
 		
 		// Si la racine est nulle
 		if(root == null) return null;

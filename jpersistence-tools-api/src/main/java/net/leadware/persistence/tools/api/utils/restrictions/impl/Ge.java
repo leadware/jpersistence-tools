@@ -28,7 +28,7 @@ import javax.persistence.criteria.Root;
  * @author <a href="mailto:jetune@yahoo.fr">Jean-Jacques ETUNE NGI</a>
  * @since 26 avr. 2013 : 08:30:19
  */
-public class Ge<Y extends Comparable<Y>> extends AbstractPredicate {
+public class Ge<Y extends Comparable<? super Y>> extends AbstractPredicate {
 
 	/**
 	 * ID Genere Par Eclipse
