@@ -72,7 +72,7 @@ public @interface NotEmptyDAOValidator {
 	 * @return	Modes DAO de l'instance de l'annotation
 	 */
 	public DAOMode[] mode() default {DAOMode.SAVE, DAOMode.UPDATE};
-
+	
 	/**
 	 * Methode permettant d'obtenir le l'instant d'evaluation de l'annotation
 	 * @return	Instants d'evaluation de l'annotation

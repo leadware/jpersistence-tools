@@ -28,7 +28,9 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 
+import net.leadware.persistence.tools.api.generator.annotaions.FieldGenerator;
 import net.leadware.persistence.tools.api.validator.jsr303ext.annotations.Length;
+import net.leadware.persistence.tools.test.dao.entities.field.generator.IdentityFieldGenerator;
 
 
 /**
@@ -79,6 +81,7 @@ public class AbstractParameterBase implements Serializable, Comparable<AbstractP
 	 */
 	@Column(name = "DESIGNATION", nullable = true, length = DESIGNATION_MAX_LENGTH)
 	@Length(min = 1, max = DESIGNATION_MAX_LENGTH, message = "AbstractParameterBase.designation.length")
+	@FieldGenerator(generator = IdentityFieldGenerator.class)
 	protected String designation;
 	
 	/**

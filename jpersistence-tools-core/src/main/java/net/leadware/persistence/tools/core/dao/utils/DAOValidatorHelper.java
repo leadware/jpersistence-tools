@@ -19,7 +19,9 @@
 package net.leadware.persistence.tools.core.dao.utils;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,13 +30,17 @@ import java.util.regex.PatternSyntaxException;
 
 import javax.el.ValueExpression;
 
+import net.leadware.persistence.tools.api.generator.annotaions.FieldGenerator;
+import net.leadware.persistence.tools.api.generator.base.IDAOGeneratorManager;
 import net.leadware.persistence.tools.api.validator.annotations.EntityExistValidator;
 import net.leadware.persistence.tools.api.validator.annotations.NotEmptyDAOValidator;
 import net.leadware.persistence.tools.api.validator.annotations.NotEmptyDAOValidators;
 import net.leadware.persistence.tools.api.validator.annotations.SizeDAOValidator;
 import net.leadware.persistence.tools.api.validator.annotations.SizeDAOValidators;
 import net.leadware.persistence.tools.api.validator.annotations.marker.DAOConstraint;
+import net.leadware.persistence.tools.api.validator.annotations.marker.DAOGeneratorManager;
 import net.leadware.persistence.tools.api.validator.base.IDAOValidator;
+import net.leadware.persistence.tools.generator.manager.ClassBasedDAOGeneratorManagerImpl;
 import net.leadware.persistence.tools.validator.EntityExistValidatorRule;
 import net.leadware.persistence.tools.validator.NotEmptyDAOValidatorRule;
 import net.leadware.persistence.tools.validator.NotEmptyDAOValidatorsRule;
@@ -47,6 +53,11 @@ import de.odysseus.el.ExpressionFactoryImpl;
  * @author Jean-Jacques ETUNÈ NGI
  */
 public class DAOValidatorHelper {
+
+	/**
+	 * MAP des Generateurs
+	 */
+	private static Map<String, Class<? extends IDAOGeneratorManager<? extends Annotation>>> mGeneratorMapping = new HashMap<String, Class<? extends IDAOGeneratorManager<? extends Annotation>>>();
 	
 	/**
 	 * MAP des Validateur
@@ -72,6 +83,10 @@ public class DAOValidatorHelper {
 		
 		// EntityExistValidator
 		mValidatorMapping.put(EntityExistValidator.class.getName(), EntityExistValidatorRule.class);
+		
+		
+		// FieldGenerator
+		mGeneratorMapping.put(FieldGenerator.class.getName(), ClassBasedDAOGeneratorManagerImpl.class);
 	}
 	
 	/**
@@ -110,7 +125,32 @@ public class DAOValidatorHelper {
      * Pattern des chaines contenant des fonctions
      */
 	public static String FUNC_CHAIN_PATTERN = FUNCTION_LEFT_DELIMITER + FUNCTION_NAME + FUNCTION_OPEN + FUNCTION_PARAMETER + FUNCTION_CLOSE;
-	
+
+	/**
+	 * Methode permettant de verifier si une annotation est
+	 * compatible avec le Framework jpersistence-tools
+	 * @param annotation	Annotation a controler
+	 * @return	Etat d'appartenance
+	 */
+	public static boolean isDAOGeneratorAnnotation(Annotation annotation) {
+		
+		// Si lm'annotation est nulle
+		if(annotation == null) {
+			
+			// On retourne false
+			return false;
+		}
+		
+		// Obtention de la classe de cette annotation
+		Class<?> annotationClass = annotation.annotationType();
+		
+		// Recherchje de l'annotation de validation
+		DAOGeneratorManager logicAnnotation = annotationClass.getAnnotation(DAOGeneratorManager.class);
+		
+		// On retourne le resultat
+		return logicAnnotation != null;
+	}
+
 	/**
 	 * Methode permettant de verifier si une annotation est
 	 * compatible avec le Framework jpersistence-tools
@@ -134,6 +174,48 @@ public class DAOValidatorHelper {
 		
 		// On retourne le resultat
 		return logicAnnotation != null;
+	}
+
+	/**
+	 * Methode permettant de charger toutes les annotations DAO de generation sur la propriete
+	 * @param object	Objet a inspecter
+	 * @return	Liste des annotations DAO de generation retrouvees
+	 */
+	public static List<Annotation> loadDAOGeneratorAnnotations(Field field) {
+		
+		// Liste des annotations retrouvees
+		List<Annotation> daoAnnotations = new ArrayList<Annotation>();
+		
+		// Si l'objet est null
+		if(field == null) {
+			
+			// On retourne une liste vide
+			return daoAnnotations;
+		}
+		
+		// Obtention des annotations de la classe
+		Annotation[] objectAnnotations = field.getDeclaredAnnotations();
+		
+		// Si le tableau est vide
+		if(objectAnnotations == null || objectAnnotations.length == 0) {
+			
+			// On retourne une liste vide
+			return daoAnnotations;
+		}
+		
+		// Parcours
+		for (Annotation annotation : objectAnnotations) {
+			
+			// Si c'est une annotation du Framework
+			if(isDAOGeneratorAnnotation(annotation)) {
+				
+				// On ajoute l'annotation
+				daoAnnotations.add(annotation);
+			}
+		}
+		
+		// On retourne la liste
+		return daoAnnotations;
 	}
 	
 	/**
@@ -222,6 +304,33 @@ public class DAOValidatorHelper {
 		// On retourne la liste
 		return result;
 		
+	}
+
+	/**
+	 * Methode permettant d'obtenir la classe de gestion du generateur
+	 * @param annotation	Annotation a inspecter
+	 * @return	Class d'implementation de la logique de generation
+	 */
+	public static Class<? extends IDAOGeneratorManager<? extends Annotation>> getGenerationLogicClass(Annotation annotation) {
+		
+		// Si l'annotation est nulle
+		if(annotation == null) {
+			
+			// On retourne null
+			return null;
+		}
+		
+		// Recherche dans la MAP
+		Class<? extends IDAOGeneratorManager<? extends Annotation>> mappedLogicClass = mGeneratorMapping.get(annotation.annotationType().getName());
+		
+		// Si la Classe est non nulle
+		if(mappedLogicClass != null) return mappedLogicClass;
+		
+		// Obtention de l'annotation DAO
+		DAOGeneratorManager logicAnnotation = annotation.annotationType().getAnnotation(DAOGeneratorManager.class);
+		
+		// On retourne cette annotation
+		return logicAnnotation.managerClass();
 	}
 	
 	/**
@@ -718,6 +827,28 @@ public class DAOValidatorHelper {
 		return (text != null) && (text.trim().length() > 0) && (pattern.matcher(text).matches());
 	}
 	
+	/**
+	 * Methode permettant d'obtenir la liste de tous les champs d'une classe 
+	 * @param aClass	Classes source
+	 * @return	Liste des classes
+	 */
+	public static List<Field> getAllFields(Class<?> type, boolean ignoreRoot) {
+		
+		// Liste des champs
+		List<Field> fields = new ArrayList<Field>();
+		
+		// Ajout des champs directs de la classe
+		fields.addAll(Arrays.asList(type.getDeclaredFields()));
+		
+		// Superclasse
+		Class<?> superType = type.getSuperclass();
+		
+		// Si la super classe est Object
+		if(superType != null && !superType.equals(Object.class)) fields.addAll(getAllFields(superType, ignoreRoot));
+		
+		// On retourne la liste 
+		return fields;
+	}
 	
 	/**
 	 * Methode Main de test

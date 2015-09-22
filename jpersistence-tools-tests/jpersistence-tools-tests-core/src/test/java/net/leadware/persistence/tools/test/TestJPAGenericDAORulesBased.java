@@ -39,6 +39,7 @@ import net.leadware.persistence.tools.test.dao.TownDAO;
 import net.leadware.persistence.tools.test.dao.entities.Country;
 import net.leadware.persistence.tools.test.dao.entities.Region;
 import net.leadware.persistence.tools.test.dao.entities.Town;
+import net.leadware.persistence.tools.test.dao.entities.field.generator.IdentityFieldGenerator;
 import net.leadware.persistence.tools.test.dao.entities.sx.SXGroup;
 import net.leadware.persistence.tools.test.dao.entities.sx.SXRole;
 import net.leadware.persistence.tools.test.dao.entities.sx.SXUser;
@@ -184,7 +185,7 @@ public class TestJPAGenericDAORulesBased {
     	
     	// La désignation
     	country.setDesignation("CAMEROUN");
-
+    	
         // Un log
         System.out.println("PAYS À ENREGISTRER: " + country);
         
@@ -204,6 +205,9 @@ public class TestJPAGenericDAORulesBased {
         
 		// On vérifie qu'il ya eu aucun enregistrement
 		assertEquals(count, countryDao.count(null));
+		
+		// On verifie la valeur de la designation
+		assertEquals(IdentityFieldGenerator.GENERATED_VALUE, country.getDesignation());
     }
     
     /**
@@ -271,6 +275,9 @@ public class TestJPAGenericDAORulesBased {
         
 		// On vérifie qu'il ya eu aucun enregistrement
 		assertEquals(count, countryDao.count(null));
+
+		// On verifie la valeur de la designation
+		assertEquals(IdentityFieldGenerator.GENERATED_VALUE, country.getDesignation());
     }
     
     /**
@@ -296,7 +303,7 @@ public class TestJPAGenericDAORulesBased {
 
     	// Vérification
     	assertNotNull(filteredCountry);
-    	assertEquals(1, filteredCountry.size());
+    	assertEquals(0, filteredCountry.size());
 
         //////////////////////////////////////////////////////////////////////////////
         // 	  Filtre par la DAO Générique des Pays dont le nom commence par C	 	//
@@ -310,7 +317,7 @@ public class TestJPAGenericDAORulesBased {
 
     	// Vérification
     	assertNotNull(filteredCountry);
-    	assertEquals(2, filteredCountry.size());
+    	assertEquals(0, filteredCountry.size());
 
         //////////////////////////////////////////////////////////////////////////////
         // 	  Filtre par la DAO Générique des Pays dont le code commence par C	 	//
@@ -327,7 +334,7 @@ public class TestJPAGenericDAORulesBased {
 
     	// Vérification
     	assertNotNull(filteredCountry);
-    	assertEquals(1, filteredCountry.size());
+    	assertEquals(0, filteredCountry.size());
     	
         //////////////////////////////////////////////////////////////////////////////
         // 	  		Filtre par la DAO Générique des Regions du Pays c1	 			//
@@ -360,7 +367,7 @@ public class TestJPAGenericDAORulesBased {
 
     	// Vérification
     	assertNotNull(filteredRegions);
-    	assertEquals(2, filteredRegions.size());
+    	assertEquals(0, filteredRegions.size());
     	
         //////////////////////////////////////////////////////////////////////////////////////////////////////
         // 	  	Chargement de la liste des villes dont le nom commence par Y avec chargement de leur pays	//

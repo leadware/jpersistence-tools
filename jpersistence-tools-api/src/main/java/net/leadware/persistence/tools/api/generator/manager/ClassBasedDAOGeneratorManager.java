@@ -16,15 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package net.leadware.persistence.tools.api.validator;
+package net.leadware.persistence.tools.api.generator.manager;
 
 import java.lang.annotation.Annotation;
 
-import net.leadware.persistence.tools.api.validator.base.IDAOValidator;
+import net.leadware.persistence.tools.api.generator.base.IDAOGeneratorManager;
 
 /**
- * Implementation des validateurs mappes
- * @author Jean-Jacques ETUNÈ NGI
- * @since 24 juil. 2012 - 16:22:16
+ * Interface de base de gestion des generateurs basee sur une classe de generation
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 22 sept. 2015 - 17:47:47
  */
-public interface MappedValidatorRule extends IDAOValidator<Annotation> {}
+public interface ClassBasedDAOGeneratorManager extends IDAOGeneratorManager<Annotation> {}

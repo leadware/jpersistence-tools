@@ -19,6 +19,7 @@
 package net.leadware.persistence.tools.core.dao.impl;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,7 @@ import net.leadware.persistence.tools.api.dao.constants.DAOMode;
 import net.leadware.persistence.tools.api.dao.constants.DAOValidatorEvaluationTime;
 import net.leadware.persistence.tools.api.dao.constants.OrderType;
 import net.leadware.persistence.tools.api.exceptions.JPersistenceToolsException;
+import net.leadware.persistence.tools.api.generator.base.IDAOGeneratorManager;
 import net.leadware.persistence.tools.api.utils.restrictions.Predicate;
 import net.leadware.persistence.tools.api.validator.annotations.marker.DAOConstraint;
 import net.leadware.persistence.tools.api.validator.base.IDAOValidator;
@@ -64,7 +66,7 @@ import net.leadware.persistence.tools.core.dao.utils.DAOValidatorHelper;
  * 		<i>Engine</i>
  * 		<ol>
  * 			<li>{@link JSR303ValidatorEngine}</li>
- * 			<li>{@link IDAOValidator}</li>
+ * 			<li>{@link IDAOGeneratorManager}</li>
  * 		</ol>
  * 	</b>
  */
@@ -294,6 +296,9 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		// Si l'entite est nulle
 		if(entity == null) throw new JPersistenceToolsException("NullEntityException.message");
 		
+		// Generation des valeurs
+		generateEntityValues(entity, DAOMode.SAVE, DAOValidatorEvaluationTime.PRE_CONDITION);
+		
 		// Si on doit valider les contraintes d'integrites
 		if(validateIntegrityConstraint) validateEntityIntegrityConstraint(entity, DAOMode.SAVE, DAOValidatorEvaluationTime.PRE_CONDITION);
 		
@@ -341,7 +346,10 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		
 		// Si l'entite est nulle
 		if(entity == null) throw new JPersistenceToolsException("NullEntityException.message");
-
+		
+		// Generation des valeurs
+		generateEntityValues(entity, DAOMode.UPDATE, DAOValidatorEvaluationTime.PRE_CONDITION);
+		
 		// Si on doit valider les contraintes d'integrites
 		if(validateIntegrityConstraint) validateEntityIntegrityConstraint(entity, DAOMode.UPDATE, DAOValidatorEvaluationTime.PRE_CONDITION);
 		
@@ -862,5 +870,62 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		
 		// On retourne le Path
 		return path;
+	}
+	
+	
+	
+	/**
+	 * Méthode de generation des valeurs automatiques
+	 * @param entity	Entité cible de la generation
+	 * @param mode	Mode DAO
+	 * @param validationTime	Moment d'évaluation
+	 */
+	protected void generateEntityValues(Object entity, DAOMode mode, DAOValidatorEvaluationTime validationTime) {
+		
+		// Obtention de la classe de l'entite
+		Class<?> entityClass = entity.getClass();
+		
+		// Obtention de la liste des champs de l'entite
+		List<Field> fields = DAOValidatorHelper.getAllFields(entityClass, true);
+		
+		// Si la liste des champs est vide
+		if(fields == null || fields.isEmpty()) return;
+		
+		// Parcours de la liste des champs
+		for (Field field : fields) {
+			
+			// Chargement des annotaions de generation
+			List<Annotation> daoAnnotations = DAOValidatorHelper.loadDAOGeneratorAnnotations(field);
+			
+			// Si la liste est vide
+			if(daoAnnotations == null || daoAnnotations.size() == 0) continue;
+			
+			// Parcours de la liste des annotations
+			for (Annotation daoAnnotation : daoAnnotations) {
+
+				// Obtention de la classe de gestion du generateur
+				Class<?> generatorClass = DAOValidatorHelper.getGenerationLogicClass(daoAnnotation);
+				
+				// Le generateur
+				IDAOGeneratorManager<Annotation> generator = null;
+
+				try {
+					
+					// On instancie le generateur
+					generator = (IDAOGeneratorManager<Annotation>) generatorClass.newInstance();
+					
+					// Initialisation du generateur
+					generator.initialize(daoAnnotation, getEntityManager(), mode, validationTime);
+					
+				} catch (Throwable e) {
+					
+					// On relance l'exception
+					throw new JPersistenceToolsException("GeneratorInstanciationException.message", e);
+				}
+				
+				// Validation des contraintes d'integrites
+				generator.processGeneration(entity, field.getName());
+			}
+		}
 	}
 }
