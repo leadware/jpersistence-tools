@@ -20,6 +20,7 @@ package net.leadware.persistence.tools.generator.manager;
 
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import net.leadware.persistence.tools.api.dao.constants.DAOMode;
@@ -38,10 +39,10 @@ public class ClassBasedDAOGeneratorManagerImpl extends AbstractDAOGeneratorManag
 	
 	/*
 	 * (non-Javadoc)
-	 * @see net.leadware.persistence.tools.api.generator.base.IDAOGeneratorManager#processGeneration(java.lang.Object, java.lang.String)
+	 * @see net.leadware.persistence.tools.api.generator.base.IDAOGeneratorManager#processGeneration(java.lang.Object, java.lang.reflect.Field)
 	 */
 	@Override
-	public void processGeneration(Object entity, String fieldName) {
+	public void processGeneration(Object entity, Field field) {
 
 		// Si on ne doit pas evaluer cette annotation
 		if(!this.isProcessable()) {
@@ -73,8 +74,8 @@ public class ClassBasedDAOGeneratorManagerImpl extends AbstractDAOGeneratorManag
 		// Initialisation du gestionnaire d'entites
 		generator.setEntityManager(entityManager);
 		
-		// Positionnement du nom du champ a mettre a jour
-		generator.setFieldName(fieldName);
+		// Positionnement du champ a mettre a jour
+		generator.setField(field);
 		
 		// Positionnement de l'entite
 		generator.setEntity(entity);
@@ -88,7 +89,7 @@ public class ClassBasedDAOGeneratorManagerImpl extends AbstractDAOGeneratorManag
 		try {
 			
 			// Obtention du descripteur de proprietes pour cette propriete
-			PropertyDescriptor propertyDescriptor = new PropertyDescriptor(fieldName, entity.getClass());
+			PropertyDescriptor propertyDescriptor = new PropertyDescriptor(field.getName(), entity.getClass());
 			
 			// Obtention du setter
 			Method propertySetter = propertyDescriptor.getWriteMethod();

@@ -19,6 +19,7 @@
 package net.leadware.persistence.tools.api.generator.base;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 
 import javax.persistence.EntityManager;
 
@@ -41,7 +42,7 @@ public interface IDAOGeneratorManager<A extends Annotation> {
 	/**
 	 * Methode d'execution de la generation sur une entite donnee
 	 * @param entity	Entite cible de la generation
-	 * @param fieldName Champ cible de la generation
+	 * @param field Champ cible de la generation
 	 */
-	public void processGeneration(Object entity, String fieldName);
+	public void processGeneration(Object entity, Field field);
 }

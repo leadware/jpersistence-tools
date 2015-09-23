@@ -924,7 +924,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 				}
 				
 				// Validation des contraintes d'integrites
-				generator.processGeneration(entity, field.getName());
+				generator.processGeneration(entity, field);
 			}
 		}
 	}

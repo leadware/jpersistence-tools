@@ -197,7 +197,7 @@ public class TestJPAGenericDAORulesBased {
     		// Echec si pa sd'erreur
     		fail("L'opération DAO devrait lever une exception");
     		
-		} catch (InvalidEntityInstanceStateException e) {
+		} catch (Exception e) {
 			
 			// On affiche
 			System.err.println("CONSTRAINT VIOLATION: " + e);

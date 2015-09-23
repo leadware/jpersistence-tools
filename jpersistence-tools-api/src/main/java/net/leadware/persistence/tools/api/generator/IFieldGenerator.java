@@ -19,6 +19,7 @@
 package net.leadware.persistence.tools.api.generator;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 
 import javax.persistence.EntityManager;
 
@@ -28,18 +29,18 @@ import javax.persistence.EntityManager;
  * @since 22 sept. 2015 - 15:12:07
  */
 public interface IFieldGenerator {
-	
-	/**
-	 * Methode permettant de positionner le nom du champ cible de la generation 
-	 * @param fieldName Nom du champ cible de la generation	
-	 */
-	public void setFieldName(String fieldName);
-	
+
 	/**
 	 * Methode permettant de positionner l'entite cible
 	 * @param entity	Entite cible
 	 */
 	public void setEntity(Object entity);
+	
+	/**
+	 * Methode permettant de positionner le champ cible de la generation 
+	 * @param field Champ cible de la generation	
+	 */
+	public void setField(Field field);
 	
 	/**
 	 * Methode permettant de positionner le gestionnaire d'entites

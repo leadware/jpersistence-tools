@@ -18,6 +18,8 @@
  */
 package net.leadware.persistence.tools.generator.base;
 
+import java.lang.reflect.Field;
+
 import javax.persistence.EntityManager;
 
 import net.leadware.persistence.tools.api.generator.IFieldGenerator;
@@ -40,9 +42,9 @@ public abstract class AbstractFieldGenerator implements IFieldGenerator {
 	protected Object entity;
 	
 	/**
-	 * Nom de la propriete cible
+	 * Propriete cible
 	 */
-	protected String fieldName;
+	protected Field field;
 	
 	/* (non-Javadoc)
 	 * @see net.leadware.persistence.tools.api.generator.IFieldGenerator#setEntityManager(javax.persistence.EntityManager)
@@ -65,13 +67,13 @@ public abstract class AbstractFieldGenerator implements IFieldGenerator {
 	}
 	
 	/* (non-Javadoc)
-	 * @see net.leadware.persistence.tools.api.generator.IFieldGenerator#setFieldName(java.lang.String)
+	 * @see net.leadware.persistence.tools.api.generator.IFieldGenerator#setField(java.lang.reflect.Field)
 	 */
 	@Override
-	public void setFieldName(String fieldName) {
+	public void setField(Field field) {
 		
 		// Initialisation du nom du champ cible
-		this.fieldName = fieldName;
+		this.field = field;
 	}
 	
 	/* (non-Javadoc)
