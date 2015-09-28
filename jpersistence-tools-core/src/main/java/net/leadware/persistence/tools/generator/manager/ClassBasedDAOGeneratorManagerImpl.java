@@ -74,6 +74,9 @@ public class ClassBasedDAOGeneratorManagerImpl extends AbstractDAOGeneratorManag
 		// Initialisation du gestionnaire d'entites
 		generator.setEntityManager(entityManager);
 		
+		// Positionnement du gestionnaire d'entites de generation
+		generator.setGeneratorEntityManager(generatorEntityManager);
+		
 		// Positionnement du champ a mettre a jour
 		generator.setField(field);
 		

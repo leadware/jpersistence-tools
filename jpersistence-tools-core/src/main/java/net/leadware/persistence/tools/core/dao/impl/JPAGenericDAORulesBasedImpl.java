@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
@@ -188,6 +189,16 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 		this.postValidateReferentialConstraintOnDelete = postValidateReferentialConstraintOnDelete;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see net.leadware.persistence.tools.core.dao.JPAGenericDAO#getGeneratorEntityManager()
+	 */
+	@Override
+	public EntityManager getGeneratorEntityManager() {
+		
+		// On retourne le gestionnaire d'entites pour le generateur
+		return getEntityManager();
+	}
 	
 	/*
 	 * (non-Javadoc)
@@ -915,7 +926,7 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 					generator = (IDAOGeneratorManager<Annotation>) generatorClass.newInstance();
 					
 					// Initialisation du generateur
-					generator.initialize(daoAnnotation, getEntityManager(), mode, validationTime);
+					generator.initialize(daoAnnotation, getGeneratorEntityManager(), getEntityManager(), mode, validationTime);
 					
 				} catch (Throwable e) {
 					

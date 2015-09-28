@@ -34,6 +34,11 @@ public abstract class AbstractFieldGenerator implements IFieldGenerator {
 	/**
 	 * Le gestionnaire d'entites
 	 */
+	protected EntityManager generatorEntityManager;
+	
+	/**
+	 * Le gestionnaire d'entites
+	 */
 	protected EntityManager entityManager;
 	
 	/**
@@ -54,6 +59,17 @@ public abstract class AbstractFieldGenerator implements IFieldGenerator {
 		
 		// Positionnement du gestionnaire d'entite
 		this.entityManager = entityManager;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see net.leadware.persistence.tools.api.generator.IFieldGenerator#setGeneratorEntityManager(javax.persistence.EntityManager)
+	 */
+	@Override
+	public void setGeneratorEntityManager(EntityManager generatorEntityManager) {
+		
+		// Positionnement du gestionnaire d'entites de generation
+		this.generatorEntityManager = generatorEntityManager;
 	}
 	
 	/* (non-Javadoc)

@@ -34,10 +34,14 @@ import net.leadware.persistence.tools.api.dao.constants.DAOValidatorEvaluationTi
 public interface IDAOGeneratorManager<A extends Annotation> {
 	
 	/**
-	 * Methode d'initialisation de la classe d'implementation de la logique de validation
-	 * @param annotation	Annotation en cours
+	 * Methode d'initialisation de la classe d'implementation de la logique de generation
+	 * @param annotation	Annotation en cours 
+	 * @param generatorEntityManager	Gestionnaire des entites de generation
+	 * @param entityManager	Gestionnaire des entites managees
+	 * @param systemMode	Mode DAO
+	 * @param systemEvaluationTime	Instant d'evaluation
 	 */
-	public void initialize(A annotation, EntityManager entityManager, DAOMode systemMode, DAOValidatorEvaluationTime systemEvaluationTime);
+	public void initialize(A annotation, EntityManager generatorEntityManager, EntityManager entityManager, DAOMode systemMode, DAOValidatorEvaluationTime systemEvaluationTime);
 	
 	/**
 	 * Methode d'execution de la generation sur une entite donnee

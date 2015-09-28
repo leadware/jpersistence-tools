@@ -176,7 +176,13 @@ public interface JPAGenericDAO<T extends Object> {
 	 * @return	Gestionnaire d'entites
 	 */
 	public EntityManager getEntityManager();
-
+	
+	/**
+	 * Methode d'obtention du gestionnaire d'entites pour le generateur de valeurs
+	 * @return	Gestionnaire d'entites pour le generateur de valeurs
+	 */
+	public EntityManager getGeneratorEntityManager();
+	
 	/**
 	 * Méthode d'obtention de la classe de l'entité gérée par la DAO
 	 * @return	Classe de l'entité gérée par la DAO

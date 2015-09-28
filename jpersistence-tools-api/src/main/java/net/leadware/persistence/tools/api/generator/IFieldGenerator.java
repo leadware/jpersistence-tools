@@ -41,6 +41,12 @@ public interface IFieldGenerator {
 	 * @param field Champ cible de la generation	
 	 */
 	public void setField(Field field);
+
+	/**
+	 * Methode permettant de positionner le gestionnaire d'entites de generation
+	 * @param entityManager Gestionnaire d'entites de generation
+	 */
+	public void setGeneratorEntityManager(EntityManager generatorEntityManager);
 	
 	/**
 	 * Methode permettant de positionner le gestionnaire d'entites

@@ -33,6 +33,11 @@ import net.leadware.persistence.tools.core.dao.utils.DAOValidatorHelper;
  * @since 22 sept. 2015 - 18:02:51
  */
 public abstract class AbstractDAOGeneratorManager implements IDAOGeneratorManager<Annotation> {
+
+	/**
+	 * Le gestionnaire d'entites de generation
+	 */
+	protected EntityManager generatorEntityManager;
 	
 	/**
 	 * Le gestionnaire d'entites
@@ -56,22 +61,25 @@ public abstract class AbstractDAOGeneratorManager implements IDAOGeneratorManage
 	
 	/*
 	 * (non-Javadoc)
-	 * @see net.leadware.persistence.tools.api.generator.base.IDAOGeneratorManager#initialize(java.lang.annotation.Annotation, javax.persistence.EntityManager, net.leadware.persistence.tools.api.dao.constants.DAOMode, net.leadware.persistence.tools.api.dao.constants.DAOValidatorEvaluationTime)
+	 * @see net.leadware.persistence.tools.api.generator.base.IDAOGeneratorManager#initialize(java.lang.annotation.Annotation, javax.persistence.EntityManager, javax.persistence.EntityManager, net.leadware.persistence.tools.api.dao.constants.DAOMode, net.leadware.persistence.tools.api.dao.constants.DAOValidatorEvaluationTime)
 	 */
 	@Override
-	public void initialize(Annotation annotation, EntityManager entityManager, DAOMode mode, DAOValidatorEvaluationTime evaluationTime) {
+	public void initialize(Annotation annotation, EntityManager generatorEntityManager, EntityManager entityManager, DAOMode systemMode, DAOValidatorEvaluationTime systemEvaluationTime) {
 		
 		// Initialisation de l'annotation en cours
 		this.annotation = annotation;
+
+		// Positionnement du gestionnaire d'entites de generation
+		this.generatorEntityManager = generatorEntityManager;
 		
 		// Positionnement du gestionnaire d'entites
 		this.entityManager = entityManager;
 		
 		// Initialisation du mode DAO
-		this.systemDAOMode = mode;
+		this.systemDAOMode = systemMode;
 		
 		// Initialisation de l'instant d'evaluation
-		this.systemEvaluationTime = evaluationTime;
+		this.systemEvaluationTime = systemEvaluationTime;
 	}
 	
 	/**
