@@ -93,6 +93,9 @@
 		<!-- AOP Alliance Version -->
 		<aopalliance.version>1.0</aopalliance.version>
 		
+		<!-- Commons Codec Version -->
+		<commons-codec.version>1.4</commons-codec.version>
+		
 		<!-- Commons Collections Version -->
 		<commons-collections.version>3.2.1</commons-collections.version>
 		
