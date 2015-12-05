@@ -69,6 +69,6 @@ public class IntervalRule implements ConstraintValidator<Interval, Number> {
 		if(value == null) return false;
 
 		// On retourne la comparaison
-		return (min.doubleValue() < value.doubleValue()) && (max.doubleValue() > value.doubleValue());
+		return (min.doubleValue() <= value.doubleValue()) && (max.doubleValue() >= value.doubleValue());
 	}
 }
