@@ -19,9 +19,9 @@
 package net.leadware.persistence.tools.api.dao.constants;
 
 /**
- * Constantes enumerant les type d'expression de validation
- * @author Jean-Jacques
- * @version 2.0
+ * Constantes enumerant les type d'expression de validation 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:22:11
  */
 public enum ValidatorExpressionType {
 

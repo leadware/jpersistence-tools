@@ -19,8 +19,9 @@
 package net.leadware.persistence.tools.api.exceptions;
 
 /**
- * Exception levee lors de la validation d'une entite
- * @author Jean-Jacques ETUNÈ NGI
+ * Exception levee lors de la validation d'une entite 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:21:20
  */
 public class DAOValidationException extends JPersistenceToolsException {
 
@@ -35,7 +36,8 @@ public class DAOValidationException extends JPersistenceToolsException {
 	private String[] parameters = null;
 	
 	/**
-	 * Constructeur par defaut
+	 * Constructeur avec initialisation des parametres
+	 * @param message	Message de l'exception
 	 */
 	public DAOValidationException(String message) {
 		
@@ -44,7 +46,9 @@ public class DAOValidationException extends JPersistenceToolsException {
 	}
 	
 	/**
-	 * Constructeur par defaut
+	 * Constructeur avec initialisation des parametres
+	 * @param message	Message de l'exception
+	 * @param parameters Liste des parametres du message
 	 */
 	public DAOValidationException(String message, String[] parameters) {
 		

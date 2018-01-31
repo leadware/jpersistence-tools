@@ -20,8 +20,9 @@ package net.leadware.persistence.tools.api.exceptions;
 
 
 /**
- * Classe representant une exception levee par La validation
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe representant une exception levee par La validation 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:22:52
  */
 public class InvalidEntityInstanceStateException extends JPersistenceToolsException {
 	
@@ -41,7 +42,10 @@ public class InvalidEntityInstanceStateException extends JPersistenceToolsExcept
 	private String propertyName;
 	
 	/**
-	 * Constructeur par defaut
+	 * Constructeur avec initialisation des parametres
+	 * @param entityName Nom de l'entite
+	 * @param propertyName Nom de la propriete
+	 * @param message	Message de l'exception
 	 */
 	public InvalidEntityInstanceStateException(String entityName, String propertyName, String message) {
 		

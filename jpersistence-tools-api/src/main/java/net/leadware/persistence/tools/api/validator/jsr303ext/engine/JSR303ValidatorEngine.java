@@ -27,8 +27,9 @@ import javax.validation.ValidatorFactory;
 import net.leadware.persistence.tools.api.exceptions.InvalidEntityInstanceStateException;
 
 /**
- * Classe permettant d'effectuer la validation d'instance manuellement
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe permettant d'effectuer la validation d'instance manuellement 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:33:07
  */
 public class JSR303ValidatorEngine {
 	
@@ -67,7 +68,7 @@ public class JSR303ValidatorEngine {
 
 	/**
 	 * Méthode d'obtention de l'instance de moteur de Validation
-	 * @param validatorFactory
+	 * @param validatorFactory Fabrique de valudateurs
 	 * @return Instance de moteur de Validation
 	 */
 	public static synchronized JSR303ValidatorEngine getInstance(ValidatorFactory validatorFactory) {
@@ -102,6 +103,7 @@ public class JSR303ValidatorEngine {
 	/**
 	 * Methode permettant de valider un onjet
 	 * @param entity	Entité  valider
+	 * @param <T> Type de l'entite
 	 */
 	public <T> void validate(T entity) {
 		

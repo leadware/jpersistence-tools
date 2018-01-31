@@ -28,9 +28,9 @@ import javax.crypto.spec.DESKeySpec;
 import org.apache.commons.codec.binary.Base64;
 
 /**
- * Classe representant un utilitaire d'encryption
+ * Classe representant un utilitaire d'encryption 
  * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
- * @since 1 oct. 2015 - 09:13:40
+ * @since 31 janv. 2018 - 14:38:23
  */
 public class Encrypter {
 
@@ -160,13 +160,15 @@ public class Encrypter {
 	}
 	
 	/**
-	 * Methode de generation de cle prives sur la base d'un mot de passe
+	 * Methode de generation de cle prives sur la base d'un mot de passe 
+	 * @param keytext	Texte cle
+	 * @return	Cle secrete
 	 */
 	private SecretKey createDESSecretKey(String keytext){
 		
 		try {
 			
-			// Generation de la cle DES bas�es sur une mot de passe
+			// Generation de la cle DES basees sur une mot de passe
 			DESKeySpec desKeySpec = new DESKeySpec(keytext.getBytes());
 			
 			// On retourne la cle DES

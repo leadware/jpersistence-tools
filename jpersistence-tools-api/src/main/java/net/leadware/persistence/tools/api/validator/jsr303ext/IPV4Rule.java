@@ -26,8 +26,9 @@ import net.leadware.persistence.tools.api.validator.jsr303ext.annotations.IPV4;
 
 
 /**
- * Regle de validation de l'IPV4
- * @author Jean-Jacques ETUNÈ NGI
+ * Regle de validation de l'IPV4 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:29:40
  */
 public class IPV4Rule implements ConstraintValidator<IPV4, String> {
 

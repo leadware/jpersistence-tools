@@ -34,8 +34,9 @@ import net.leadware.persistence.tools.core.dao.utils.DAOValidatorHelper;
 import net.leadware.persistence.tools.core.dao.utils.ExpressionModel;
 
 /**
- * Classe abstraite definissant les bases de l'implementation d'une regle
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe abstraite definissant les bases de l'implementation d'une regle 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:40:36
  */
 public abstract class AbstractExpressionBasedDAOValidatorRule implements IDAOValidator<Annotation> {
 	
@@ -112,6 +113,7 @@ public abstract class AbstractExpressionBasedDAOValidatorRule implements IDAOVal
 	
 	/**
 	 * Methode de construction de la requete
+	 * @param target Objet cible
 	 * @return	Requete
 	 */
 	protected Query buildQuery(Object target) {

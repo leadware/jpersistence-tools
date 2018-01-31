@@ -31,9 +31,9 @@ import net.leadware.persistence.tools.api.validator.base.IDAOValidator;
 
 
 /**
- * Annotation permettant de specifier classe implementant la logique 
- * de validation d'une Fonction-Annotation
- * @author Jean-Jacques ETUNÈ NGI
+ * Annotation permettant de specifier classe implementant la logique de validation d'une Fonction-Annotation 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:28:05
  */
 @Target(value = {ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)

@@ -31,9 +31,9 @@ import net.leadware.persistence.tools.api.validator.jsr303ext.AuthorizedValuesRu
 
 
 /**
- * Annotation de la règle de validation permettant de controler que la valeur d'une propriété
- * se trouve dans une liste de chaines donnée
- * @author Jean-Jacques ETUNÈ NGI
+ * Annotation de la règle de validation permettant de controler que la valeur d'une propriété se trouve dans une liste de chaines donnée 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:30:49
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

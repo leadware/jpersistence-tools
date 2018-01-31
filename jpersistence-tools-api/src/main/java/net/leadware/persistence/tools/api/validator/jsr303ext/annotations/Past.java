@@ -31,8 +31,9 @@ import net.leadware.persistence.tools.api.validator.jsr303ext.PastRule;
 
 
 /**
- * Annotation permettant de verifier qu'une date est dans le passe
- * @author Jean-Jacques ETUNÈ NGI
+ * Annotation permettant de verifier qu'une date est dans le passe 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:32:31
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

@@ -43,7 +43,6 @@ public class IsFalse extends AbstractPredicate {
 	/**
 	 * Constructeur avec initialisation des parametres
 	 * @param property	Nom de la propriete
-	 * @param value	Valeur de la propriete
 	 */
 	public IsFalse(String property) {
 		this.property = property;

@@ -21,14 +21,16 @@ package net.leadware.persistence.tools.api.validator.base;
 import javax.persistence.EntityManager;
 
 /**
- * Interface definissant le contrat des classes de validation des contraintes
- * d'integrites et referentielles sur un objet metier
- * @author Jean-Jacques ETUNÈ NGI
+ * Interface definissant le contrat des classes de validation des contraintes d'integrites et referentielles sur un objet metier 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:28:37
  */
 public interface IJPAConstraintValidator {
 	
 	/**
-	 * Initialisation du Validateur
+	 * Initialisation du Validateur 
+	 * @param entityManager	Gestionnaire d'entites
+	 * @param entity	Entite geree
 	 */
 	public void init(EntityManager entityManager, Object entity);
 	

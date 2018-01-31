@@ -24,8 +24,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Classe representant un conteneur de proprietes
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe representant un conteneur de proprietes 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:24:25
  */
 public class PropertyContainer implements Serializable {
 

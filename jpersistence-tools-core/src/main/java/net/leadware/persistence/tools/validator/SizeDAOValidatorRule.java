@@ -30,8 +30,9 @@ import net.leadware.persistence.tools.api.validator.annotations.SizeDAOValidator
 import net.leadware.persistence.tools.validator.base.AbstractExpressionBasedDAOValidatorRule;
 
 /**
- * Classe d'implementation de la regle de validation @SizeDAOValidator
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe d'implementation de la regle de validation @SizeDAOValidator 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:40:06
  */
 @SuppressWarnings("unchecked")
 public class SizeDAOValidatorRule extends AbstractExpressionBasedDAOValidatorRule {

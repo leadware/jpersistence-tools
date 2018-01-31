@@ -24,8 +24,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Classe permettant de stocker les informations sur une Expression (Apres resolution)
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe permettant de stocker les informations sur une Expression (Apres resolution) 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:38:39
  */
 public class ExpressionModel implements Serializable {
 

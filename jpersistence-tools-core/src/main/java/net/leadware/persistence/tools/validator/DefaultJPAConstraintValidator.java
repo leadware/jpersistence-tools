@@ -22,8 +22,9 @@ import net.leadware.persistence.tools.validator.base.AbstractJPAConstraintValida
 
 /**
  * Classe de validation par defaut des contraintes sur l'entite 
- * (Elle n'effectue que la validation des contraintes d'integrites)
- * @author Jean-Jacques ETUNÈ NGI
+ * (Elle n'effectue que la validation des contraintes d'integrites) 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:39:17
  */
 public class DefaultJPAConstraintValidator extends AbstractJPAConstraintValidator {
 

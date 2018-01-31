@@ -28,9 +28,9 @@ import net.leadware.persistence.tools.test.dao.entities.base.TPHParameterBase;
 
 
 /**
- * Classe representant un Pays
- * @author  Jean-Jacques ETUNÈ NGI
- * @see {@link TPHParameterBase}
+ * Classe representant un Pays 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 16:53:19
  */
 @SizeDAOValidators({
 	@SizeDAOValidator(mode = DAOMode.SAVE,   expr = "from Country c where (c.code = ${code})", max = 0, message = "Country.save.code.exist"),

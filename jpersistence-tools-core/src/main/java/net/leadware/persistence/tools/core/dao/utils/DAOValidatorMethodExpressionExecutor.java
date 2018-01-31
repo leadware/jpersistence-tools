@@ -24,8 +24,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Classe permettant de resoudre l'execution de certaines methodes sur l'objet contexte
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe permettant de resoudre l'execution de certaines methodes sur l'objet contexte 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:38:13
  */
 public class DAOValidatorMethodExpressionExecutor {
 	

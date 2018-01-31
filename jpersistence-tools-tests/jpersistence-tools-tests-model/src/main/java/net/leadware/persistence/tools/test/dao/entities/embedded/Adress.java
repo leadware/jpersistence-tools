@@ -28,8 +28,9 @@ import net.leadware.persistence.tools.api.validator.jsr303ext.annotations.Email;
 import net.leadware.persistence.tools.api.validator.jsr303ext.annotations.PhoneNumber;
 
 /**
- * Classe representant une adresse
- * @author  Jean-Jacques ETUNÈ NGI
+ * Classe representant une adresse 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 16:54:43
  */
 @Embeddable
 public class Adress implements Serializable {
@@ -45,28 +46,28 @@ public class Adress implements Serializable {
 	public static final String PHONE_PATTERN = "\\+{0,1}\\d+";
 	
    /**
-	 * Num�ro du t�l�phone fixe
+	 * Numero du telephone fixe
 	 */
 	@Column(name = "FIXED_PHONE_NUMBER")
 	@PhoneNumber
 	private String fixedPhone;
 	
 	/**
-	 * T�l�phone du t�l�phone portable
+	 * Telephone du telephone portable
 	 */
 	@Column(name = "MOBILE_PHONE_NUMBER")
 	@PhoneNumber
 	private String mobilePhone;
 	
 	/**
-	 * Num�ro du fax
+	 * Numero du fax
 	 */
 	@Column(name = "FAX_NUMBER")
 	@PhoneNumber
 	private String fax; 
 	
 	/**
-	 * Adresse �lectronique
+	 * Adresse electronique
 	 */
 	@Column(name = "EMAIL")
 	@Email(message = "Adress.email.invalid")
@@ -91,7 +92,7 @@ public class Adress implements Serializable {
 	private String road; 
 	
 	/**
-	 * Constructeur par d�faut
+	 * Constructeur par defaut
 	 */
 	public Adress() {}
 	
@@ -104,6 +105,7 @@ public class Adress implements Serializable {
 	 * @param webSite	URL  du site Web
 	 * @param poBox	Boite postale
 	 * @param road	Rue
+	 * @param town Ville
 	 */
    public Adress(String fixedPhone, String mobilePhone, String fax,
 			String email, String webSite, String poBox, String road, String town) {
@@ -159,7 +161,7 @@ public class Adress implements Serializable {
 	}
 
 	/**
-	 * Methode permettant de d�finir le num�ro du fax
+	 * Methode permettant de definir le numero du fax
 	 * @param fax	Numero de FAX
 	 */
 	public void setFax(String fax) {
@@ -191,7 +193,7 @@ public class Adress implements Serializable {
 	}
 
 	/**
-	 * Methode permettant de d�finir l'URL  du site Web
+	 * Methode permettant de definir l'URL  du site Web
 	 * @param webSite	URL  du site Web
 	 */
 	public void setWebSite(String webSite) {

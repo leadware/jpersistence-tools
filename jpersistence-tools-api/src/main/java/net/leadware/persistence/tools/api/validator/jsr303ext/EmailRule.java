@@ -27,8 +27,9 @@ import net.leadware.persistence.tools.api.validator.jsr303ext.annotations.Email;
 
 
 /**
- * Implementation de la regle de validation Email
- * @author Jean-Jacques ETUNÈ NGI
+ * Implementation de la regle de validation Email 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:29:08
  */
 public class EmailRule implements ConstraintValidator<Email, String> {
 	

@@ -30,8 +30,9 @@ import net.leadware.persistence.tools.api.validator.annotations.marker.DAOConstr
 
 
 /**
- * Annotation permettant de valider sur la base d'une liste de validateurs de type @SizeDAOValidator
- * @author Jean-Jacques ETUNÈ NGI
+ * Annotation permettant de valider sur la base d'une liste de validateurs de type @SizeDAOValidator 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:26:20
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

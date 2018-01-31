@@ -30,8 +30,9 @@ import net.leadware.persistence.tools.api.validator.jsr303ext.EmailRule;
 
 
 /**
- * Annotation permettant de valider la validite d'un Email
- * @author Jean-Jacques ETUNÈ NGI
+ * Annotation permettant de valider la validite d'un Email 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:31:00
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

@@ -30,8 +30,9 @@ import net.leadware.persistence.tools.api.validator.jsr303ext.FutureRule;
 
 
 /**
- * Annotation permettant de verifier qu'une date est dans le futur
- * @author Jean-Jacques ETUNÈ NGI
+ * Annotation permettant de verifier qu'une date est dans le futur 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:31:09
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

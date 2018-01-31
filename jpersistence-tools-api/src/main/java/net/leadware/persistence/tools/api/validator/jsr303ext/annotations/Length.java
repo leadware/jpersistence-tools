@@ -30,9 +30,9 @@ import net.leadware.persistence.tools.api.validator.jsr303ext.LengthRule;
 
 
 /**
- * Annotation permettant de verifier que la longueur d'une chaine
- * ou d'une collection se trouve dans un intervalle
- * @author Jean-Jacques ETUNÈ NGI
+ * Annotation permettant de verifier que la longueur d'une chaine ou d'une collection se trouve dans un intervalle 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:31:48
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

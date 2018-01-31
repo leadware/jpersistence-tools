@@ -32,7 +32,7 @@ public interface IFieldGenerator {
 
 	/**
 	 * Methode permettant de positionner l'entite cible
-	 * @param entity	Entite cible
+	 * @param entity	 Entite cible
 	 */
 	public void setEntity(Object entity);
 	
@@ -44,7 +44,7 @@ public interface IFieldGenerator {
 
 	/**
 	 * Methode permettant de positionner le gestionnaire d'entites de generation
-	 * @param entityManager Gestionnaire d'entites de generation
+	 * @param generatorEntityManager Gestionnaire d'entites de generation
 	 */
 	public void setGeneratorEntityManager(EntityManager generatorEntityManager);
 	

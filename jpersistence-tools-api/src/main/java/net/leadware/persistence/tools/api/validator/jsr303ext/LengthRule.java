@@ -28,8 +28,9 @@ import net.leadware.persistence.tools.api.validator.jsr303ext.annotations.Length
 
 
 /**
- * Classe d'implementation de la règle de gestion de la taille
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe d'implementation de la règle de gestion de la taille 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:30:25
  */
 public class LengthRule implements ConstraintValidator<Length, Object> {
 	

@@ -23,8 +23,8 @@ import java.lang.annotation.Annotation;
 import net.leadware.persistence.tools.api.validator.base.IDAOValidator;
 
 /**
- * Implementation des validateurs mappes
- * @author Jean-Jacques ETUNÈ NGI
- * @since 24 juil. 2012 - 16:22:16
+ * Implementation des validateurs mappes 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:25:31
  */
 public interface MappedValidatorRule extends IDAOValidator<Annotation> {}

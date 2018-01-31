@@ -55,21 +55,20 @@ import net.leadware.persistence.tools.core.dao.JPAGenericDAO;
 import net.leadware.persistence.tools.core.dao.utils.DAOValidatorHelper;
 
 /**
- * Classe abstraite representant une base DAO generique compatible JPA et basee sur
- * les annotations de validations des entites et sur les moteur de validations
- * @author Jean-Jacques ETUNÈ NGI
+ * 
+ * Classe abstraite representant une base DAO generique compatible JPA et basee sur les annotations de validations des entites et sur les moteur de validations
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:34:38
  * @see 
- * 	<b>
- * 		<i>Annotations</i>
- * 		<ol>
- * 			<li>{@link DAOConstraint}
- * 		</ol>
- * 		<i>Engine</i>
- * 		<ol>
- * 			<li>{@link JSR303ValidatorEngine}</li>
- * 			<li>{@link IDAOGeneratorManager}</li>
- * 		</ol>
- * 	</b>
+ * 	<i>Annotations</i>
+ * 	<ol>
+ * 		<li>{@link DAOConstraint}
+ * 	</ol>
+ * 	<i>Engine</i>
+ * 	<ol>
+ * 		<li>{@link JSR303ValidatorEngine}</li>
+ * 		<li>{@link IDAOGeneratorManager}</li>
+ * 	</ol>
  */
 @SuppressWarnings("unchecked")
 public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements JPAGenericDAO<T> {
@@ -668,9 +667,10 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	
 	/**
 	 * Méthode de chargement des ordres
-	 * @param <T>	Paramètre de type
+	 * @param criteriaBuilder Constructeur de criteres
+	 * @param root Objet racine
 	 * @param criteriaQuery	Requete de critères
-	 * @param orders	Liste des ordres
+	 * @param orders	 Liste des ordres
 	 */
 	protected void addOrders(CriteriaBuilder criteriaBuilder, Root<T> root, CriteriaQuery<T> criteriaQuery, Map<String, OrderType> orders) {
 		
@@ -706,8 +706,8 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	
 	/**
 	 * Méthode de chargement des prédicats
-	 * @param <T>	Paramètre de type
 	 * @param criteriaBuilder Constructeur de critères
+	 * @param root Objet racine
 	 * @param criteriaQuery	Requete de critères
 	 * @param predicates	Liste des predicats
 	 */
@@ -735,7 +735,6 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	
 	/**
 	 * Methode d'ajout des Proprietes a charger a la requete de recherche
-	 * @param <T>	Paramètre de type d'entités
 	 * @param root	Entités objet du from
 	 * @param properties	Conteneur de propriétés
 	 */
@@ -770,7 +769,6 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 
 	/**
 	 * Methode d'ajout des Proprietes a charger a la requete de recherche
-	 * @param <T>	Paramètre de type d'entités
 	 * @param root	Entités objet du from
 	 * @param query Requete sur l'entité
 	 * @param properties	Conteneur de propriétés
@@ -840,7 +838,6 @@ public abstract class JPAGenericDAORulesBasedImpl<T extends Object> implements J
 	
 	/**
 	 * Méthode de construction d'un chemin de propriété à partir de la racine
-	 * @param <Y>	Paramètre de type du chemin final
 	 * @param root	Racine
 	 * @param stringPath	Chemin sous forme de chaine
 	 * @return	Chemin recherché sous forme Path

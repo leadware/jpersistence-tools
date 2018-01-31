@@ -34,8 +34,9 @@ import net.leadware.persistence.tools.test.dao.entities.field.generator.Identity
 
 
 /**
- * Classe de base des parametrages
- * @author  Jean-Jacques ETUNÈ NGI
+ * Classe de base des parametrages 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 16:52:34
  */
 @MappedSuperclass
 public class AbstractParameterBase implements Serializable, Comparable<AbstractParameterBase> {

@@ -20,10 +20,9 @@ package net.leadware.persistence.tools.api.exceptions;
 
 
 /**
- * <p>
- * 	<b>Classe de Base des exception du Framework JPersistenceUtils</b>
- * 	@author Jean-Jacques ETUNÈ NGI
- * </p>
+ * Classe de Base des exception du Framework 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:23:08
  */
 public class JPersistenceToolsException extends RuntimeException {
 	

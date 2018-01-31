@@ -19,9 +19,9 @@
 package net.leadware.persistence.tools.api.dao.constants;
 
 /**
- * Constantes representant un mode DAO (SAVE, UPDATE ou DELETE)
- * @author Jean-Jacques
- * @version 1.0
+ * Constantes representant un mode DAO (SAVE, UPDATE ou DELETE) 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:21:39
  */
 public enum DAOMode {
 	

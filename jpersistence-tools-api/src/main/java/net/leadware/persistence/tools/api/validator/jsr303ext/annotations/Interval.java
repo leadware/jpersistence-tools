@@ -30,9 +30,9 @@ import net.leadware.persistence.tools.api.validator.jsr303ext.IntervalRule;
 
 
 /**
- * Annotation de la regle de validation permettant de contrler que la valeur d'une proprite
- * se trouve bien dans un intervalle donne
- * @author Jean-Jacques ETUNÈ NGI
+ * Annotation de la regle de validation permettant de contrler que la valeur d'une proprite se trouve bien dans un intervalle donne 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:31:23
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

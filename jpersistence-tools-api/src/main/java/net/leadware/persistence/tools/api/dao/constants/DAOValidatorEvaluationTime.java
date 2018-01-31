@@ -19,9 +19,9 @@
 package net.leadware.persistence.tools.api.dao.constants;
 
 /**
- * Constantes representant un moment d'évaluation
- * @author Jean-Jacques
- * @version 1.0
+ * Constantes representant un moment d'évaluation 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:21:50
  */
 public enum DAOValidatorEvaluationTime {
 	

@@ -32,7 +32,6 @@ public interface Predicate extends Serializable {
 	
 	/**
 	 * Methode de construction d'un Predicat JPA 2
-	 * @param <Y>	Parametre de type de la valeur de la propriete
 	 * @param criteriaBuilder	Constructeur de critere
 	 * @param root	Racine de la requete par critere
 	 * @return	Predicat JPA 2

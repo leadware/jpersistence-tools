@@ -32,9 +32,9 @@ import net.leadware.persistence.tools.test.dao.entities.base.TPSParameterBase;
 
 
 /**
- * Classe representant une region du systeme
- * @author  Jean-Jacques ETUNÈ NGI
- * @see {@link TPSParameterBase}
+ * Classe representant une region du systeme 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 16:53:57
  */
 @SizeDAOValidators({
 	@SizeDAOValidator(mode = DAOMode.SAVE,   expr = "from Region r where (r.code = ${code})", max = 0, message = "Region.save.code.exist"),

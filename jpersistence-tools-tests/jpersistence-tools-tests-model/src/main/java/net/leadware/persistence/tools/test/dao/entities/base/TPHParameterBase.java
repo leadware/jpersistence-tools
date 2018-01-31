@@ -27,10 +27,9 @@ import javax.persistence.Table;
 
 /**
  * Classe representant la racine des classes conforme a la classe de parametrage mere
- * Elle definie un mapping de type: Table-Per-Class-Hierarchy
- * @author  Jean-Jacques ETUNÈ NGI
- * Super Classe
- * @see	{@link AbstractParameterBase}
+ * Elle definie un mapping de type: Table-Per-Class-Hierarchy 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 16:52:45
  */
 @Entity(name = "TPHParameterBase")
 @Table(name = "GENEZIS_TPH_PARAMETER")

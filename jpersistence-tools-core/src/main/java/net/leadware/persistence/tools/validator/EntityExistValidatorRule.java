@@ -30,8 +30,9 @@ import net.leadware.persistence.tools.api.validator.base.IDAOValidator;
 import net.leadware.persistence.tools.api.validator.annotations.SizeDAOValidator;
 
 /**
- * Classe d'implementation de la regle de controle @EntityExistValidator
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe d'implementation de la regle de controle @EntityExistValidator 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:39:39
  */
 public class EntityExistValidatorRule implements IDAOValidator<EntityExistValidator>  {
 

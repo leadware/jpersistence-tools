@@ -43,7 +43,6 @@ public class IsNull extends AbstractPredicate {
 	/**
 	 * Constructeur avec initialisation des parametres
 	 * @param property	Nom de la propriete
-	 * @param value	Valeur de la propriete
 	 */
 	public IsNull(String property) {
 		this.property = property;

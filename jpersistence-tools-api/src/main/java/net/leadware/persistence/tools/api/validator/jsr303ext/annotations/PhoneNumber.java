@@ -29,9 +29,9 @@ import javax.validation.Payload;
 import javax.validation.constraints.Pattern;
 
 /**
- * Annotation permettant de verifier qu'une chaine est un numero de telephone
- * @author Jean-Jacques ETUNÈ NGI
- * @since 19 juil. 2012 - 16:58:34
+ * Annotation permettant de verifier qu'une chaine est un numero de telephone 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:32:41
  */
 @Pattern(regexp = "\\+{0,1}\\d+", message = "javax.validation.ext.phonenumber.fail")
 @Constraint(validatedBy = {})

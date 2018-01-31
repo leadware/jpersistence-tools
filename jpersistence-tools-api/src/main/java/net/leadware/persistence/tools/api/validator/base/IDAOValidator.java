@@ -26,20 +26,24 @@ import net.leadware.persistence.tools.api.dao.constants.DAOValidatorEvaluationTi
 
 
 /**
- * Interface des classes implementant la logique de validation d'une 
- * Fonction-Annotation
- * @author Jean-Jacques ETUNÈ NGI
+ * Interface des classes implementant la logique de validation d'une Fonction-Annotation 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:28:24
  */
 public interface IDAOValidator<A extends Annotation> {
 	
 	/**
 	 * Methode d'initialisation de la classe d'implementation de la logique de validation
 	 * @param annotation	Annotation en cours
+	 * @param entityManager Gestionnaire d'entites
+	 * @param systemMode Mode DAO  system
+	 * @param systemEvaluationTime Instant d'evaluation system
 	 */
 	public void initialize(A annotation, EntityManager entityManager, DAOMode systemMode, DAOValidatorEvaluationTime systemEvaluationTime);
 	
 	/**
 	 * Methode d'obtention des parametres du message a afficher
+	 * @param entity Entite source des parametres de messages messages
 	 * @return	Tableau des parametres du message a afficher
 	 */
 	public String[] getMessageParameters(Object entity);

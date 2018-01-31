@@ -39,8 +39,9 @@ import net.leadware.persistence.tools.api.utils.restrictions.impl.NotLike;
 
 
 /**
- * Classe representant un conteneur de restrictions
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe representant un conteneur de restrictions 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:24:34
  */
 public class RestrictionsContainer implements Serializable {
 
@@ -82,6 +83,7 @@ public class RestrictionsContainer implements Serializable {
 	 * Methode d'ajout de la restriction Eq
 	 * @param property	Nom de la Propriete
 	 * @param value	Valeur de la propriete
+	 * @param <Y> Type de valeur
 	 * @return	Conteneur
 	 */
 	public <Y extends Comparable<? super Y>> RestrictionsContainer addEq(String property, Y value) {
@@ -97,6 +99,7 @@ public class RestrictionsContainer implements Serializable {
 	 * Methode d'ajout de la restriction NotEq
 	 * @param property	Nom de la Propriete
 	 * @param value	Valeur de la propriete
+	 * @param <Y> Type de valeur
 	 * @return	Conteneur
 	 */
 	public <Y extends Comparable<? super Y>> RestrictionsContainer addNotEq(String property, Y value) {
@@ -112,6 +115,7 @@ public class RestrictionsContainer implements Serializable {
 	 * Methode d'ajout de la restriction GE
 	 * @param property	Nom de la Propriete
 	 * @param value	Valeur de la propriete
+	 * @param <Y> Type de valeur
 	 * @return	Conteneur
 	 */
 	public <Y extends Comparable<? super Y>> RestrictionsContainer addGe(String property, Y value) {
@@ -127,6 +131,7 @@ public class RestrictionsContainer implements Serializable {
 	 * Methode d'ajout de la restriction GT
 	 * @param property	Nom de la Propriete
 	 * @param value	Valeur de la propriete
+	 * @param <Y> Type de valeur
 	 * @return	Conteneur
 	 */
 	public <Y extends Comparable<? super Y>> RestrictionsContainer addGt(String property, Y value) {
@@ -142,6 +147,7 @@ public class RestrictionsContainer implements Serializable {
 	 * Methode d'ajout de la restriction Lt
 	 * @param property	Nom de la Propriete
 	 * @param value	Valeur de la propriete
+	 * @param <Y> Type de valeur
 	 * @return	Conteneur
 	 */
 	public <Y extends Comparable<? super Y>> RestrictionsContainer addLt(String property, Y value) {
@@ -187,6 +193,7 @@ public class RestrictionsContainer implements Serializable {
 	 * Methode d'ajout de la restriction Le
 	 * @param property	Nom de la Propriete
 	 * @param value	Valeur de la propriete
+	 * @param <Y> Type de valeur
 	 * @return	Conteneur
 	 */
 	public <Y extends Comparable<? super Y>> RestrictionsContainer addLe(String property, Y value) {
@@ -201,7 +208,6 @@ public class RestrictionsContainer implements Serializable {
 	/**
 	 * Methode d'ajout de la restriction IsFalse
 	 * @param property	Nom de la Propriete
-	 * @param value	Valeur de la propriete
 	 * @return	Conteneur
 	 */
 	public RestrictionsContainer addIsFalse(String property) {
@@ -216,7 +222,6 @@ public class RestrictionsContainer implements Serializable {
 	/**
 	 * Methode d'ajout de la restriction IsTrue
 	 * @param property	Nom de la Propriete
-	 * @param value	Valeur de la propriete
 	 * @return	Conteneur
 	 */
 	public RestrictionsContainer addIsTrue(String property) {
@@ -231,7 +236,6 @@ public class RestrictionsContainer implements Serializable {
 	/**
 	 * Methode d'ajout de la restriction IsNotNull
 	 * @param property	Nom de la Propriete
-	 * @param value	Valeur de la propriete
 	 * @return	Conteneur
 	 */
 	public RestrictionsContainer addIsNotNull(String property) {
@@ -246,7 +250,6 @@ public class RestrictionsContainer implements Serializable {
 	/**
 	 * Methode d'ajout de la restriction IsNull
 	 * @param property	Nom de la Propriete
-	 * @param value	Valeur de la propriete
 	 * @return	Conteneur
 	 */
 	public RestrictionsContainer addIsNull(String property) {

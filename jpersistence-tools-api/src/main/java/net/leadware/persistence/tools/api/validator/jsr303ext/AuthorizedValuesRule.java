@@ -24,9 +24,9 @@ import javax.validation.ConstraintValidatorContext;
 import net.leadware.persistence.tools.api.validator.jsr303ext.annotations.AuthorizedValues;
 
 /**
- * Classe implementant la regle de validation contrôlant que la valeur d'une propriété
- * correspond à une valeur d'une liste donnée
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe implementant la regle de validation contrôlant que la valeur d'une propriété correspond à une valeur d'une liste donnée 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:28:57
  */
 public class AuthorizedValuesRule implements ConstraintValidator<AuthorizedValues, Object> {
 

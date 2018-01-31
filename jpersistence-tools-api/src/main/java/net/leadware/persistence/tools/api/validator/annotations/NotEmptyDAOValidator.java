@@ -33,8 +33,9 @@ import net.leadware.persistence.tools.api.validator.annotations.marker.DAOConstr
 
 
 /**
- * Annotation permettant d'evaluer une expression et verifier que son resultat n'est pas vide
- * @author Jean-Jacques ETUNÈ NGI
+ * Annotation permettant d'evaluer une expression et verifier que son resultat n'est pas vide 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:25:52
  */
 @Target(value = ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

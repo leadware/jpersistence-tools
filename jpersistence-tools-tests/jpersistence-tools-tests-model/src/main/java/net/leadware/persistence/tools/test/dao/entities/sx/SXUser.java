@@ -98,7 +98,7 @@ public class SXUser extends UserBase implements Serializable {
 	
 	/**
 	 * Constructeur par recopie
-	 * @param usr
+	 * @param usr Utilisateur a copier
 	 */
 	public SXUser(SXUser usr) {
 		this.email = usr.email;
@@ -141,6 +141,8 @@ public class SXUser extends UserBase implements Serializable {
 	 * @param email		Email de l'utilisateur
 	 * @param phone		Numero de telephone de l'utilisateur
 	 * @param state		Etat de l'utilisateur
+	 * @param town Ville
+	 * @param groups Groupes
 	 */
 	public SXUser(String lastName, String firstName, 
 				Sex sex, String login, String password, 

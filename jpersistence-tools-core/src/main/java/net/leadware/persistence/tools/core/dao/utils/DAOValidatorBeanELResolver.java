@@ -24,8 +24,9 @@ import javax.el.ELException;
 import javax.el.PropertyNotFoundException;
 
 /**
- * Classe representant un ELResolver etandant le type BeanELResolver (Pour la resolution des proprietes
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe representant un ELResolver etandant le type BeanELResolver (Pour la resolution des proprietes) 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:36:28
  */
 public class DAOValidatorBeanELResolver extends BeanELResolver {
 	

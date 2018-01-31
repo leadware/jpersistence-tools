@@ -56,7 +56,8 @@ public @interface FieldGenerator {
 	public DAOValidatorEvaluationTime[] evaluationTime() default DAOValidatorEvaluationTime.PRE_CONDITION;
 	
 	/**
-	 * Méthode d'obtention de la classe de generation
+	 * Méthode d'obtention de la classe de generation 
+	 * @return Classe de generation
 	 */
 	Class<? extends IFieldGenerator> generator();
 }

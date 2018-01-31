@@ -151,6 +151,9 @@ public class SXGroup implements Serializable, Comparable<SXGroup> {
 	
 	/**
 	 * Constructeur avec initialisation des parametres
+	 * @param code Code du groupe
+	 * @param name Nom du groupe
+	 * @param description Description du groupe
 	 * @param roles	Ensemble des roles de ce RolesSet
 	 */
 	public SXGroup(String code, String name, String description, Set<SXRole> roles) {
@@ -246,7 +249,7 @@ public class SXGroup implements Serializable, Comparable<SXGroup> {
 
 	/**
 	 * Methode d'obtention de la Strategie de gestion de l'expiration des utilisateurs du Groupe
-	 * @param description Strategie de gestion de l'expiration des utilisateurs du Groupe
+	 * @return Strategie de gestion de l'expiration des utilisateurs du Groupe
 	 */
 	public UserExpirationStrategy getExpirationStrategy() {
 		return expirationStrategy;
@@ -254,7 +257,7 @@ public class SXGroup implements Serializable, Comparable<SXGroup> {
 
 	/**
 	 * Methode de mise a jour de la Strategie de gestion de l'expiration des utilisateurs du Groupe
-	 * @return Strategie de gestion de l'expiration des utilisateurs du Groupe
+	 * @param expirationStrategy Strategie de gestion de l'expiration des utilisateurs du Groupe
 	 */
 	public void setExpirationStrategy(UserExpirationStrategy expirationStrategy) {
 		this.expirationStrategy = expirationStrategy;

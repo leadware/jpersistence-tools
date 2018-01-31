@@ -27,8 +27,9 @@ import net.leadware.persistence.tools.api.dao.constants.OrderType;
 
 
 /**
- * Classe representant un conteneur d'ordre de tri des resultats
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe representant un conteneur d'ordre de tri des resultats 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:24:13
  */
 public class OrderContainer implements Serializable {
 	
@@ -54,7 +55,8 @@ public class OrderContainer implements Serializable {
 		
 	/**
 	 * Methode d'ajout d'un ordre de tri
-	 * @param order	Ordre de tri a ajouter
+	 * @param property	Propriete a ordonner
+	 * @param orderType Type d'ordre
 	 * @return	Conteneur d'ordre de tri
 	 */
 	public OrderContainer add(String property, OrderType orderType) {

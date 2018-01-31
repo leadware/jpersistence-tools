@@ -29,20 +29,21 @@ import net.leadware.persistence.tools.api.dao.constants.OrderType;
 import net.leadware.persistence.tools.api.utils.restrictions.Predicate;
 
 /**
- * Interface de la DAO Generique compatible JPA
- * @author Jean-Jacques ETUNÈ NGI
+ * Interface de la DAO Generique compatible JPA 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:33:40
  */
 public interface JPAGenericDAO<T extends Object> {
 	
 	/**
 	 * Méthode de mise à jour de l'Etat de validation des constraintes d'integrites en mode SAVE
-	 * @param validateIntegrityConstraint Etat de validation des constraintes d'integrites en mode SAVE
+	 * @param validateIntegrityConstraintOnSave Etat de validation des constraintes d'integrites en mode SAVE
 	 */
 	public void setValidateIntegrityConstraintOnSave(boolean validateIntegrityConstraintOnSave);
 	
 	/**
 	 * Méthode de mise à jour de l'Etat de validation des constraintes d'integrites en mode UPDATE
-	 * @param validateIntegrityConstraint Etat de validation des constraintes d'integrites en mode UPDATE
+	 * @param validateIntegrityConstraintOnUpdate Etat de validation des constraintes d'integrites en mode UPDATE
 	 */
 	public void setValidateIntegrityConstraintOnUpdate(boolean validateIntegrityConstraintOnUpdate);
 
@@ -54,7 +55,7 @@ public interface JPAGenericDAO<T extends Object> {
 
 	/**
 	 * Méthode de mise à jour de l'Etat de post-validation des contraintes referentielles en mode SAVE
-	 * @param validateReferentialConstraint Etat de postvalidation des contraintes referentielles en mode SAVE
+	 * @param postValidateReferentialConstraintOnSave Etat de postvalidation des contraintes referentielles en mode SAVE
 	 */
 	public void setPostValidateReferentialConstraintOnSave(boolean postValidateReferentialConstraintOnSave);
 
@@ -101,6 +102,7 @@ public interface JPAGenericDAO<T extends Object> {
 	
 	/**
 	 * Methode generique de mise a jour d'une entite JPA annotee
+	 * @param id Identifiant de l'entite
 	 * @param entity	Entite a mettre a jour
 	 * @return	Entite mise a jour
 	 */
@@ -108,6 +110,7 @@ public interface JPAGenericDAO<T extends Object> {
 
 	/**
 	 * Methode generique de mise a jour d'une entite JPA annotee
+	 * @param id Identifiant de l'entite
 	 * @param entity	Entite a mettre a jour
 	 * @param validateIntegrityConstraint Etat de validation des contraintes d'integrites
 	 * @param preValidateReferentialConstraint Etat de pré-validation des contraintes référentielles

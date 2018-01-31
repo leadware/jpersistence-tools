@@ -33,8 +33,9 @@ import net.leadware.persistence.tools.api.validator.annotations.marker.DAOConstr
 
 
 /**
- * Validateur permettant de verifier qu'une de classe existe dans le Contexte de Persistance
- * @author Jean-Jacques ETUNÈ NGI
+ * Validateur permettant de verifier qu'une de classe existe dans le Contexte de Persistance 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:25:43
  */
 @Target(value = ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

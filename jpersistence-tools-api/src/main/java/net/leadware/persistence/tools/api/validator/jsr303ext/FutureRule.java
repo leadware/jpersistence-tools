@@ -27,9 +27,9 @@ import net.leadware.persistence.tools.api.validator.jsr303ext.annotations.Past;
 
 
 /**
- * Classe implementant la regle de validation controlant que la valeur d'une date
- * se trouve dans le futur
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe implementant la regle de validation controlant que la valeur d'une date se trouve dans le futur 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:29:19
  */
 public class FutureRule implements ConstraintValidator<Past, Object> {
 		

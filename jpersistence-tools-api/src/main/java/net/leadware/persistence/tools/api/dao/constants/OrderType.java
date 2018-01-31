@@ -19,9 +19,9 @@
 package net.leadware.persistence.tools.api.dao.constants;
 
 /**
- * Type d'ordre de rangement des tuples
- * @author Jean-Jacques ETUNÈ NGI
- * @since 24 juil. 2012 - 17:01:02
+ * Type d'ordre de rangement des tuples 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:22:01
  */
 public enum OrderType {
 	

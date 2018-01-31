@@ -29,8 +29,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * Annotation permettant de verifier qu'une chaine est non vide
- * @author Jean-Jacques ETUNÈ NGI
+ * Annotation permettant de verifier qu'une chaine est non vide 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:32:02
  */
 @NotNull
 @Size(min = 1)

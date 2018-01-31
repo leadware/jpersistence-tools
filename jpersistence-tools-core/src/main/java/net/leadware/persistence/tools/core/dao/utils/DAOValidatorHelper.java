@@ -30,6 +30,7 @@ import java.util.regex.PatternSyntaxException;
 
 import javax.el.ValueExpression;
 
+import de.odysseus.el.ExpressionFactoryImpl;
 import net.leadware.persistence.tools.api.generator.annotaions.FieldGenerator;
 import net.leadware.persistence.tools.api.generator.base.IDAOGeneratorManager;
 import net.leadware.persistence.tools.api.validator.annotations.EntityExistValidator;
@@ -46,12 +47,13 @@ import net.leadware.persistence.tools.validator.NotEmptyDAOValidatorRule;
 import net.leadware.persistence.tools.validator.NotEmptyDAOValidatorsRule;
 import net.leadware.persistence.tools.validator.SizeDAOValidatorRule;
 import net.leadware.persistence.tools.validator.SizeDAOValidatorsRule;
-import de.odysseus.el.ExpressionFactoryImpl;
 
 /**
- * Classe d'aide pour les annotations DAO
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe d'aide pour les annotations DAO 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:36:49
  */
+@SuppressWarnings("el-syntax")
 public class DAOValidatorHelper {
 
 	/**
@@ -178,7 +180,7 @@ public class DAOValidatorHelper {
 
 	/**
 	 * Methode permettant de charger toutes les annotations DAO de generation sur la propriete
-	 * @param object	Objet a inspecter
+	 * @param field	Champ a inspecter
 	 * @return	Liste des annotations DAO de generation retrouvees
 	 */
 	public static List<Annotation> loadDAOGeneratorAnnotations(Field field) {
@@ -365,6 +367,7 @@ public class DAOValidatorHelper {
 	 * Methode permettant de savoir si un Objet de type T est contenu dans un Tableau d'objet de type T
 	 * @param array	Tableau d'objet d'un type T
 	 * @param value	Objet d'un Type T
+	 * @param <T> Type de valeurs du tableau
 	 * @return	Etat de presence
 	 */
 	public static <T extends Object> boolean arraryContains(T[] array, T value) {
@@ -564,6 +567,7 @@ public class DAOValidatorHelper {
 	/**
 	 * Methode permettant de verifier si un chemin contient des Fonctions
 	 * @param expression	Chaine a controler
+	 * @param pattern expression de la fonction
 	 * @return	Resultat de la verification
 	 */
 	public static boolean isExpressionContainPattern(String expression, String pattern) {
@@ -829,7 +833,8 @@ public class DAOValidatorHelper {
 	
 	/**
 	 * Methode permettant d'obtenir la liste de tous les champs d'une classe 
-	 * @param aClass	Classes source
+	 * @param type	Classes source
+	 * @param ignoreRoot ignorer ou traiter le root
 	 * @return	Liste des classes
 	 */
 	public static List<Field> getAllFields(Class<?> type, boolean ignoreRoot) {
@@ -849,46 +854,4 @@ public class DAOValidatorHelper {
 		// On retourne la liste 
 		return fields;
 	}
-	
-	/**
-	 * Methode Main de test
-	 * @param args	Arguments de ligne de commande
-	 */
-	public static void main(String[] args) {
-		
-		// Chaine contenant des EL
-		String chn1 = "from Country c where (c.code = ${code})";
-		
-		// Obtention du model
-		// ExpressionModel model = computeExpression(chn1);
-		
-		// Affichage du contenu du modele
-		// System.out.println("Chaine Originale: " + model.getOriginalExpression());
-		// System.out.println("Contain Computee: " + model.getComputedExpression());
-		// System.out.println("Parametres: " + model.getParameters());
-		
-		// Derniere fonction
-		// String f = getFunctionTokens(chn1);
-		
-		// Calcul du Nom de la fonction
-		// String functionName = extractFunctionName(f);
-		
-		// Calcul du Parametre
-		// String parameter = extractParameter(f);
-		// System.out.println("Expression Contain Function: " + isExpressionContainsFunction(chn1));
-		// System.out.println("Expression Contain ENV     : " + isExpressionContainsENV(chn1));
-		
-		// On compute l'expression
-		ExpressionModel model = computeExpression(chn1);
-		
-		// On affiche
-		System.out.println("Expression Initiale: " + model.getOriginalExpression());
-		System.out.println("Expression Compilee: " + model.getComputedExpression());
-		System.out.println("Parametres         : " + model.getParameters());
-		
-		
-	}
-	
-	
-	
 }

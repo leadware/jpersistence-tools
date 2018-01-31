@@ -33,8 +33,9 @@ import net.leadware.persistence.tools.api.validator.annotations.marker.DAOConstr
 
 
 /**
- * Annotation permettant d'evaluer une expression et verifier que son resultat a une taille donnee
- * @author Jean-Jacques ETUNÈ NGI
+ * Annotation permettant d'evaluer une expression et verifier que son resultat a une taille donnee 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:26:10
  */
 @Target(value = ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

@@ -25,8 +25,9 @@ import net.leadware.persistence.tools.api.validator.annotations.NotEmptyDAOValid
 import net.leadware.persistence.tools.validator.base.AbstractDAOValidatorsRule;
 
 /**
- * Classe d'implementation de la regle de validation @NotEmptyDAOValidators
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe d'implementation de la regle de validation @NotEmptyDAOValidators 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:39:58
  */
 public class NotEmptyDAOValidatorsRule extends AbstractDAOValidatorsRule {
 	

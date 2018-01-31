@@ -34,7 +34,7 @@ import net.leadware.persistence.tools.core.dao.utils.DAOValidatorHelper;
  * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI</a>
  * @since 8 déc. 2013 - 11:20:57
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "el-syntax"})
 public class ConverterUtil {
 	
 	/**
@@ -165,6 +165,7 @@ public class ConverterUtil {
 	 * Méthode de conversion d'un tableau de T en Set
 	 * @param <T>	Parametre de type de contenu
 	 * @param objects	Tableau a convertir
+	 * @return Ensemble d'objets
 	 */
 	public static <T> Set<T> convertArrayToSet(T...objects) {
 		
@@ -185,6 +186,7 @@ public class ConverterUtil {
 	 * Méthode de conversion d'un tableau de T en List
 	 * @param <T>	Parametre de type de contenu
 	 * @param objects	Tableau a convertir
+	 * @return Liste d'objets
 	 */
 	public static <T> List<T> convertArrayToList(T...objects) {
 		

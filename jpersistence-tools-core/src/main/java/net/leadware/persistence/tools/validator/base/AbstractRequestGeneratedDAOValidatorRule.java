@@ -27,8 +27,9 @@ import net.leadware.persistence.tools.api.dao.constants.DAOValidatorEvaluationTi
 import net.leadware.persistence.tools.api.validator.base.IDAOValidator;
 
 /**
- * Classe abstraite definissant les bases de l'implementation d'une regle contenant d'autres regles de validation
- * @author Jean-Jacques
+ * Classe abstraite definissant les bases de l'implementation d'une regle contenant d'autres regles de validation 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:40:52
  */
 public abstract class AbstractRequestGeneratedDAOValidatorRule implements IDAOValidator<Annotation> {
 	

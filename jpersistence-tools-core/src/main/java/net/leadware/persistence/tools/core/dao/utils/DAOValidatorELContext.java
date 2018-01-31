@@ -24,8 +24,9 @@ import javax.el.FunctionMapper;
 import javax.el.VariableMapper;
 
 /**
- * Classe representant le contexte d'evaluation d'une Expression
- * @author Jean-Jacques ETUNÈ NGI
+ * Classe representant le contexte d'evaluation d'une Expression 
+ * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
+ * @since 31 janv. 2018 - 14:36:38
  */
 public class DAOValidatorELContext extends ELContext {
 	
