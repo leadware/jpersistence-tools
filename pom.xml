@@ -294,20 +294,48 @@
 						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
+					
+				<!-- Apache RAT plugin -->
+				<plugin>
+					<groupId>org.apache.rat</groupId>
+					<artifactId>apache-rat-plugin</artifactId>
+					<version>${apache.rat.plugin.version}</version>
+					<configuration>
+						<excludes>
+							<exclude>**/.git/**</exclude>
+							<exclude>**/test/resources/**</exclude>
+							<exclude>**/.gitignore/**</exclude>
+	                        <exclude>**/catalog.xml</exclude>
+	                        <exclude>**/.springBeans</exclude>
+						</excludes>
+					</configuration>
+					<executions>
+						<execution>
+							<phase>verify</phase>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 				
-				<!-- Maven Jar plugin -->
+				<!-- GPG Plugin -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>${maven.jar.plugin.version}</version>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>${gpg.version}</version>
+					<configuration>
+						<passphrase>sakazaki</passphrase>
+					</configuration>
 					<executions>
-					    	<execution>
-					    		<phase>verify</phase>
-					    		<goals>
-					    			<goal>test-jar</goal>
-					    		</goals>
-					    	</execution>
-				    </executions>
+						<execution>
+							<id>sign-artifact</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>sign</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 				
 			</plugins>
