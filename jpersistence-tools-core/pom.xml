@@ -51,31 +51,15 @@
 			<version>${project.version}</version>
 		</dependency>
 		
-		<!-- JPA-2.1 dependencies -->
-		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.1-api</artifactId>
-			<version>${hibernate-jpa-2.1.version}</version>
-		</dependency>
-		
-		<!-- Validation API (JSR 303) dependencies -->
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>${validation-api.version}</version>
-		</dependency>
-		
 		<!-- Juel dependencies -->
 		<dependency>
 		    <groupId>de.odysseus.juel</groupId>
 		    <artifactId>juel-spi</artifactId>
-		    <version>${juel.version}</version>
 		</dependency>
 		
 		<dependency>
 		    <groupId>de.odysseus.juel</groupId>
 		    <artifactId>juel-impl</artifactId>
-		    <version>${juel.version}</version>
 		    <exclusions>
 		    	<exclusion>
 		    		<groupId>de.odysseus.juel</groupId>
@@ -87,16 +71,213 @@
 		<dependency>
 			<groupId>de.odysseus.juel</groupId>
 			<artifactId>juel-api</artifactId>
-			<version>${juel.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>${commons-codec.version}</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>el-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- Validation API (JSR 303) dependencies -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- JUnit dependencies -->
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- Spring Test -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- Spring Beans -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <scope>test</scope>
+			<optional>true</optional>
+        </dependency>
+        
+		<!-- Spring Core -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <scope>test</scope>
+			<optional>true</optional>
+        </dependency>
+		
+        <!-- Spring Conext -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <scope>test</scope>
+			<optional>true</optional>
+        </dependency>
+		
+		<!-- Spring TX -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-tx</artifactId>
+		    <scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- Spring ORM -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-orm</artifactId>
+		    <scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+        <!-- Spring AOP -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <scope>test</scope>
+			<optional>true</optional>
+        </dependency>
+		
+        <!-- Spring Expression -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <scope>test</scope>
+			<optional>true</optional>
+        </dependency>
+		
+		<!-- Commons Collections -->
+		<dependency>
+		    <groupId>commons-collections</groupId>
+		    <artifactId>commons-collections</artifactId>
+		    <scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- Commons DPPC -->
+		<dependency>
+		    <groupId>commons-dbcp</groupId>
+		    <artifactId>commons-dbcp</artifactId>
+		    <scope>test</scope>
+			<optional>true</optional>
+		    <exclusions>
+		    	<exclusion>
+		    		<groupId>commons-pool</groupId>
+		    		<artifactId>commons-pool</artifactId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+		
+		<!-- Commons Pool -->
+		<dependency>
+		    <groupId>commons-pool</groupId>
+		    <artifactId>commons-pool</artifactId>
+		    <scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- Hibernate Core -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- Hibernate EntityManager -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<scope>test</scope>
+			<optional>true</optional>
+			<exclusions>
+				<exclusion>
+					<groupId>asm</groupId>
+					<artifactId>asm</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<scope>test</scope>
+			<optional>true</optional>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.validation</groupId>
+		  			<artifactId>validation-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<!-- Commons Logging dependencies -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- Logback Core dependencies -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- Logback Classic dependencies -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- SLF4J -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- SLF4J -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- H2 dependencies -->
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		    <scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+			
 	</dependencies>
 
 	<!-- Project build configuration -->
@@ -118,6 +299,22 @@
 			</resource>
 		</resources>
 		
+		<!-- Project test resources -->
+		<testResources>
+		    <testResource>
+		        <filtering>true</filtering>
+		        <directory>src/test/resources</directory>
+		    </testResource>
+		    <testResource>
+		    	<directory>${basedir}</directory>
+			    <targetPath>META-INF</targetPath>
+			    <includes>
+			        <include>LICENSE</include>
+			        <include>NOTICE</include>
+			    </includes>
+		    </testResource>
+		</testResources>
+		
 		<!-- Build Plugins -->
 		<plugins>
 			
@@ -125,6 +322,12 @@
 			<plugin>
 			    <groupId>org.apache.maven.plugins</groupId>
 			    <artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+			
+			<!-- Maven Jar plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
 			</plugin>
 			
 		</plugins>
