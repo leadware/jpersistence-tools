@@ -202,6 +202,48 @@
 			
 			<plugins>
 				
+				<!-- Maven Compiler plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<source>${jre.source.version}</source>
+						<target>${jre.target.version}</target>
+					</configuration>
+				</plugin>
+				
+				<!-- Maven Source plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven.source.plugin.version}</version>
+					<executions>
+					    	<execution>
+					    		<phase>verify</phase>
+					    		<goals>
+					    			<goal>jar-no-fork</goal>
+					    			<goal>test-jar-no-fork</goal>
+					    		</goals>
+					    	</execution>
+				    </executions>
+				</plugin>
+				
+				<!-- Maven Jar plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven.jar.plugin.version}</version>
+					<executions>
+					    	<execution>
+					    		<phase>verify</phase>
+					    		<goals>
+					    			<goal>test-jar</goal>
+					    		</goals>
+					    	</execution>
+				    </executions>
+				</plugin>
+				
 				<!-- Maven Javadoc plugin -->
 				<plugin>
 				    <groupId>org.apache.maven.plugins</groupId>
@@ -252,6 +294,22 @@
 						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
+				
+				<!-- Maven Jar plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven.jar.plugin.version}</version>
+					<executions>
+					    	<execution>
+					    		<phase>verify</phase>
+					    		<goals>
+					    			<goal>test-jar</goal>
+					    		</goals>
+					    	</execution>
+				    </executions>
+				</plugin>
+				
 			</plugins>
 			
 		</pluginManagement>
@@ -263,42 +321,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven-compiler-plugin.version}</version>
-				<configuration>
-					<source>${jre.source.version}</source>
-					<target>${jre.target.version}</target>
-				</configuration>
 			</plugin>
 			
 			<!-- Maven Source plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>${maven.source.plugin.version}</version>
-				<executions>
-				    	<execution>
-				    		<phase>verify</phase>
-				    		<goals>
-				    			<goal>jar-no-fork</goal>
-				    			<goal>test-jar-no-fork</goal>
-				    		</goals>
-				    	</execution>
-			    </executions>
-			</plugin>
-			
-			<!-- Maven Jar plugin -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>${maven.jar.plugin.version}</version>
-				<executions>
-				    	<execution>
-				    		<phase>verify</phase>
-				    		<goals>
-				    			<goal>test-jar</goal>
-				    		</goals>
-				    	</execution>
-			    </executions>
 			</plugin>
 			
 			<!-- Maven Javadoc plugin -->
@@ -311,43 +339,12 @@
 			<plugin>
 				<groupId>org.apache.rat</groupId>
 				<artifactId>apache-rat-plugin</artifactId>
-				<version>${apache.rat.plugin.version}</version>
-				<configuration>
-					<excludes>
-						<exclude>**/.git/**</exclude>
-						<exclude>**/test/resources/**</exclude>
-						<exclude>**/.gitignore/**</exclude>
-                        <exclude>**/catalog.xml</exclude>
-                        <exclude>**/.springBeans</exclude>
-					</excludes>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>verify</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			
 			<!-- GPG Plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
-				<version>${gpg.version}</version>
-				<configuration>
-					<passphrase>sakazaki</passphrase>
-				</configuration>
-				<executions>
-					<execution>
-						<id>sign-artifact</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			
 		</plugins>
@@ -404,14 +401,6 @@
 				<artifactId>commons-codec</artifactId>
 				<version>${commons-codec.version}</version>
 			</dependency>
-			
-			
-			
-			
-			
-			
-			
-			
 			
 			<dependency>
 				<groupId>javax.el</groupId>
