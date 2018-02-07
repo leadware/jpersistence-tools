@@ -30,7 +30,6 @@ import javax.validation.ConstraintViolationException;
 import org.hibernate.LazyInitializationException;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -225,7 +224,6 @@ public class TestJPAGenericDAORulesBased {
      * Méthode de test d'opération DAO sur l'entité Country
      */
     @Test
-    @Ignore
     public void testIntegrityConstraintDesactivated() {
     	
 	    	////////////////////////////////////////////////////////////////////////////////
@@ -296,7 +294,6 @@ public class TestJPAGenericDAORulesBased {
      * Méthode de test des Opérations de filtre
      */
     @Test
-    @Ignore
     public void testFilterMethods() {
     	
     	// Recherche
