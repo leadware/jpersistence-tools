@@ -26,8 +26,8 @@ import net.leadware.persistence.tools.api.dao.constants.DAOMode;
 import net.leadware.persistence.tools.api.dao.constants.DAOValidatorEvaluationTime;
 import net.leadware.persistence.tools.api.dao.constants.ValidatorExpressionType;
 import net.leadware.persistence.tools.api.validator.annotations.EntityExistValidator;
-import net.leadware.persistence.tools.api.validator.base.IDAOValidator;
 import net.leadware.persistence.tools.api.validator.annotations.SizeDAOValidator;
+import net.leadware.persistence.tools.api.validator.base.IDAOValidator;
 
 /**
  * Classe d'implementation de la regle de controle @EntityExistValidator 

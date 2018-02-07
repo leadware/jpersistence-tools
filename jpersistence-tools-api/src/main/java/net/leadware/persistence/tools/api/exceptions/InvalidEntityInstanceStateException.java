@@ -24,7 +24,7 @@ package net.leadware.persistence.tools.api.exceptions;
  * @author <a href="mailto:jetune@leadware.net">Jean-Jacques ETUNE NGI (Leadware Enterprise Architect)</a>
  * @since 31 janv. 2018 - 14:22:52
  */
-public class InvalidEntityInstanceStateException extends JPersistenceToolsException {
+public class InvalidEntityInstanceStateException extends DAOValidationException {
 	
 	/**
 	 * ID Genere par Eclipse
@@ -55,6 +55,22 @@ public class InvalidEntityInstanceStateException extends JPersistenceToolsExcept
 		// Positionnement des propriétés
 		this.entityName = entityName;
 		this.propertyName = propertyName;
+	}
+
+	/**
+	 * Constructeur avec initialisation des parametres
+	 * @param entityName Nom de l'entite
+	 * @param propertyName Nom de la propriete
+	 * @param message	Message de l'exception
+	 * @param parameters Parametres du message
+	 */
+	public InvalidEntityInstanceStateException(String entityName, String propertyName, String message, String[] parameters) {
+		
+		// Initialisation du Parent
+		this(entityName, propertyName, message);
+		
+		// Positionnement de la propriete parameters
+		this.setParameters(parameters);
 	}
 	
 	/**

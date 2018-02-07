@@ -18,13 +18,20 @@
  */
 package net.leadware.persistence.tools.api.validator.jsr303ext.engine;
 
+import java.lang.annotation.Annotation;
+import java.util.Arrays;
 import java.util.Set;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import javax.validation.metadata.ConstraintDescriptor;
 
 import net.leadware.persistence.tools.api.exceptions.InvalidEntityInstanceStateException;
+import net.leadware.persistence.tools.api.validator.jsr303ext.annotations.AuthorizedValues;
+import net.leadware.persistence.tools.api.validator.jsr303ext.annotations.Interval;
+import net.leadware.persistence.tools.api.validator.jsr303ext.annotations.Length;
 
 /**
  * Classe permettant d'effectuer la validation d'instance manuellement 
@@ -112,12 +119,12 @@ public class JSR303ValidatorEngine {
 		
 		// Si l'ensemble est vide
 		if(constraintViolations == null || constraintViolations.size() == 0) return;
-		
+
 		// Obtention de la première violation
 		ConstraintViolation<T> first = constraintViolations.iterator().next();
 		
-		// Message de violation
-		String message = first.getMessage();
+		// Obtention du descripteur de la contrainte
+		ConstraintDescriptor<?> constraintDescriptor = first.getConstraintDescriptor();
 		
 		// Nom du bean en echec
 		String entityName = first.getRootBeanClass().getSimpleName();
@@ -125,7 +132,36 @@ public class JSR303ValidatorEngine {
 		// Nom de la propriété en echec
 		String propertyName = first.getPropertyPath().toString();
 		
+		// Message de violation
+		String message = first.getMessage();
+		
+		// Obtention de l'annotation en cours
+		String[] parameters = buildAnnotationConstraintParameters(constraintDescriptor.getAnnotation());
+		
 		// On leve une Exception
-		throw new InvalidEntityInstanceStateException(entityName, propertyName, message);
+		throw new InvalidEntityInstanceStateException(entityName, propertyName, message, parameters);
+	}
+	
+	/**
+	 * Methode permettant d'obtenir la liste des parametres d'une annotation de validation de contraintes 
+	 * @param annotation	Annotation courante
+	 * @return	Tableau des parametres
+	 */
+	protected String[] buildAnnotationConstraintParameters(Annotation annotation) {
+		
+		// Si l'annotation est nulle
+		if(annotation == null) return null;
+		
+		// Si l'annotation est de type @AuthorizedValues
+		if(annotation instanceof AuthorizedValues) return new String[] { Arrays.toString(((AuthorizedValues) annotation).values()) };
+		
+		// Si l'annotation est de type @Interval
+		if(annotation instanceof Interval) return new String[] { Double.toString(((Interval) annotation).min()), Double.toString(((Interval) annotation).max()) };
+		
+		// Si l'annotation est de type @Length
+		if(annotation instanceof Length) return new String[] { Integer.toString(((Length) annotation).min()), Integer.toString(((Length) annotation).max()) };
+		
+		// valeur par defaut
+		return null;
 	}
 }
