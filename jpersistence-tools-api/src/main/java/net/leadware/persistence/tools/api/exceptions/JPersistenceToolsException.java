@@ -30,6 +30,11 @@ public class JPersistenceToolsException extends RuntimeException {
 	 * Message d'erreur par defaut
 	 */
 	public static String DEFAULT_MESSAGE = "JPersistenceToolsException.messasge";
+
+	/**
+	 * Liste des parametres du message
+	 */
+	protected String[] parameters = null;
 	
 	/**
 	 * ID Genere par Eclipse
@@ -57,23 +62,52 @@ public class JPersistenceToolsException extends RuntimeException {
 	}
 	
 	/**
+	 * Constructeur avec initialisation des parametres
+	 * @param message	Message de l'exception
+	 * @param parameters Liste des parametres du message
+	 */
+	public JPersistenceToolsException(String message, String[] parameters) {
+		
+		// Initialisation Parente
+		super(message);
+		
+		// Parametres
+		this.parameters = parameters;
+	}
+	
+	/**
 	 * Constructeur avec Message et de la cause
 	 * @param message	Message a afficher
-	 * @param t	Cause de l'exception
+	 * @param cause	Cause de l'exception
 	 */
-	public JPersistenceToolsException(String message, Throwable t) {
+	public JPersistenceToolsException(String message, Throwable cause) {
 		
 		// Appel du constructeur de Runtime
-		super(message, t);
+		super(message, cause);
+	}
+
+	/**
+	 * Constructeur avec initialisation des parametres
+	 * @param message	Message de l'exception
+	 * @param parameters Liste des parametres du message
+	 * @param cause	Cause de l'exception
+	 */
+	public JPersistenceToolsException(String message, String[] parameters, Throwable cause) {
+		
+		// Initialisation Parente
+		this(message, cause);
+		
+		// Parametres
+		this.parameters = parameters;
 	}
 	
 	/**
 	 * Constructeur avec de la cause
-	 * @param t	Exception cause
+	 * @param cause	Exception cause
 	 */
-	public JPersistenceToolsException(Throwable t) {
+	public JPersistenceToolsException(Throwable cause) {
 		
 		// Appel du constructeur de Runtime
-		super(t);
+		super(DEFAULT_MESSAGE, cause);
 	}
 }
