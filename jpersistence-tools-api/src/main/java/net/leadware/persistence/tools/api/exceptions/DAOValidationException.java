@@ -31,11 +31,6 @@ public class DAOValidationException extends JPersistenceToolsException {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Liste des parametres du message
-	 */
-	private String[] parameters = null;
-	
-	/**
 	 * Constructeur avec initialisation des parametres
 	 * @param message	Message de l'exception
 	 */
@@ -56,22 +51,6 @@ public class DAOValidationException extends JPersistenceToolsException {
 		super(message);
 		
 		// Parametres
-		this.parameters = parameters;
-	}
-
-	/**
-	 * Methode d'obtention de la Liste des parametres du message
-	 * @return Liste des parametres du message
-	 */
-	public String[] getParameters() {
-		return parameters;
-	}
-
-	/**
-	 * Methode de mise a jour de la Liste des parametres du message
-	 * @param parameters Liste des parametres du message
-	 */
-	public void setParameters(String[] parameters) {
 		this.parameters = parameters;
 	}
 }

@@ -110,4 +110,24 @@ public class JPersistenceToolsException extends RuntimeException {
 		// Appel du constructeur de Runtime
 		super(DEFAULT_MESSAGE, cause);
 	}
+
+	/**
+	 * Methode permettant d'obtenir la valeur du champ "parameters"
+	 * @return valeur du champ "parameters"
+	 */
+	public String[] getParameters() {
+	
+		// On retourne le champ "parameters"
+		return parameters;
+	}
+
+	/**
+	 * Methode permettant de modifier la valeur du champ "parameters"
+	 * @param parameters Nouvelle valeur du champ "parameters"
+	 */
+	public void setParameters(String[] parameters) {
+	
+		// Initialisation du champ "this.parameters"
+		this.parameters = parameters;
+	}
 }
